@@ -2,6 +2,8 @@
 // Joey Stoffels
 // 7 februari 2018
 
+//TODO add zoomfactor
+
 // setup variables
 int lengte = 180;
 int gewicht = 80;
@@ -16,17 +18,21 @@ void draw() {
   background(0, 0, 0);
   smooth();
   
-  // set lines
+  // set lines, texts and colors
   stroke(255, 255, 255);
+  
   fill(255, 0, 0);
   text("ondergewicht", 20, ((50-18.5) / 50 * 500) + 25);
   line(0, ((50-18.5) / 50 * 500), 500, ((50-18.5) / 50 * 500));
+  
   fill(0, 255, 0);
   text("normaal gewicht", 20, ((50-25.0) / 50 * 500) + 38);
   line(0, ((50-25.0) / 50 * 500), 500, ((50-25.0) / 50 * 500));
+  
   fill(255, 140, 0);
   text("overgewicht", 20, ((50-30.0) / 50 * 500) + 30);
   line(0, ((50-30.0) / 50 * 500), 500, ((50-30.0) / 50 * 500));
+  
   fill(255, 0, 0);
   text("obees", 20, ((50-30.0) / 50 * 500) - 15);
   
@@ -59,20 +65,20 @@ void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   if (selector == true) {
     if(e > 0) {
-      lengte = lengte - 1;
+      lengte = constrain(lengte - 1, 25, 220);
       bmi = gewicht / (lengte/100.0 * 2);
     }
     if(e < 0) {
-      lengte = lengte + 1;
+      lengte = constrain(lengte + 1, 25, 220);
       bmi = gewicht / (lengte/100.0 * 2);
     }
   } else {
     if(e > 0) {
-      gewicht--;
+      gewicht = constrain(gewicht - 1, 10, 300);
       bmi = gewicht / (lengte/100.0 * 2);
     }
     if(e < 0) {
-      gewicht++;
+      gewicht = constrain(gewicht + 1, 10, 300);
       bmi = gewicht / (lengte/100.0 * 2);
     }
   }
