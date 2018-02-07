@@ -1,4 +1,4 @@
-// Moduleopgave 1
+// Moduleopdracht 1
 // Joey Stoffels
 // 4 februari 2018
 
