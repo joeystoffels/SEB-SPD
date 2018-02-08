@@ -9,7 +9,7 @@ int kolomBreedte = 100;
 
 float staafA = 76.0;
 float staafB = 99.0;
-float staafC = 167.0;
+float staafC = 1250.0;
 
 float average = (staafA + staafB + staafC) / 3;
 float maxStaaf = staafA < staafB ? (staafB < staafC ? staafC : staafB) : (staafA < staafC ? staafC : staafA);
