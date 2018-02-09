@@ -31,7 +31,7 @@ float xOffset;
 
 
 void setup() {
-  size(500, 650); 
+  size(1000, 1000); 
   kleinGridBreedte = width / 24;
   kleinGridHoogte = height / 24;
   createKaartenArrayList(kaartenArray);
@@ -79,7 +79,6 @@ void maakFiguur(String kaart, int xPositie, int yPositie) {
   int aantal = Integer.parseInt(str(kaart.charAt(0)));
   char figuurChar = kaart.charAt(1);
   char kleurChar = kaart.charAt(2);
-  
   color kleur;
     
   switch (kleurChar) {
@@ -96,6 +95,7 @@ void maakFiguur(String kaart, int xPositie, int yPositie) {
   }
 }
 
+// TODO: onderstaande maak functies samenvoegen? Variabele waarden evt in array?
 void maakDriehoek(int aantal, color kleur, int xPositie, int yPositie) {
   fill(kleur);
   if (aantal == 1) { 
