@@ -7,23 +7,23 @@
 // Kleur v/d figuren:  rood, groen, blauw
 
 // kleurcodes RGB
-color rood = color(255, 0, 0);
-color groen = color(0, 255, 0);
-color blauw = color(0, 0, 255);
+final color rood = color(255, 0, 0);
+final color groen = color(0, 255, 0);
+final color blauw = color(0, 0, 255);
 
 // ArrayList ipv. array voor het makkelijk deleten van Strings
 ArrayList<String> kaartenArrayList = new ArrayList<String>();
 
 // Alle mogelijke kaarten
-String[] kaartenArray = { "1dr", "2dr", "3dr", 
-                          "1rr", "2rr", "3rr", 
-                          "1er", "2er", "3er", 
-                          "1dg", "2dg", "3dg", 
-                          "1rg", "2rg", "3rg", 
-                          "1eg", "2eg", "3eg", 
-                          "1db", "2db", "3db", 
-                          "1rb", "2rb", "3rb", 
-                          "1eb", "2eb", "3eb" };
+final String[] kaartenArray = { "1dr", "2dr", "3dr", 
+                                "1rr", "2rr", "3rr", 
+                                "1er", "2er", "3er", 
+                                "1dg", "2dg", "3dg", 
+                                "1rg", "2rg", "3rg", 
+                                "1eg", "2eg", "3eg", 
+                                "1db", "2db", "3db", 
+                                "1rb", "2rb", "3rb", 
+                                "1eb", "2eb", "3eb" };
 
 // Twee dimensionaal array om het speelveld te maken
 String[][] speelVeld = new String[3][3];
@@ -101,37 +101,32 @@ void maakFiguur(String kaart, int xPositie, int yPositie) {
   }
   
   switch (figuurChar) {
-    case 'd': createFiguurNieuw("driehoek", aantal, kleur, xPositie, yPositie); break;
-    case 'e': createFiguurNieuw("ellipse", aantal, kleur, xPositie, yPositie); break;
-    case 'r': createFiguurNieuw("rechthoek", aantal, kleur, xPositie, yPositie); break;
+    case 'd': createFiguur("driehoek", aantal, kleur, xPositie, yPositie); break;
+    case 'e': createFiguur("ellipse", aantal, kleur, xPositie, yPositie); break;
+    case 'r': createFiguur("rechthoek", aantal, kleur, xPositie, yPositie); break;
   }
 }
 
 
 // Functie om figuur aan te maken.
 // Hoogtefactor wijzigt ivm. positie van een, twee of drie figuren ten op zichte van elkaar op 1 kaart.
-void createFiguurNieuw(String figuur, int aantal, color kleur, int xPositie, int yPositie) {
-  
-  float yHoogteFactorEerste;
-  float yHoogteFactorTweede;
-  float yHoogteFactorDerde;
-  
-  float xGridOffset = xPositie*(width/3);
-  float yGridOffset = yPositie*(height/3);
+void createFiguur(String figuur, int aantal, color kleur, int xPositie, int yPositie) {  
+  final float xGridOffset = xPositie*(width/3);
+  final float yGridOffset = yPositie*(height/3);
   
   //Configuratie waarden voor de diverse figuren
-  float[][] ellipseConfig = { {4.0, 0, 0}, {3.0, 0, 0}, {5.0, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {6.0, 0, 0} };
-  float[][] rechthoekConfig = { {3.25, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {1.0, 0, 0}, {3.25, 0, 0}, {5.5, 0, 0} };
-  float[][] driehoekConfig = { {4.75, 3.25, 4.75}, {3.75, 2.25, 3.75}, {5.75, 4.25, 5.75}, {2.75, 1.25, 2.75}, {4.75, 3.25, 4.75}, {6.75, 5.25, 6.75} };
+  final float[][] ellipseConfig = { {4.0, 0, 0}, {3.0, 0, 0}, {5.0, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {6.0, 0, 0} };
+  final float[][] rechthoekConfig = { {3.25, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {1.0, 0, 0}, {3.25, 0, 0}, {5.5, 0, 0} };
+  final float[][] driehoekConfig = { {4.75, 3.25, 4.75}, {3.75, 2.25, 3.75}, {5.75, 4.25, 5.75}, {2.75, 1.25, 2.75}, {4.75, 3.25, 4.75}, {6.75, 5.25, 6.75} };
 
   float[][] config = (figuur == "rechthoek" ? rechthoekConfig : (figuur == "ellipse" ? ellipseConfig : driehoekConfig));
   
-  int forLoopHelperValue = (aantal == 3 ? 0 : 1);
+  final int forLoopHelperValue = (aantal == 3 ? 0 : 1);
   
   for (int y = aantal - forLoopHelperValue; y < aantal + aantal - forLoopHelperValue; y++) { 
-    yHoogteFactorEerste = config[y][0];
-    yHoogteFactorTweede = config[y][1];
-    yHoogteFactorDerde = config[y][2];    
+    float yHoogteFactorEerste = config[y][0];
+    float yHoogteFactorTweede = config[y][1];
+    float yHoogteFactorDerde = config[y][2];    
   
     fill(kleur);
   
