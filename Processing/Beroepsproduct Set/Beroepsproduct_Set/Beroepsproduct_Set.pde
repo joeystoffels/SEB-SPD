@@ -5,8 +5,8 @@
 // height - hoogteScorebord als variabele declareren?
 
 // Aantal spelvlakken (aantal kaarten per as).
-final int xVelden = 4;
-final int yVelden = 4;  
+final int xVelden = 3;
+final int yVelden = 3;  
 
 // Grootte v/d kaarten in pixels.
 final int kaartBreedte = 150;
@@ -18,6 +18,7 @@ final color rood = color(255, 0, 0);
 final color groen = color(0, 255, 0);
 final color blauw = color(0, 0, 255);
 final color wit = color(255, 255, 255);
+final color zwart = color(0, 0, 0);
 
 // ArrayList ipv. array voor het makkelijk deleten van Strings.
 // Bevat alle mogelijke kaarten.
@@ -45,7 +46,7 @@ int scoreSpelerEen = 0;
 // Setup van scherm grootte, aantal vakken voor kleinGridBreedte/Hoogte instellen,
 // het initialiseren van de ArrayList en het maken van het speelveld.
 void setup() {
-  background(0);
+  background(zwart);
   surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
   hoogteScorebord = int(height * 0.15);
   kleinGridBreedte = width / (xVelden * 8);
@@ -56,13 +57,12 @@ void setup() {
 
 // Functie voor het weergeven van de inhoud van het scherm.
 void draw() { 
-  background(0);
+  background(zwart);
   smooth();
   tekenVeldLijnen();
   kleurCellen();
   vulSpeelveld();  
-  maakScorebord();
-  
+  maakScorebord();  
 }
 
 
@@ -77,9 +77,11 @@ void mousePressed() {
     return;
   }
   
-  println(mouseX, mouseY);
+  String kaart = speelVeld[xVeld][yVeld]; 
   
-  String kaart = speelVeld[xVeld][yVeld];  
+  if (kaart == "000"){
+    return;
+  }
   
   if (selectedKaarten.contains(kaart)){
     speelVeldKleur[xVeld][yVeld] = color(0, 0, 0);
@@ -102,8 +104,7 @@ void kleurCellen() {
       fill(speelVeldKleur[x][y]);
       rect((width/xVelden) * x, ((height - hoogteScorebord)/yVelden) * y, width/xVelden, (height - hoogteScorebord)/yVelden);
     }
-  }
-    
+  }    
 }
 
 
@@ -117,34 +118,26 @@ void checkForSet() {
      verifySet(kaartEen, kaartTwee, kaartDrie, 1) &&
      verifySet(kaartEen, kaartTwee, kaartDrie, 2)) {
     scoreSpelerEen++;
-    println(kaartenArrayList);
-    verwijderSet(kaartEen, kaartTwee, kaartDrie);
-    println(kaartenArrayList);
+    verwijderKaart(kaartEen);
+    verwijderKaart(kaartTwee);
+    verwijderKaart(kaartDrie);
     selectedKaarten.removeAll(selectedKaarten);
     
+    // Reset alle kaart achtergrond kleuren.
     for (int x = 0 ; x < xVelden ; x++) {
       for (int y = 0 ; y < yVelden ; y++) {
-        speelVeldKleur[x][y] = color(0,0,0);
+        speelVeldKleur[x][y] = zwart;
       }
     }  
   }
 }
 
 
-// Verwijdert de set van het huidige speelbord.
-void verwijderSet(String kaartEen, String kaartTwee, String kaartDrie) {
+// Verwijdert de kaart van het huidige speelbord.
+void verwijderKaart(String kaart) {
   for (int x = 0 ; x < xVelden; x++) {
-    for (int y = 0 ; y < yVelden ; y++) {
-      
-      if (speelVeld[x][y] == kaartEen) {
-        speelVeld[x][y] = getAndRemoveFromKaarten();
-      }
-            
-      if (speelVeld[x][y] == kaartTwee) {
-        speelVeld[x][y] = getAndRemoveFromKaarten();
-      }
-            
-      if (speelVeld[x][y] == kaartDrie) {
+    for (int y = 0 ; y < yVelden ; y++) {      
+      if (speelVeld[x][y] == kaart) {
         speelVeld[x][y] = getAndRemoveFromKaarten();
       }
     }
@@ -177,11 +170,15 @@ void createSpeelVeld() {
 // Functie om een random kaart te kiezen uit de kaartenArrayList en deze 
 // vervolgens te verwijderen uit de lijst, de kaartenArrayList stelt dus 
 // de huidige stapel speelkaarten voor.
-String getAndRemoveFromKaarten() {  
-  int random = int(random(0, kaartenArrayList.size()));
-  String kaart = kaartenArrayList.get(random);
-  kaartenArrayList.remove(random);  
-  return kaart;
+String getAndRemoveFromKaarten() { 
+  if (!(kaartenArrayList.size() <= 0)){ 
+    int random = int(random(0, kaartenArrayList.size()));
+    String kaart = kaartenArrayList.get(random);
+    kaartenArrayList.remove(random);  
+    return kaart;
+  } else {
+    return "000"; // return "lege" string zodat er geen nieuwe figuur gemaakt wordt
+  }
 };
 
 
@@ -245,7 +242,7 @@ void createFiguur(String kaart, int xPositie, int yPositie) {
 // Aanmaken van het scorebord, de hoogte hiervan staat vast op 15% van de hoogte.
 void maakScorebord() {
   // Achtergrond verversen
-  fill(0);
+  fill(zwart);
   rect(0, height, width, - hoogteScorebord);
   
   // Score weergeven, dubbele text velden voor betere allignment.
@@ -254,9 +251,9 @@ void maakScorebord() {
   text("Tijd: ", 0 + (width * 0.1), height - (hoogteScorebord / 6) * 3 );  
   text("Kaarten over: ", 0 + (width * 0.1), height - (hoogteScorebord / 6) * 2);
   
-  text(scoreSpelerEen, 0 + (width * 0.25), height - (hoogteScorebord / 6) * 4); 
-  text(millis()/1000, 0 + (width * 0.25), height - (hoogteScorebord / 6) * 3 );  
-  text(kaartenArrayList.size(), 0 + (width * 0.25), height - (hoogteScorebord / 6) * 2);
+  text(scoreSpelerEen, 0 + (width * 0.35), height - (hoogteScorebord / 6) * 4); 
+  text(millis()/1000, 0 + (width * 0.35), height - (hoogteScorebord / 6) * 3 );  
+  text(kaartenArrayList.size(), 0 + (width * 0.35), height - (hoogteScorebord / 6) * 2);
 }
 
 
