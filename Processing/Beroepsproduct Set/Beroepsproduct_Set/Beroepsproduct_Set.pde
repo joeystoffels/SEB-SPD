@@ -6,13 +6,15 @@
 // Vorm v/d figuren:   driehoek, rechthoek, ellips
 // Kleur v/d figuren:  rood, groen, blauw
 
+// kleurcodes RGB
 color rood = color(255, 0, 0);
 color groen = color(0, 255, 0);
 color blauw = color(0, 0, 255);
 
-// ArrayList voor het makkelijk deleten van Strings
+// ArrayList ipv. array voor het makkelijk deleten van Strings
 ArrayList<String> kaartenArrayList = new ArrayList<String>();
 
+// Alle mogelijke kaarten
 String[] kaartenArray = { "1dr", "2dr", "3dr", 
                           "1rr", "2rr", "3rr", 
                           "1er", "2er", "3er", 
@@ -23,13 +25,16 @@ String[] kaartenArray = { "1dr", "2dr", "3dr",
                           "1rb", "2rb", "3rb", 
                           "1eb", "2eb", "3eb" };
 
+// Twee dimensionaal array om het speelveld te maken
 String[][] speelVeld = new String[3][3];
 
+// Het veld wordt opgedeeld in delen wat kleinGridBreedte/Hoogte voorsteld.
 float kleinGridBreedte;
 float kleinGridHoogte;
-float xOffset;
 
 
+// Setup van scherm grootte, aantal vakken voor kleinGridBreedte/Hoogte instellen,
+// het initialiseren van de ArrayList en het maken van het speelveld.
 void setup() {
   size(1000, 1000); 
   kleinGridBreedte = width / 24;
@@ -39,6 +44,7 @@ void setup() {
 }
 
 
+// Functie om de kaartenArrayList te vullen met de gegevens uit de kaartenArray.
 void createKaartenArrayList(String[] array) {
   for (String kaart : array) {
     kaartenArrayList.add(kaart);
@@ -46,6 +52,9 @@ void createKaartenArrayList(String[] array) {
 }
 
 
+// Functie om een random kaart te kiezen uit de kaartenArrayList en deze 
+// vervolgens te verwijderen uit de lijst, de kaartenArrayList stel dus 
+// de huidige stapel speelkaarten voor.
 String getAndRemoveFromKaarten() {  
   int random = int(random(0, kaartenArrayList.size()));
   String kaart = kaartenArrayList.get(random);
@@ -54,6 +63,7 @@ String getAndRemoveFromKaarten() {
 };
 
 
+// Functie om het speelveld te initialiseren.
 void createSpeelVeld() {  
   for (int i=0; i<3; i++) {
     for (int y=0; y<3; y++) {
@@ -63,6 +73,7 @@ void createSpeelVeld() {
 }
 
 
+// Functie voor het weergeven van de inhoud van het scherm.
 void draw() { 
   background(0);
   tekenVeldLijnen();
@@ -72,9 +83,10 @@ void draw() {
       maakFiguur(speelVeld[y][i], y, i);
     }
   }
-  
 }
 
+
+// Generieke functie om kaarten te maken.
 void maakFiguur(String kaart, int xPositie, int yPositie) {
   int aantal = Integer.parseInt(str(kaart.charAt(0)));
   char figuurChar = kaart.charAt(1);
@@ -89,85 +101,54 @@ void maakFiguur(String kaart, int xPositie, int yPositie) {
   }
   
   switch (figuurChar) {
-    case 'd': maakDriehoek(aantal, kleur, xPositie, yPositie); break;
-    case 'e': maakEllipse(aantal, kleur, xPositie, yPositie); break;
-    case 'r': maakRechthoek(aantal, kleur, xPositie, yPositie); break;
-  }
-}
-
-// TODO: onderstaande maak functies samenvoegen? Variabele waarden evt in array?
-void maakDriehoek(int aantal, color kleur, int xPositie, int yPositie) {
-  fill(kleur);
-  if (aantal == 1) { 
-    createFiguur("driehoek", xPositie, yPositie, 4.75, 3.25, 4.75);
-  }
-
-  if (aantal == 2) {
-    createFiguur("driehoek", xPositie, yPositie, 3.75, 2.25, 3.75);    
-    createFiguur("driehoek", xPositie, yPositie, 5.75, 4.25, 5.75);
-  }
-
-  if (aantal == 3) {
-    createFiguur("driehoek", xPositie, yPositie, 2.75, 1.25, 2.75);    
-    createFiguur("driehoek", xPositie, yPositie, 4.75, 3.25, 4.75);
-    createFiguur("driehoek", xPositie, yPositie, 6.75, 5.25, 6.75);
+    case 'd': createFiguurNieuw("driehoek", aantal, kleur, xPositie, yPositie); break;
+    case 'e': createFiguurNieuw("ellipse", aantal, kleur, xPositie, yPositie); break;
+    case 'r': createFiguurNieuw("rechthoek", aantal, kleur, xPositie, yPositie); break;
   }
 }
 
 
-void maakEllipse(int aantal, color kleur, int xPositie, int yPositie) {
-  fill(kleur);
-  if (aantal == 1) {
-    createFiguur("ellipse", xPositie, yPositie, 4.0, 0, 0);
-  }
-  if (aantal == 2) {
-    createFiguur("ellipse", xPositie, yPositie, 3.0, 0, 0);
-    createFiguur("ellipse", xPositie, yPositie, 5.0, 0, 0);
-  }
-  if (aantal == 3) {
-    createFiguur("ellipse", xPositie, yPositie, 2.0, 0, 0);
-    createFiguur("ellipse", xPositie, yPositie, 4.0, 0, 0);
-    createFiguur("ellipse", xPositie, yPositie, 6.0, 0, 0);
-  }
-}
-
-
-void maakRechthoek(int aantal, color kleur, int xPositie, int yPositie) {
-  fill(kleur);
-  if (aantal == 1) {
-    createFiguur("rechthoek", xPositie, yPositie, 3.25, 0, 0);
-  }
-  if (aantal == 2) {
-    createFiguur("rechthoek", xPositie, yPositie, 2.0, 0, 0);
-    createFiguur("rechthoek", xPositie, yPositie, 4.0, 0, 0);
-  }
-  if (aantal == 3) {
-    createFiguur("rechthoek", xPositie, yPositie, 1.0, 0, 0);
-    createFiguur("rechthoek", xPositie, yPositie, 3.25, 0, 0);
-    createFiguur("rechthoek", xPositie, yPositie, 5.5, 0, 0);
-  }
-}
-
-
-// hoogtefactor wijzigt ivm. positie van een, twee of drie figuren ten op zichte van elkaar op 1 kaart
-void createFiguur(String figuur, int xPositie, int yPositie, float yHoogteFactorEerste, float yHoogteFactorTweede,float yHoogteFactorDerde) {
+// Functie om figuur aan te maken.
+// Hoogtefactor wijzigt ivm. positie van een, twee of drie figuren ten op zichte van elkaar op 1 kaart.
+void createFiguurNieuw(String figuur, int aantal, color kleur, int xPositie, int yPositie) {
+  
+  float yHoogteFactorEerste;
+  float yHoogteFactorTweede;
+  float yHoogteFactorDerde;
   
   float xGridOffset = xPositie*(width/3);
   float yGridOffset = yPositie*(height/3);
   
-  if (figuur == "driehoek") {
-      triangle((kleinGridBreedte * 2.0) + xGridOffset, (kleinGridHoogte * yHoogteFactorEerste) + yGridOffset, 
-              (kleinGridBreedte * 4.0) + xGridOffset, (kleinGridHoogte * yHoogteFactorTweede) + yGridOffset, 
-              (kleinGridBreedte * 6.0) + xGridOffset, (kleinGridHoogte * yHoogteFactorDerde) + yGridOffset);
-  }
-  if (figuur == "rechthoek") {
-      rect((kleinGridBreedte * 2.1) + xGridOffset, (kleinGridHoogte * yHoogteFactorEerste) + yGridOffset, 
-              (kleinGridBreedte * 4.0), (kleinGridHoogte * 1.5));
-  }
-  if (figuur == "ellipse") {
-      ellipse((kleinGridBreedte * 4.0) + xGridOffset, (kleinGridHoogte * yHoogteFactorEerste) + yGridOffset, 
-              (kleinGridBreedte * 4.0), (kleinGridHoogte * 1.5));
-  }
+  //Configuratie waarden voor de diverse figuren
+  float[][] ellipseConfig = { {4.0, 0, 0}, {3.0, 0, 0}, {5.0, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {6.0, 0, 0} };
+  float[][] rechthoekConfig = { {3.25, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {1.0, 0, 0}, {3.25, 0, 0}, {5.5, 0, 0} };
+  float[][] driehoekConfig = { {4.75, 3.25, 4.75}, {3.75, 2.25, 3.75}, {5.75, 4.25, 5.75}, {2.75, 1.25, 2.75}, {4.75, 3.25, 4.75}, {6.75, 5.25, 6.75} };
+
+  float[][] config = (figuur == "rechthoek" ? rechthoekConfig : (figuur == "ellipse" ? ellipseConfig : driehoekConfig));
+  
+  int forLoopHelperValue = (aantal == 3 ? 0 : 1);
+  
+  for (int y = aantal - forLoopHelperValue; y < aantal + aantal - forLoopHelperValue; y++) { 
+    yHoogteFactorEerste = config[y][0];
+    yHoogteFactorTweede = config[y][1];
+    yHoogteFactorDerde = config[y][2];    
+  
+    fill(kleur);
+  
+    if (figuur == "driehoek") {
+        triangle((kleinGridBreedte * 2.0) + xGridOffset, (kleinGridHoogte * yHoogteFactorEerste) + yGridOffset, 
+                (kleinGridBreedte * 4.0) + xGridOffset, (kleinGridHoogte * yHoogteFactorTweede) + yGridOffset, 
+                (kleinGridBreedte * 6.0) + xGridOffset, (kleinGridHoogte * yHoogteFactorDerde) + yGridOffset);
+    }
+    if (figuur == "rechthoek") {
+        rect((kleinGridBreedte * 2.1) + xGridOffset, (kleinGridHoogte * yHoogteFactorEerste) + yGridOffset, 
+                (kleinGridBreedte * 4.0), (kleinGridHoogte * 1.5));
+    }
+    if (figuur == "ellipse") {
+        ellipse((kleinGridBreedte * 4.0) + xGridOffset, (kleinGridHoogte * yHoogteFactorEerste) + yGridOffset, 
+                (kleinGridBreedte * 4.0), (kleinGridHoogte * 1.5));
+    }
+  }  
 }
 
 
