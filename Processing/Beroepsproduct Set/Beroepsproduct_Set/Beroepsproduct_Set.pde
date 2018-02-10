@@ -26,14 +26,9 @@ ArrayList<String> kaartenArrayList = new ArrayList<String>(java.util.Arrays.asLi
                     "1dg", "2dg", "3dg", "1rg", "2rg", "3rg", "1eg", "2eg", "3eg", 
                     "1db", "2db", "3db", "1rb", "2rb", "3rb", "1eb", "2eb", "3eb"));
                     
-
-// 1dr, 2dr, 3dr
-// 1dr, 1er, 1rr
-// 
-
-
 // Twee dimensionaal array om het speelveld te maken
 String[][] speelVeld = new String[xVelden][yVelden];
+color[][] speelVeldKleur = new color[xVelden][yVelden];
 
 // Het veld wordt opgedeeld in delen wat kleinGridBreedte/Hoogte voorsteld.
 // Variabelen kunnen pas worden geinitialiseerd zodra de screensize in setup bekend is.
@@ -47,8 +42,6 @@ int scoreSpelerEen = 0;
 //int scoreSpelerTwee = 0;
 
 
-
-
 // Setup van scherm grootte, aantal vakken voor kleinGridBreedte/Hoogte instellen,
 // het initialiseren van de ArrayList en het maken van het speelveld.
 void setup() {
@@ -58,39 +51,24 @@ void setup() {
   kleinGridBreedte = width / (xVelden * 8);
   kleinGridHoogte = (height - hoogteScorebord) / (yVelden * 8);
   createSpeelVeld();
-
 }
 
 
 // Functie voor het weergeven van de inhoud van het scherm.
 void draw() { 
-  //background(0);
+  background(0);
   smooth();
   tekenVeldLijnen();
+  kleurCellen();
   vulSpeelveld();  
   maakScorebord();
+  
 }
 
 
-void maakScorebord() {
-  // Achtergrond verversen
-  fill(0);
-  rect(0, height, width, - hoogteScorebord);
-  
-  // Score weergeven, dubbele text velden voor betere allignment.
-  fill(wit);
-  text("Score: ", 0 + (width * 0.1), height - (hoogteScorebord / 6) * 4); 
-  text("Tijd: ", 0 + (width * 0.1), height - (hoogteScorebord / 6) * 3 );  
-  text("Kaarten over: ", 0 + (width * 0.1), height - (hoogteScorebord / 6) * 2);
-  
-  text(scoreSpelerEen, 0 + (width * 0.25), height - (hoogteScorebord / 6) * 4); 
-  text(millis()/1000, 0 + (width * 0.25), height - (hoogteScorebord / 6) * 3 );  
-  text(kaartenArrayList.size(), 0 + (width * 0.25), height - (hoogteScorebord / 6) * 2);
-}
-
-
-void mousePressed() {
-  
+// Muisklik functie om kaarten te kunnen selecteren.
+// Deze functie triggert het checken op een set na het selecteren van 3 kaarten.
+void mousePressed() {  
   int xVeld = mouseX / (width/xVelden);
   int yVeld = mouseY / ((height - hoogteScorebord)/yVelden);
   
@@ -99,27 +77,89 @@ void mousePressed() {
     return;
   }
   
-  String kaart = speelVeld[xVeld][yVeld];
+  println(mouseX, mouseY);
+  
+  String kaart = speelVeld[xVeld][yVeld];  
   
   if (selectedKaarten.contains(kaart)){
-    fill(0, 0, 0);
-    rect((width/xVelden) * xVeld, ((height - hoogteScorebord)/yVelden) * yVeld, width/xVelden, (height - hoogteScorebord)/yVelden);
+    speelVeldKleur[xVeld][yVeld] = color(0, 0, 0);
     selectedKaarten.remove(kaart);
   } else {  
     if (!selectedKaarten.contains(kaart) && selectedKaarten.size() < 3){
       selectedKaarten.add(speelVeld[xVeld][yVeld]);
-      fill(255, 0, 0, 150);
-      rect((width/xVelden) * xVeld, ((height - hoogteScorebord)/yVelden) * yVeld, width/xVelden, (height - hoogteScorebord)/yVelden);       
-      
-      if (selectedKaarten.size() == 3) { checkForSet(); }
-      
+      speelVeldKleur[xVeld][yVeld] = color(255, 0, 0, 150);
+      if (selectedKaarten.size() == 3) { 
+        checkForSet(); 
+      }      
     }
   } 
 }
 
-void checkForSet() {
-  println("checkForSet()");
-  scoreSpelerEen++;
+// Functie voor in draw() om continu de achtergrond van de kaarten te kleuren.
+void kleurCellen() {  
+  for (int x = 0 ; x < xVelden ; x++) {
+    for (int y = 0 ; y < yVelden ; y++) {
+      fill(speelVeldKleur[x][y]);
+      rect((width/xVelden) * x, ((height - hoogteScorebord)/yVelden) * y, width/xVelden, (height - hoogteScorebord)/yVelden);
+    }
+  }
+    
+}
+
+
+// Functie om een set te checken.
+void checkForSet() {    
+  String kaartEen = selectedKaarten.get(0);
+  String kaartTwee = selectedKaarten.get(1);
+  String kaartDrie = selectedKaarten.get(2);
+  
+  if(verifySet(kaartEen, kaartTwee, kaartDrie, 0) &&
+     verifySet(kaartEen, kaartTwee, kaartDrie, 1) &&
+     verifySet(kaartEen, kaartTwee, kaartDrie, 2)) {
+    scoreSpelerEen++;
+    println(kaartenArrayList);
+    verwijderSet(kaartEen, kaartTwee, kaartDrie);
+    println(kaartenArrayList);
+    selectedKaarten.removeAll(selectedKaarten);
+    
+    for (int x = 0 ; x < xVelden ; x++) {
+      for (int y = 0 ; y < yVelden ; y++) {
+        speelVeldKleur[x][y] = color(0,0,0);
+      }
+    }  
+  }
+}
+
+
+// Verwijdert de set van het huidige speelbord.
+void verwijderSet(String kaartEen, String kaartTwee, String kaartDrie) {
+  for (int x = 0 ; x < xVelden; x++) {
+    for (int y = 0 ; y < yVelden ; y++) {
+      
+      if (speelVeld[x][y] == kaartEen) {
+        speelVeld[x][y] = getAndRemoveFromKaarten();
+      }
+            
+      if (speelVeld[x][y] == kaartTwee) {
+        speelVeld[x][y] = getAndRemoveFromKaarten();
+      }
+            
+      if (speelVeld[x][y] == kaartDrie) {
+        speelVeld[x][y] = getAndRemoveFromKaarten();
+      }
+    }
+  }
+}
+
+
+// Generieke helper functie voor het verifieren van een set.
+boolean verifySet(String kaartEen, String kaartTwee, String kaartDrie, int charToCheck) {
+    if ((kaartEen.charAt(charToCheck) == kaartTwee.charAt(charToCheck) && kaartTwee.charAt(charToCheck) == kaartDrie.charAt(charToCheck) && kaartEen.charAt(charToCheck) == kaartDrie.charAt(charToCheck)) || 
+      (kaartEen.charAt(charToCheck) != kaartTwee.charAt(charToCheck) && kaartTwee.charAt(charToCheck) != kaartDrie.charAt(charToCheck) && kaartEen.charAt(charToCheck) != kaartDrie.charAt(charToCheck))) {
+        return true;
+      } else {
+        return false;
+      }
 }
 
 
@@ -202,6 +242,24 @@ void createFiguur(String kaart, int xPositie, int yPositie) {
 }
 
 
+// Aanmaken van het scorebord, de hoogte hiervan staat vast op 15% van de hoogte.
+void maakScorebord() {
+  // Achtergrond verversen
+  fill(0);
+  rect(0, height, width, - hoogteScorebord);
+  
+  // Score weergeven, dubbele text velden voor betere allignment.
+  fill(wit);
+  text("Score: ", 0 + (width * 0.1), height - (hoogteScorebord / 6) * 4); 
+  text("Tijd: ", 0 + (width * 0.1), height - (hoogteScorebord / 6) * 3 );  
+  text("Kaarten over: ", 0 + (width * 0.1), height - (hoogteScorebord / 6) * 2);
+  
+  text(scoreSpelerEen, 0 + (width * 0.25), height - (hoogteScorebord / 6) * 4); 
+  text(millis()/1000, 0 + (width * 0.25), height - (hoogteScorebord / 6) * 3 );  
+  text(kaartenArrayList.size(), 0 + (width * 0.25), height - (hoogteScorebord / 6) * 2);
+}
+
+
 // Functie om de veldlijnen te tekenen.
 void tekenVeldLijnen() {    
   stroke(255);
@@ -214,5 +272,6 @@ void tekenVeldLijnen() {
      line(width/xVelden * y, 0, width/xVelden * y, height - hoogteScorebord);
   }  
   
+  // Laatste lijn van het speelveld, begin van het scorebord.
   line(0, height - hoogteScorebord, width, height - hoogteScorebord);
 }
