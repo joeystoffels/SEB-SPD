@@ -8,7 +8,7 @@ int aantalVariaties = 4; // TODO add constraint 3 of 4;
 
 // Aantal spelvlakken (aantal kaarten per as).
 final int xVelden = 4; // TODO add constraint max x en y
-final int yVelden = 4;  
+final int yVelden = 3;  
 
 // Grootte v/d kaarten in pixels.
 final int kaartBreedte = 150; // TODO add constraint max breedte en hoogte
@@ -18,7 +18,7 @@ int hoogteScorebord;
 // kleurcodes RGB
 final color rood = color(255, 50, 50);
 final color groen = color(100, 255, 100);
-final color blauw = color(0, 150, 255);
+final color blauw = color(0, 100, 255);
 final color wit = color(255, 255, 255);
 final color zwart = color(0, 0, 0);
 
@@ -114,6 +114,16 @@ void maakStapelKaarten(int aantalVariaties) {
   String[] figuur = {"d", "r", "e"}; // driehoek, rechthoek, ellipse
   String[] vulling = {"l", "h", "v"}; // leeg, half, vol
 
+  if (aantalVariaties == 3) {
+    for (int a = 0; a < aantal.length; a++) {
+      for (int f = 0; f < figuur.length; f++) {
+        for (int k = 0; k < kleur.length; k++) {
+          kaartenArrayList.add(aantal[a] + figuur[f] + kleur[k] + "0"); // "0" als default waarde zodat verifySet() goed uitgevoerd wordt
+        }
+      }
+    }
+  }
+  
   if (aantalVariaties == 4) {
     for (int a = 0; a < aantal.length; a++) {
       for (int f = 0; f < figuur.length; f++) {
@@ -126,16 +136,7 @@ void maakStapelKaarten(int aantalVariaties) {
     }
   }
 
-  if (aantalVariaties == 3) {
-    for (int a = 0; a < aantal.length; a++) {
-      for (int f = 0; f < figuur.length; f++) {
-        for (int k = 0; k < kleur.length; k++) {
-          kaartenArrayList.add(aantal[a] + figuur[f] + kleur[k] + "0"); // "0" als default waarde zodat verifySet() goed uitgevoerd wordt
-        }
-      }
-    }
-  }
-
+  // Console logging.
   println("Kaartenstapel: " + kaartenArrayList);
   println("Totaal aantal kaarten: " + kaartenArrayList.size());
 }
