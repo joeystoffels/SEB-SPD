@@ -4,11 +4,11 @@
 
 // height - hoogteScorebord als variabele declareren?
 
-int aantalVariaties = 3; // TODO add constraint 3 of 4;
+int aantalVariaties = 4; // TODO add constraint 3 of 4;
 
 // Aantal spelvlakken (aantal kaarten per as).
 final int xVelden = 4; // TODO add constraint max x en y
-final int yVelden = 3;  
+final int yVelden = 4;  
 
 // Grootte v/d kaarten in pixels.
 final int kaartBreedte = 150; // TODO add constraint max breedte en hoogte
@@ -16,9 +16,9 @@ final int kaartHoogte = 200;
 int hoogteScorebord;
 
 // kleurcodes RGB
-final color rood = color(255, 0, 0);
-final color groen = color(0, 255, 0);
-final color blauw = color(0, 0, 255);
+final color rood = color(255, 50, 50);
+final color groen = color(100, 255, 100);
+final color blauw = color(0, 150, 255);
 final color wit = color(255, 255, 255);
 final color zwart = color(0, 0, 0);
 
@@ -44,12 +44,16 @@ ArrayList<String> selectedKaarten = new ArrayList<String>();
 int scoreSpelerEen = 0;
 //int scoreSpelerTwee = 0;
 int aantalSetsSpeelveld;
+ArrayList<String[]> setList = new ArrayList<String[]>();
+
+// Custom font
+PFont fontVerdanaBold;
 
 
 // Setup van scherm grootte, aantal vakken voor kleinGridBreedte/Hoogte instellen,
 // het initialiseren van de ArrayList en het maken van het speelveld.
 void setup() {
-  background(zwart);
+  background(zwart);  
   surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
   hoogteScorebord = int(height * 0.15);
   kleinGridBreedte = width / (xVelden * 8);
@@ -57,6 +61,7 @@ void setup() {
   maakStapelKaarten(aantalVariaties);
   createSpeelVeld();    
   aantalSetsSpeelveld();
+  fontVerdanaBold = createFont("Verdana Bold", hoogteScorebord / 7);
 }
 
 
@@ -89,12 +94,12 @@ void mousePressed() {
   }
 
   if (selectedKaarten.contains(kaart)) {
-    speelVeldKleur[xVeld][yVeld] = color(0, 0, 0);
+    speelVeldKleur[xVeld][yVeld] = zwart;
     selectedKaarten.remove(kaart);
   } else {  
     if (!selectedKaarten.contains(kaart) && selectedKaarten.size() < 3) {
       selectedKaarten.add(speelVeld[xVeld][yVeld]);
-      speelVeldKleur[xVeld][yVeld] = color(255, 0, 0, 150);
+      speelVeldKleur[xVeld][yVeld] = color(wit, 125);
       if (selectedKaarten.size() == 3) { 
         checkForSet();
       }
@@ -157,14 +162,14 @@ void checkForSet() {
     verifySet(kaartEen, kaartTwee, kaartDrie, 1) &&
     verifySet(kaartEen, kaartTwee, kaartDrie, 2) && 
     verifySet(kaartEen, kaartTwee, kaartDrie, 3)) {
+    println("SET: " + kaartEen + " " + kaartTwee + " " + kaartDrie);
     scoreSpelerEen++;
     verwijderKaart(kaartEen);
     verwijderKaart(kaartTwee);
     verwijderKaart(kaartDrie);
     selectedKaarten.removeAll(selectedKaarten);  
     aantalSetsSpeelveld = 0; // reset aantal sets wanneer er een set gevonden is.
-    aantalSetsSpeelveld(); // tel opnieuw het aantal sets op het huidige speelveld.
-    println("SET: " + kaartEen + " " + kaartTwee + " " + kaartDrie);
+    aantalSetsSpeelveld(); // tel opnieuw het aantal sets op het huidige speelveld.    
 
     // Reset alle kaart achtergrond kleuren.
     for (int x = 0; x < xVelden; x++) {
@@ -177,9 +182,9 @@ void checkForSet() {
 
 
 void aantalSetsSpeelveld() {
-
-  ArrayList<String[]> setList = new ArrayList<String[]>();
-
+  
+  setList.clear();
+  
   String[][] arrayEen = speelVeld;
   String[][] arrayTwee = speelVeld;
   String[][] arrayDrie = speelVeld;
@@ -195,30 +200,31 @@ void aantalSetsSpeelveld() {
               String kaartTwee = arrayTwee[c][d];
               String kaartDrie = arrayDrie[e][f];
 
-              String[] test = {kaartEen, kaartTwee, kaartDrie};
-              
-              java.util.Arrays.sort(test);
+              // Aanmaken gesorteerde temp array om te vergelijken met de arrays in de setList.
+              String[] temp = {kaartEen, kaartTwee, kaartDrie};              
+              java.util.Arrays.sort(temp);
 
               // Helper boolean om te checken of de set al geteld is.
               boolean go = true;
 
+              // Check of de 3 kaarten al als een set in de setList aanwezig is.
               for (int x = 0; x < setList.size(); x++) {
-                  if (java.util.Arrays.equals(setList.get(x), test)) {
+                  if (java.util.Arrays.equals(setList.get(x), temp)) {
                     go = false;
                     break;
                   } else {
                     go = true;
-                  }
-                
+                  }                
               }
 
+              // Check of de 3 kaarten een set zijn, zo ja, verhoog het aantalSetsSpeelveld en voeg de set toe aan de setList.
               if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie)) && go) {
                 if (verifySet(kaartEen, kaartTwee, kaartDrie, 0) &&
                   verifySet(kaartEen, kaartTwee, kaartDrie, 1) &&
                   verifySet(kaartEen, kaartTwee, kaartDrie, 2) && 
                   (aantalVariaties == 4 ? verifySet(kaartEen, kaartTwee, kaartDrie, 3) : true)) {
                   aantalSetsSpeelveld++;                  
-                  setList.add(test);
+                  setList.add(temp);
                 }
               }
             }
@@ -227,7 +233,8 @@ void aantalSetsSpeelveld() {
       }
     }
   }
-  for ( String[] set : setList ) {
+  println("Sets op speelveld:");
+  for ( String[] set : setList ) {    
     println(set);
   }
 }
@@ -324,7 +331,7 @@ void createFiguur(String kaart, int xPositie, int yPositie) {
     float yHoogteFactorTweede = config[y][1];
     float yHoogteFactorDerde = config[y][2];    
 
-    strokeWeight(3);
+    strokeWeight(2);
     stroke(kleur);
     fill(kleur, vulling);
 
@@ -342,34 +349,36 @@ void createFiguur(String kaart, int xPositie, int yPositie) {
         (kleinGridBreedte * 4.0), (kleinGridHoogte * 1.5));
     }
 
-    stroke(wit);
+    stroke(wit, 150);
   }
 }
 
 
 // Aanmaken van het scorebord, de hoogte hiervan staat vast op 15% van de hoogte.
+// TODO refactoren
 void maakScorebord() {
   // Achtergrond verversen
   fill(zwart);
   rect(0, height, width, - hoogteScorebord);
 
   // Score weergeven, dubbele text velden voor betere allignment.
-  fill(wit);
-  text("Score: ", 0 + (width * 0.1), height - (hoogteScorebord / 7) * 5); 
-  text("Tijd: ", 0 + (width * 0.1), height - (hoogteScorebord / 7) * 4 );  
-  text("Kaarten over: ", 0 + (width * 0.1), height - (hoogteScorebord / 7) * 3);
-  text("Aantal sets: ", 0 + (width * 0.1), height - (hoogteScorebord / 7) * 2);
+  fill(wit, 200);
+  textFont(fontVerdanaBold); 
+  text("Score: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 7); 
+  text("Tijd: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 5);  
+  text("Kaarten over: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 3);
+  text("Aantal sets: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 1);
 
-  text(scoreSpelerEen, 0 + (width * 0.35), height - (hoogteScorebord / 7) * 5); 
-  text(millis()/1000, 0 + (width * 0.35), height - (hoogteScorebord / 7) * 4);  
-  text(kaartenArrayList.size(), 0 + (width * 0.35), height - (hoogteScorebord / 7) * 3);
-  text(aantalSetsSpeelveld, 0 + (width * 0.35), height - (hoogteScorebord / 7) * 2);
+  text(scoreSpelerEen, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 7); 
+  text(millis()/1000, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 5);  
+  text(kaartenArrayList.size(), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 3);
+  text(aantalSetsSpeelveld, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 1);
 }
 
 
 // Functie om de veldlijnen te tekenen.
 void tekenVeldLijnen() {    
-  stroke(255);
+  stroke(wit, 150);
 
   for (int x = 1; x < yVelden; x++) {
     line(0, (height - hoogteScorebord)/yVelden * x, width, (height - hoogteScorebord)/yVelden * x);
