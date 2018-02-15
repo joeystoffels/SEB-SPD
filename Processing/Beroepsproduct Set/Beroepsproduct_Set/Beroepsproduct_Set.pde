@@ -7,7 +7,7 @@
 int aantalVariaties = 4; // TODO add constraint 3 of 4;
 
 // Aantal spelvlakken (aantal kaarten per as).
-final int xVelden = 4; // TODO add constraint max x en y
+int xVelden = 4; // TODO add constraint max x en y
 final int yVelden = 3;  
 
 // Grootte v/d kaarten in pixels.
@@ -41,7 +41,7 @@ float kleinGridHoogte;
 // Lijst met geselecteerde kaarten.
 ArrayList<String> selectedKaarten = new ArrayList<String>();
 
-int scoreSpelerEen = 0;
+float scoreSpelerEen = 0;
 //int scoreSpelerTwee = 0;
 int aantalSetsSpeelveld;
 ArrayList<String[]> setList = new ArrayList<String[]>();
@@ -64,6 +64,52 @@ void setup() {
   fontVerdanaBold = createFont("Verdana Bold", hoogteScorebord / 7);
 }
 
+void restart() {
+  kaartenArrayList = new ArrayList<String>();
+  selectedKaarten = new ArrayList<String>();
+  scoreSpelerEen = 0;
+  aantalSetsSpeelveld = 0;
+  setList = new ArrayList<String[]>();
+  background(zwart);  
+  surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
+  hoogteScorebord = int(height * 0.15);
+  kleinGridBreedte = width / (xVelden * 8);
+  kleinGridHoogte = (height - hoogteScorebord) / (yVelden * 8);
+  maakStapelKaarten(aantalVariaties);
+  createSpeelVeld();    
+  aantalSetsSpeelveld();
+  fontVerdanaBold = createFont("Verdana Bold", hoogteScorebord / 7);
+}
+
+void voegKaartenToe() {
+  
+  xVelden++;
+  surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
+  String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
+  color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
+  
+  for(int x = 0 ; x < xVelden-1 ; x++){
+    for(int y = 0 ; y < yVelden ; y++) {
+      nieuwSpeelVeld[x][y] = speelVeld[x][y];
+      nieuwSpeelVeldKleur[x][y] = speelVeldKleur[x][y];    
+    }
+  }
+  
+  for(int x = 0 ; x < xVelden ; x++){
+    for(int y = 0 ; y < yVelden ; y++) {
+      if(nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
+        nieuwSpeelVeld[x][y] = "0000";
+        nieuwSpeelVeldKleur[x][y] = zwart;
+      }
+    }
+  }
+  
+  speelVeld = nieuwSpeelVeld;
+  speelVeldKleur = nieuwSpeelVeldKleur;  
+  createSpeelVeld();
+  aantalSetsSpeelveld();
+}
+
 
 // Functie voor het weergeven van de inhoud van het scherm.
 void draw() { 
@@ -82,8 +128,49 @@ void mousePressed() {
   int xVeld = mouseX / (width/xVelden);
   int yVeld = mouseY / ((height - hoogteScorebord)/yVelden);
 
+  //println("CLICKED " + mouseX, mouseY);
+
+  //println(((width / 8) * 4), (width / 6) + (width / 8) * 4);
+  //println((height - (hoogteScorebord / 5)), (height - (hoogteScorebord / 5))-(hoogteScorebord / 5));
+  
+  //println(mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4));
+  //print(mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5));
+
   // return indien er buiten het speelveld geklikt is.
   if (mouseY >= height - hoogteScorebord) {
+    
+    if (mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4) && 
+        mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
+        //println("test");
+        fill(wit);  
+        rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
+        
+        geefHint();
+    }
+    
+    
+   if (mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4) && 
+        mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
+        //println("test");
+        fill(wit);  
+        rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
+        
+        restart();
+    }
+   
+    if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
+    mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
+      //println("test");
+      fill(wit);  
+      rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
+      
+      voegKaartenToe();
+    }   
+    
+    //rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5)); 
+    //rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
+    //rect((width / 8) * 6, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
+    //rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));
     return;
   }
 
@@ -105,6 +192,25 @@ void mousePressed() {
       }
     }
   }
+}
+
+void geefHint() {   
+   String[] set = setList.get(int(random(0, setList.size())));
+   
+   int counter = 0;
+   color randomKleurRood = int(random(0, 255));
+   color randomKleurGeel = int(random(0, 255));
+   color randomKleurBlauw = int(random(0, 255));
+   
+   for(int x = 0 ; x < speelVeldKleur.length ; x++) {
+     for(int y = 0 ; y < speelVeldKleur[x].length ; y++){
+       if(java.util.Arrays.asList(set).contains(speelVeld[x][y]) && counter < 2) {         
+         speelVeldKleur[x][y] = color(randomKleurRood, randomKleurGeel, randomKleurBlauw, 150);
+         counter++;
+       }       
+     }
+   }    
+   scoreSpelerEen = scoreSpelerEen - 0.5;
 }
 
 
@@ -269,11 +375,21 @@ boolean verifySet(String kaartEen, String kaartTwee, String kaartDrie, int charT
 
 // Functie om het speelveld (array) te initialiseren.
 void createSpeelVeld() {  
-  for (int x=0; x < xVelden; x++) {
-    for (int y=0; y < yVelden; y++) {
-      speelVeld[x][y] = getAndRemoveFromKaarten();
+  if(speelVeld[0][0] == null) {
+    for (int x=0; x < xVelden; x++) {
+      for (int y=0; y < yVelden; y++) {
+        speelVeld[x][y] = getAndRemoveFromKaarten();
+      }
+    }
+  } else {
+    for (int x=0; x < xVelden; x++) {
+      for (int y=0; y < yVelden; y++) {
+        if (speelVeld[x][y].equals("0000")){
+        speelVeld[x][y] = getAndRemoveFromKaarten();
+      }
     }
   }
+}
 }
 
 
@@ -370,10 +486,24 @@ void maakScorebord() {
   text("Kaarten over: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 3);
   text("Aantal sets: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 1);
 
-  text(scoreSpelerEen, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 7); 
+  text(nf(scoreSpelerEen), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 7); 
   text(millis()/1000, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 5);  
   text(kaartenArrayList.size(), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 3);
   text(aantalSetsSpeelveld, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 1);
+  
+  // Knoppen toevoegen.
+  // TODO text centreren in knop
+  fill(zwart);
+  rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
+  rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
+  rect((width / 8) * 6, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
+  rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));
+  
+  fill(wit);
+  text("Hint", (width / 8) * 4.475, height - (hoogteScorebord / 5) * 1.25);
+  text("Restart", (width / 8) * 4.34, height - (hoogteScorebord / 5) * 3.25);
+  text("Voeg 3 toe", (width / 8) * 6.225, height - (hoogteScorebord / 5) * 1.25);
+  text("Knop", (width / 8) * 6.425, height - (hoogteScorebord / 5) * 3.25);
 }
 
 
