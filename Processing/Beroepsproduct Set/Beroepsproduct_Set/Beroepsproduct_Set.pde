@@ -48,6 +48,7 @@ ArrayList<String[]> setList = new ArrayList<String[]>();
 
 // Custom font
 PFont fontVerdanaBold;
+boolean voegXVeldToe = false;
 
 
 // Setup van scherm grootte, aantal vakken voor kleinGridBreedte/Hoogte instellen,
@@ -65,8 +66,14 @@ void setup() {
 }
 
 void restart() {
+  if(voegXVeldToe) {
+    xVelden--;
+    voegXVeldToe = false;
+  }  
   kaartenArrayList = new ArrayList<String>();
   selectedKaarten = new ArrayList<String>();
+  speelVeld = new String[xVelden][yVelden];
+  speelVeldKleur = new color[xVelden][yVelden];
   scoreSpelerEen = 0;
   aantalSetsSpeelveld = 0;
   setList = new ArrayList<String[]>();
@@ -82,32 +89,34 @@ void restart() {
 }
 
 void voegKaartenToe() {
-  
-  xVelden++;
-  surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
-  String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
-  color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
-  
-  for(int x = 0 ; x < xVelden-1 ; x++){
-    for(int y = 0 ; y < yVelden ; y++) {
-      nieuwSpeelVeld[x][y] = speelVeld[x][y];
-      nieuwSpeelVeldKleur[x][y] = speelVeldKleur[x][y];    
-    }
-  }
-  
-  for(int x = 0 ; x < xVelden ; x++){
-    for(int y = 0 ; y < yVelden ; y++) {
-      if(nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
-        nieuwSpeelVeld[x][y] = "0000";
-        nieuwSpeelVeldKleur[x][y] = zwart;
+  if(!voegXVeldToe){
+    xVelden++;
+    surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
+    String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
+    color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
+    
+    for(int x = 0 ; x < xVelden-1 ; x++){
+      for(int y = 0 ; y < yVelden ; y++) {
+        nieuwSpeelVeld[x][y] = speelVeld[x][y];
+        nieuwSpeelVeldKleur[x][y] = speelVeldKleur[x][y];    
       }
     }
+    
+    for(int x = 0 ; x < xVelden ; x++){
+      for(int y = 0 ; y < yVelden ; y++) {
+        if(nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
+          nieuwSpeelVeld[x][y] = "0000";
+          nieuwSpeelVeldKleur[x][y] = zwart;
+        }
+      }
+    }
+    
+    speelVeld = nieuwSpeelVeld;
+    speelVeldKleur = nieuwSpeelVeldKleur;  
+    createSpeelVeld();
+    aantalSetsSpeelveld();
+    voegXVeldToe = true;
   }
-  
-  speelVeld = nieuwSpeelVeld;
-  speelVeldKleur = nieuwSpeelVeldKleur;  
-  createSpeelVeld();
-  aantalSetsSpeelveld();
 }
 
 
@@ -140,36 +149,40 @@ void mousePressed() {
   if (mouseY >= height - hoogteScorebord) {
     
     if (mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4) && 
-        mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
-        //println("test");
-        fill(wit);  
-        rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
-        
-        geefHint();
+      mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
+      fill(wit);  
+      rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
+      
+      geefHint();
     }
     
     
    if (mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4) && 
-        mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
-        //println("test");
-        fill(wit);  
-        rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
-        
-        restart();
+      mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
+      fill(wit);  
+      rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
+      restart();
     }
    
     if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
-    mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
-      //println("test");
+      mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
       fill(wit);  
-      rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
+      rect((width / 8) * 6, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
       
       voegKaartenToe();
-    }   
+    } 
     
-    //rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5)); 
+    if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
+      mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
+      fill(wit);  
+      rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5)); 
+      
+      //voegKaartenToe();
+    } 
+    
+    //rect((width / 8) * 4, height - (hoogteScorebord / 5),     width / 6, - (hoogteScorebord / 5)); 
     //rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
-    //rect((width / 8) * 6, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
+    //rect((width / 8) * 6, height - (hoogteScorebord / 5),     width / 6, - (hoogteScorebord / 5));  
     //rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));
     return;
   }
@@ -502,7 +515,7 @@ void maakScorebord() {
   fill(wit);
   text("Hint", (width / 8) * 4.475, height - (hoogteScorebord / 5) * 1.25);
   text("Restart", (width / 8) * 4.34, height - (hoogteScorebord / 5) * 3.25);
-  text("Voeg 3 toe", (width / 8) * 6.225, height - (hoogteScorebord / 5) * 1.25);
+  text("Voeg " + yVelden + " toe", (width / 8) * 6.225, height - (hoogteScorebord / 5) * 1.25);
   text("Knop", (width / 8) * 6.425, height - (hoogteScorebord / 5) * 3.25);
 }
 
