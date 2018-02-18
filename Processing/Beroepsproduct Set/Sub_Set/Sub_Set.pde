@@ -4,7 +4,7 @@
 
 
 // Setup van scherm grootte, aantal vakken voor kleinGridBreedte/Hoogte instellen,
-// het initialiseren van de ArrayList en het maken van het speelveld.
+// het initialiseren van de ArrayListen en het maken van het speelveld.
 void setup() {
   background(zwart);  
   speelVeld = new String[xVelden][yVelden];
@@ -17,6 +17,17 @@ void setup() {
   createSpeelVeld();    
   aantalSetsSpeelveld();
   fontVerdanaBold = createFont("Verdana Bold", hoogteScorebord / 7);
+}
+
+
+// Functie voor het weergeven van de inhoud van het scherm.
+void draw() { 
+  background(zwart);
+  smooth();
+  tekenVeldLijnen();
+  kleurCellen();
+  vulSpeelveld();  
+  maakScorebord();
 }
 
 
@@ -41,15 +52,4 @@ void restart() {
   maakStapelKaarten(aantalVariaties);
   createSpeelVeld();    
   aantalSetsSpeelveld();
-}
-
-
-// Functie voor het weergeven van de inhoud van het scherm.
-void draw() { 
-  background(zwart);
-  smooth();
-  tekenVeldLijnen();
-  kleurCellen();
-  vulSpeelveld();  
-  maakScorebord();
 }
