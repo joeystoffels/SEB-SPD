@@ -10,7 +10,7 @@ void setup() {
   img = loadImage("data/set.png");
   startScherm();  
   if (!startSchermBoolean) {
-      surface.setSize(500, 500);
+      surface.setSize(600, 500);
   }
 }
 
