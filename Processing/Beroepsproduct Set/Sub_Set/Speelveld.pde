@@ -130,7 +130,4 @@ void aantalSetsSpeelveld() {
   for ( String[] set : setList ) {    
     println(set);
   }
-  if (aantalSetsSpeelveld == 0 && voegXVeldToe == true) {
-    // eindeSpel();
-  }
 }

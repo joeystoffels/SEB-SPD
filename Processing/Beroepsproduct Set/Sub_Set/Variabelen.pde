@@ -1,4 +1,4 @@
-final int aantalVariaties = 4; // TODO add constraint 3 of 4;
+int aantalVariaties = 3; // TODO add constraint 3 of 4;
 
 // Grootte v/d kaarten in pixels.
 final int kaartBreedte = 150; // TODO add constraint max breedte en hoogte
@@ -46,3 +46,6 @@ ArrayList<String[]> setList = new ArrayList<String[]>();
 // Custom font
 PFont fontVerdanaBold;
 boolean voegXVeldToe = false;
+
+// Tijd
+int tijd = 0;
