@@ -1,0 +1,6 @@
+henk,0,0
+blaat,0,0
+blaat,0,0
+blaat,9.0,26
+paashaas,7.0,86
+,7.0,50

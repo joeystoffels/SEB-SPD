@@ -35,7 +35,7 @@ void draw() {
     startScherm();
   }
   
-  if (startSchermBoolean) {
+  if (startSchermBoolean && !spelAfgelopen) {
     background(zwart);
     smooth();
     tekenVeldLijnen();
@@ -54,6 +54,7 @@ void restart() {
     xVelden--;
     voegXVeldToe = false;
   }  
+  spelAfgelopen = false;
   kaartenArrayList = new ArrayList<String>();
   selectedKaarten = new ArrayList<String>();
   setList = new ArrayList<String[]>();

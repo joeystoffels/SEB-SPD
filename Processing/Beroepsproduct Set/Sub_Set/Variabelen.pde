@@ -53,3 +53,7 @@ boolean voegXVeldToe = false;
 int tijd = 0;
 
 boolean startSchermBoolean = false;
+
+boolean spelAfgelopen = false;
+
+String naam = "";

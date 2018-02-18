@@ -5,17 +5,19 @@ void mousePressed() {
   if (!startSchermBoolean) {    
     if ((mouseX > 100 && mouseX < 400) && 
         mouseY > 369 && mouseY < 394) {
-          aantalVariaties = 3;
-          //xVelden = 3;
+        aantalVariaties = 3;
+        //xVelden = 3;
+        startSchermBoolean = true;
+        setupGame();   
     }
         
     if ((mouseX > 100 && mouseX < 400) && 
       mouseY > 418 && mouseY < 443) {
         aantalVariaties = 4;
-    }
-      
-    startSchermBoolean = true;
-    setupGame();        
+        startSchermBoolean = true;
+        setupGame();   
+    }      
+     
     return;
   }
   

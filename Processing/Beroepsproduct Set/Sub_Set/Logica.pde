@@ -128,6 +128,9 @@ void eindeSpel() {
     }
     
     println("EINDE SPEL");
+    saveHighscore();
+    spelAfgelopen = true;
+    
     background(zwart);
     fill(groen, 175);
     rect((width / 7) * 1, ((height - hoogteScorebord) / 7) * 2, (width / 7) * 5, ((height - hoogteScorebord) / 7) * 3);
