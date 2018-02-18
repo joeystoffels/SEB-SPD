@@ -18,6 +18,8 @@ final color blauw = color(0, 100, 255);
 final color wit = color(255, 255, 255);
 final color zwart = color(0, 0, 0);
 
+PImage img;
+
 // height - hoogteScorebord als variabele declareren?
 
 int hoogteScorebord;
@@ -49,3 +51,5 @@ boolean voegXVeldToe = false;
 
 // Tijd
 int tijd = 0;
+
+boolean startSchermBoolean = false;

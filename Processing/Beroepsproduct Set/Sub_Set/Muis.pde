@@ -1,6 +1,24 @@
 // Muisklik functie om kaarten te kunnen selecteren.
 // Deze functie triggert het checken op een set na het selecteren van 3 kaarten.
 void mousePressed() {  
+  
+  if (!startSchermBoolean) {    
+    if ((mouseX > 100 && mouseX < 400) && 
+        mouseY > 369 && mouseY < 394) {
+          aantalVariaties = 3;
+          //xVelden = 3;
+    }
+        
+    if ((mouseX > 100 && mouseX < 400) && 
+      mouseY > 418 && mouseY < 443) {
+        aantalVariaties = 4;
+    }
+      
+    startSchermBoolean = true;
+    setupGame();        
+    return;
+  }
+  
   int xVeld = mouseX / (width/xVelden);
   int yVeld = mouseY / ((height - hoogteScorebord)/yVelden);
 
@@ -36,7 +54,7 @@ void mousePressed() {
       fill(wit);  
       rect((width / 8) * 6, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
       
-      voegKaartenToe();
+      //voegKaartenToe();
     } 
     
     if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
@@ -44,7 +62,7 @@ void mousePressed() {
       fill(wit);  
       rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5)); 
       
-      //voegKaartenToe();
+      voegKaartenToe();
     } 
     
     //rect((width / 8) * 4, height - (hoogteScorebord / 5),     width / 6, - (hoogteScorebord / 5)); 

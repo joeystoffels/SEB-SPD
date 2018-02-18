@@ -129,12 +129,13 @@ void eindeSpel() {
     
     println("EINDE SPEL");
     background(zwart);
-    fill(groen);
+    fill(groen, 175);
     rect((width / 7) * 1, ((height - hoogteScorebord) / 7) * 2, (width / 7) * 5, ((height - hoogteScorebord) / 7) * 3);
     fill(zwart);
     textFont(createFont("Verdana Bold", hoogteScorebord));
     textAlign(CENTER);
-    text("EINDE", (width / 2), (height - hoogteScorebord / 2) / 2);
+    fill(wit, 225);
+    text("EINDE", (width / 2), (height - hoogteScorebord / 2) / 1.9);
     
     textAlign(LEFT);
     fill(wit, 200);

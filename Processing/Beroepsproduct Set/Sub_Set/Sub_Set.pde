@@ -7,6 +7,15 @@
 // het initialiseren van de ArrayListen en het maken van het speelveld.
 void setup() {
   background(zwart);  
+  img = loadImage("data/set.png");
+  startScherm();  
+  if (!startSchermBoolean) {
+      surface.setSize(500, 500);
+  }
+}
+
+
+void setupGame() {
   speelVeld = new String[xVelden][yVelden];
   speelVeldKleur = new color[xVelden][yVelden];
   surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
@@ -22,13 +31,20 @@ void setup() {
 
 // Functie voor het weergeven van de inhoud van het scherm.
 void draw() { 
-  background(zwart);
-  smooth();
-  tekenVeldLijnen();
-  kleurCellen();
-  vulSpeelveld();  
-  maakScorebord();
-  eindeSpel();
+  if (!startSchermBoolean) {
+    startScherm();
+  }
+  
+  if (startSchermBoolean) {
+    background(zwart);
+    smooth();
+    tekenVeldLijnen();
+    kleurCellen();
+    vulSpeelveld();  
+    maakScorebord();
+  
+    eindeSpel();
+  }
 }
 
 

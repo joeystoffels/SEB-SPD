@@ -30,8 +30,8 @@ void maakScorebord() {
   fill(wit);
   text("Hint", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 1.25);
   text("Restart", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);
-  text("Voeg " + yVelden + " toe", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 1.25);
-  text("Knop", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 3.25);
+  text("Knop", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 1.25);
+  text("Voeg " + yVelden + " toe", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 3.25);
 }
 
 
