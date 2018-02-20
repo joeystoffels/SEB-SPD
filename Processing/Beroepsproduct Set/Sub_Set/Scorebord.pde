@@ -7,7 +7,7 @@ void maakScorebord() {
 
   // Score weergeven, dubbele text velden voor betere allignment.
   fill(wit, 225);
-  textFont(fontVerdanaBold); 
+  textFont(fontVerdanaBoldGroot); 
   
   text("Score: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 7); 
   text("Tijd: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 5);  
@@ -27,11 +27,12 @@ void maakScorebord() {
   rect((width / 8) * 6, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
   rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));
   
+  textFont(fontVerdanaBoldKlein); 
   fill(wit);
   text("Hint", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 1.25);
   text("Restart", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);
-  text("Knop", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 1.25);
-  text("Voeg " + yVelden + " toe", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 3.25);
+  text("Beginscherm", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 3.25);
+  text("Voeg " + yVelden + " toe", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 1.25);
 }
 
 

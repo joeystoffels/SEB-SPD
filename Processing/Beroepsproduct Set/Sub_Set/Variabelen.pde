@@ -46,14 +46,26 @@ int aantalSetsSpeelveld;
 ArrayList<String[]> setList = new ArrayList<String[]>();
 
 // Custom font
-PFont fontVerdanaBold;
+PFont fontVerdanaBoldGroot;
+PFont fontVerdanaBoldKlein;
+
 boolean voegXVeldToe = false;
 
 // Tijd
 int tijd = 0;
 
-boolean startSchermBoolean = false;
+boolean startSchermActive = true;
 
 boolean spelAfgelopen = false;
 
 String naam = "";
+
+boolean scoreSaved = false;
+
+
+void setNaam(String naamNew) {    
+  if (naamNew.length() >= 10){ 
+   naamNew = naamNew.substring(0, 10); 
+  }   
+  naam = naamNew;
+}

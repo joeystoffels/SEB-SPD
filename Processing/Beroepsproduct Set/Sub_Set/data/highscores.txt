@@ -1,6 +1,7 @@
-henk,0,0
-blaat,0,0
-blaat,0,0
-blaat,9.0,26
-paashaas,7.0,86
-,7.0,50
+test,9.0,15
+henk 123,9.0,41
+henk 123,9.0,41
+blaat,9.0,20
+henkie,6.5,35
+test514121,9.0,39
+blablabla,7.0,37

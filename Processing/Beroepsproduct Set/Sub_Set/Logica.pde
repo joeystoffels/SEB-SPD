@@ -18,6 +18,10 @@ void maakStapelKaarten(int aantalVariaties) {
   String[] figuur = {"d", "r", "e"}; // driehoek, rechthoek, ellipse
   String[] vulling = {"l", "h", "v"}; // leeg, half, vol
 
+  if (kaartenArrayList.size() > 0) {
+   kaartenArrayList = new ArrayList<String>(); 
+  }
+
   if (aantalVariaties == 3) {
     for (int a = 0; a < aantal.length; a++) {
       for (int f = 0; f < figuur.length; f++) {
@@ -107,54 +111,5 @@ void kleurCellen() {
       fill(speelVeldKleur[x][y]);
       rect((width/xVelden) * x, ((height - hoogteScorebord)/yVelden) * y, width/xVelden, (height - hoogteScorebord)/yVelden);
     }
-  }
-}
-
-
-void eindeSpel() {  
-  int aantalKaartenOpSpeelveld = 0;
-  for (int x = 0 ; x < xVelden ; x++) {
-    for (int y = 0 ; y < yVelden ; y++) {
-      if (speelVeld[x][y] != defaultKaart){
-        aantalKaartenOpSpeelveld++;
-      }
-    }
-  }
-  
-  if (aantalSetsSpeelveld == 0 && ((voegXVeldToe == true || kaartenArrayList.size() <= 0) || aantalKaartenOpSpeelveld == 0)) {
-    
-    if (tijd == 0) {
-      tijd = millis() / 1000;
-    }
-    
-    println("EINDE SPEL");
-    saveHighscore();
-    spelAfgelopen = true;
-    
-    background(zwart);
-    fill(groen, 175);
-    rect((width / 7) * 1, ((height - hoogteScorebord) / 7) * 2, (width / 7) * 5, ((height - hoogteScorebord) / 7) * 3);
-    fill(zwart);
-    textFont(createFont("Verdana Bold", hoogteScorebord));
-    textAlign(CENTER);
-    fill(wit, 225);
-    text("EINDE", (width / 2), (height - hoogteScorebord / 2) / 1.9);
-    
-    textAlign(LEFT);
-    fill(wit, 200);
-    textFont(fontVerdanaBold); 
-    text("Score: ", 0 + (width * 0.25), height - (hoogteScorebord / 9) * 7); 
-    text("Tijd: ", 0 + (width * 0.25), height - (hoogteScorebord / 9) * 5);  
-    //text("Kaarten over: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 3);
-  
-    text(nf(scoreSpelerEen), 0 + (width * 0.35), height - (hoogteScorebord / 9) * 7); 
-    text(tijd, 0 + (width * 0.35), height - (hoogteScorebord / 9) * 5);  
-    //text(kaartenArrayList.size(), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 3);
-    
-    fill(zwart);
-    rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
-    
-    fill(wit);
-    text("Restart", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);                 
   }
 }

@@ -9,12 +9,13 @@ void setup() {
   background(zwart);  
   img = loadImage("data/set.png");
   startScherm();  
-  if (!startSchermBoolean) {
+  if (startSchermActive) {
       surface.setSize(600, 500);
   }
 }
 
 
+// Initiele setup
 void setupGame() {
   speelVeld = new String[xVelden][yVelden];
   speelVeldKleur = new color[xVelden][yVelden];
@@ -25,24 +26,30 @@ void setupGame() {
   maakStapelKaarten(aantalVariaties);
   createSpeelVeld();    
   aantalSetsSpeelveld();
-  fontVerdanaBold = createFont("Verdana Bold", hoogteScorebord / 7);
+  fontVerdanaBoldGroot = createFont("Verdana Bold", hoogteScorebord / 7);
+  fontVerdanaBoldKlein = createFont("Verdana Bold", hoogteScorebord / 8);
 }
 
 
 // Functie voor het weergeven van de inhoud van het scherm.
 void draw() { 
-  if (!startSchermBoolean) {
+  smooth();
+  if (startSchermActive) {
     startScherm();
+    surface.setSize(600, 500);
   }
   
-  if (startSchermBoolean && !spelAfgelopen) {
-    background(zwart);
-    smooth();
+  if (!startSchermActive && !spelAfgelopen) {
+    background(zwart);    
     tekenVeldLijnen();
     kleurCellen();
     vulSpeelveld();  
-    maakScorebord();
+    maakScorebord();  
+    eindeSpel();
+  }
   
+  if (!startSchermActive && spelAfgelopen) {
+    background(zwart);
     eindeSpel();
   }
 }
@@ -63,11 +70,11 @@ void restart() {
   scoreSpelerEen = 0;
   aantalSetsSpeelveld = 0;  
   background(zwart);  
-  surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
-  hoogteScorebord = int(height * 0.15) > 100 ? int(height * 0.15) : 100; // min hoogte 100px //TODO in functie zetten
+  surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte);   
+  //hoogteScorebord = int(height * 0.15) > 100 ? int(height * 0.15) : 100; // min hoogte 100px //TODO in functie zetten
   kleinGridBreedte = width / (xVelden * 8);
   kleinGridHoogte = (height - hoogteScorebord) / (yVelden * 8);
   maakStapelKaarten(aantalVariaties);
   createSpeelVeld();    
-  aantalSetsSpeelveld();
+  aantalSetsSpeelveld();  
 }
