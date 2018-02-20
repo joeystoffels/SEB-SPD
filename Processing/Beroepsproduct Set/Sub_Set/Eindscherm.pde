@@ -30,6 +30,10 @@ void eindeSpel() {
     } else if (spelAfgelopen && scoreSaved) {
       text("Score opgeslagen!", 0 + (width * 0.25), height / 1.5);
     }
+    
+    
+    
+    
     fill(groen, 175);
     rect((width / 7) * 1, ((height - hoogteScorebord) / 7) * 2, (width / 7) * 5, ((height - hoogteScorebord) / 7) * 3);
     

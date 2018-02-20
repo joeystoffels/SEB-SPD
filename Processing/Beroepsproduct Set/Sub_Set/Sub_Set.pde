@@ -18,16 +18,16 @@ void setup() {
 // Initiele setup
 void setupGame() {
   speelVeld = new String[xVelden][yVelden];
-  speelVeldKleur = new color[xVelden][yVelden];
+  speelVeldKleur = new color[xVelden][yVelden];  
   surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
   hoogteScorebord = int(height * 0.15) > 100 ? int(height * 0.15) : 100; // min hoogte 100px
   kleinGridBreedte = width / (xVelden * 8);
   kleinGridHoogte = (height - hoogteScorebord) / (yVelden * 8);
+  fontVerdanaBoldGroot = createFont("Verdana Bold", hoogteScorebord / 7);
+  fontVerdanaBoldKlein = createFont("Verdana Bold", hoogteScorebord / 8);
   maakStapelKaarten(aantalVariaties);
   createSpeelVeld();    
   aantalSetsSpeelveld();
-  fontVerdanaBoldGroot = createFont("Verdana Bold", hoogteScorebord / 7);
-  fontVerdanaBoldKlein = createFont("Verdana Bold", hoogteScorebord / 8);
 }
 
 
