@@ -3,19 +3,27 @@
 void mousePressed() {  
   
   if (startSchermActive) {    
-    if ((mouseX > 100 && mouseX < 400) && 
-        mouseY > 369 && mouseY < 394) {
-        aantalVariaties = 3;
-        //xVelden = 3;
-        startSchermActive = false;
-        setupGame();   
+    // Click Subset - 3 variations button
+    if ((mouseX > 150 && mouseX < 450) && 
+        mouseY > 350 && mouseY < 375) {
+      aantalVariaties = 3;
+      //xVelden = 3;
+      startSchermActive = false;
+      setupGame();   
     }
-        
-    if ((mouseX > 100 && mouseX < 400) && 
-      mouseY > 418 && mouseY < 443) {
-        aantalVariaties = 4;
-        startSchermActive = false;
-        setupGame();   
+    
+    // Click Set - 4 variations button
+    if ((mouseX > 150 && mouseX < 450) && 
+        mouseY > 390 && mouseY < 415) {
+      aantalVariaties = 4;
+      startSchermActive = false;
+      setupGame();   
+    }      
+     
+    // Click clear highscores button 
+    if ((mouseX > 150 && mouseX < 450) && 
+        mouseY > 450 && mouseY < 475) {
+      clearHighscores();
     }      
      
     return;

@@ -15,7 +15,7 @@ void maakScorebord() {
   text("Aantal sets: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 1);
 
   text(nf(scoreSpelerEen), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 7); 
-  text(millis()/1000, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 5);  
+  text(""+int(tijd), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 5);  
   text(kaartenArrayList.size(), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 3);
   text(aantalSetsSpeelveld, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 1);
   

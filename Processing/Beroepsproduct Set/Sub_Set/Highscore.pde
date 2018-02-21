@@ -6,10 +6,8 @@ void saveHighscore(){
       highscoresNew[i] = highscoresOld[i]; 
     }
     
-    highscoresNew[highscoresNew.length - 1] = naam + "," + scoreSpelerEen + "," + tijd;    
-    
-    //java.util.Arrays.sort(highscoresNew[][1]);
-    
+    highscoresNew[highscoresNew.length - 1] = naam + "," + scoreSpelerEen + "," + String.format("%.2f", tijd);    
+        
     highscoresNew = highscoreSorter(highscoresNew);
     
     saveStrings("data/highscores.txt", highscoresNew);
@@ -47,21 +45,28 @@ String[] highscoreSorter(String[] array) {
 //Highscore array sorteren op score
 
 void createHighscoreLijst() {
-    background(zwart);
-    text("HIGHSCORES", 85, 65);
-    text("Naam ", 25, 90);
-    text("Tijd", 150, 90);
-    text("Score", 200, 90);
-    
-    String[] namen = loadStrings("highscores.txt");
-    namen = highscoreSorter(namen);
-    for (int i = 0 ; i < (namen.length > 10 ? 10 : namen.length) ; i++) {
-        String[] line = split(namen[i], ',');
+  background(zwart);
+  text("HIGHSCORES", 85, 65);
+  text("Naam ", 25, 90);
+  text("Tijd", 135, 90);
+  text("Score", 200, 90);
+  
+  String[] namen = loadStrings("highscores.txt");
+  namen = highscoreSorter(namen);
+  for (int i = 0 ; i < (namen.length > 10 ? 10 : namen.length) ; i++) {
+    String[] line = split(namen[i], ',');
 
-    text((i + 1) + ": " + line[0], 25, 115 + 20 * i);
-    text(line[2], 150, 115 + 20 * i);
-    text(line[1], 200, 115 + 20 * i);
+    if(line.length > 1) {
+      text(""+(i + 1) + ": " + line[0], 25, 115 + 20 * i);    
+      text(line[2], 135, 115 + 20 * i);
+      text(line[1], 200, 115 + 20 * i);
+    }
   }
+}
+
+void clearHighscores() {
+  String[] namen = new String[0];
+  saveStrings("data/highscores.txt", namen);
 }
 
 //TODO voeg moeilijkheisgraad toe??

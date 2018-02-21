@@ -9,11 +9,13 @@ void startScherm() {
   
   fill(zwart);
   stroke(wit, 150);
-  rect(150, 375, 300, 25);
-  rect(150, 425, 300, 25);
+  rect(150, 350, 300, 25);
+  rect(150, 390, 300, 25);
+  rect(150, 450, 300, 25);
   
   textFont(createFont("Verdana Bold", 15));
   fill(wit);
-  text("SubSet - 3 variaties", 216, 394);
-  text("Set - 4 variaties", 236, 443);
+  text("SubSet - 3 variaties", 216, 369);
+  text("Set - 4 variaties", 236, 409);
+  text("Clear highscores", 236, 469);
 }

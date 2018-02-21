@@ -52,7 +52,8 @@ PFont fontVerdanaBoldKlein;
 boolean voegXVeldToe = false;
 
 // Tijd
-int tijd = 0;
+float tijd = 0.0;
+float restartTijd = 0.0;
 
 boolean startSchermActive = true;
 
@@ -61,6 +62,8 @@ boolean spelAfgelopen = false;
 String naam = "";
 
 boolean scoreSaved = false;
+
+boolean gameRestart = false;
 
 
 void setNaam(String naamNew) {    

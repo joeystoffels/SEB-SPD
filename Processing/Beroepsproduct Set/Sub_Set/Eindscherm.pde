@@ -12,13 +12,13 @@ void eindeSpel() {
     }
   }
   
-  //TODO add positie op highscore lijst
+  
 
   
   if (aantalSetsSpeelveld == 0 && ((voegXVeldToe == true || kaartenArrayList.size() <= 0) || aantalKaartenOpSpeelveld == 0)) {
     
-    if (tijd == 0) {
-      tijd = millis() / 1000;
+    if (tijd == 0.0) {
+      tijd = millis() / 1000.0;
     }
     
     println("EINDE SPEL");
@@ -29,9 +29,15 @@ void eindeSpel() {
       text("Naam: " + naam, 0 + (width * 0.25), height / 1.5);
     } else if (spelAfgelopen && scoreSaved) {
       text("Score opgeslagen!", 0 + (width * 0.25), height / 1.5);
+      
+      
+      
     }
     
     
+    
+    
+    //TODO add positie op highscore lijst
     
     
     fill(groen, 175);
@@ -52,12 +58,13 @@ void eindeSpel() {
     text("Tijd: ", 0 + (width * 0.25), height - (hoogteScorebord / 9) * 5);  
   
     text(nf(scoreSpelerEen), 0 + (width * 0.35), height - (hoogteScorebord / 9) * 7); 
-    text(tijd, 0 + (width * 0.35), height - (hoogteScorebord / 9) * 5);  
+    text(""+tijd, 0 + (width * 0.35), height - (hoogteScorebord / 9) * 5);  
     
     fill(zwart);
     rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
     rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
     
+    textFont(createFont("Verdana Bold", 12));
     fill(wit);
     text("Restart", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);  
     text("Beginscherm", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 3.25);
@@ -77,6 +84,8 @@ void keyPressed() {
         saveHighscore();
         scoreSaved = true;
       }
+    } else if (key==SHIFT){
+      return;
     } else {
       setNaam(naam + key);
     }

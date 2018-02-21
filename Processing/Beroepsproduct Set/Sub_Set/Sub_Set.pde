@@ -28,6 +28,7 @@ void setupGame() {
   maakStapelKaarten(aantalVariaties);
   createSpeelVeld();    
   aantalSetsSpeelveld();
+  restartTijd = millis() / 1000.0;
 }
 
 
@@ -40,6 +41,7 @@ void draw() {
   }
   
   if (!startSchermActive && !spelAfgelopen) {
+    tijd = millis() / 1000.0 - restartTijd;
     background(zwart);    
     tekenVeldLijnen();
     kleurCellen();
@@ -57,11 +59,16 @@ void draw() {
 
 // Functie om het spel te herstarten.
 void restart() {
+  gameRestart = true;  
+  scoreSaved = false;
+  restartTijd = millis() / 1000.0;
+  tijd = millis() / 1000.0 - restartTijd;
   if(voegXVeldToe) {  // Check of er velden zijn toegevoegd aan het laatste spel en maak dit ongedaan.
     xVelden--;
     voegXVeldToe = false;
   }  
   spelAfgelopen = false;
+  tijd = 0.0;
   kaartenArrayList = new ArrayList<String>();
   selectedKaarten = new ArrayList<String>();
   setList = new ArrayList<String[]>();
