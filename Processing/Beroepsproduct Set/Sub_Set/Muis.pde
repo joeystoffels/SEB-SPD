@@ -1,15 +1,13 @@
 // Muisklik functie om kaarten te kunnen selecteren.
 // Deze functie triggert het checken op een set na het selecteren van 3 kaarten.
-void mousePressed() {  
-  
-  if (startSchermActive) {    
+void mousePressed() {      
+  if (startSchermActive) { // Wanneer startScherm actief is zijn onderstaande knoppen beschikbaar.
     // Click Subset - 3 variations button
     if ((mouseX > 150 && mouseX < 450) && 
         mouseY > 350 && mouseY < 375) {
       aantalVariaties = 3;
-      //xVelden = 3;
       startSchermActive = false;
-      setupGame();   
+      setupSpel();   
     }
     
     // Click Set - 4 variations button
@@ -17,13 +15,13 @@ void mousePressed() {
         mouseY > 390 && mouseY < 415) {
       aantalVariaties = 4;
       startSchermActive = false;
-      setupGame();   
+      setupSpel();   
     }      
      
     // Click clear highscores button 
     if ((mouseX > 150 && mouseX < 450) && 
         mouseY > 450 && mouseY < 475) {
-      clearHighscores();
+      verwijderHighscores();
     }      
      
     return;
@@ -33,10 +31,8 @@ void mousePressed() {
   int yVeld = mouseY / ((height - hoogteScorebord)/yVelden);
 
   //println("CLICKED " + mouseX, mouseY);
-
   //println(((width / 8) * 4), (width / 6) + (width / 8) * 4);
-  //println((height - (hoogteScorebord / 5)), (height - (hoogteScorebord / 5))-(hoogteScorebord / 5));
-  
+  //println((height - (hoogteScorebord / 5)), (height - (hoogteScorebord / 5))-(hoogteScorebord / 5));  
   //println(mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4));
   //print(mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5));
 
@@ -56,7 +52,7 @@ void mousePressed() {
       mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
       fill(wit);  
       rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
-      restart();
+      herstart();
     }
    
     if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
@@ -73,7 +69,7 @@ void mousePressed() {
       rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));      
       
       startSchermActive = true;
-      restart();
+      herstart();
     } 
     
     return;
@@ -81,19 +77,19 @@ void mousePressed() {
 
   String kaart = speelVeld[xVeld][yVeld]; 
 
-  if (kaart == defaultKaart) {
+  if (kaart == standaardKaart) {
     return;
   }
 
-  if (selectedKaarten.contains(kaart)) {
+  if (geselecteerdeKaarten.contains(kaart)) {
     speelVeldKleur[xVeld][yVeld] = zwart;
-    selectedKaarten.remove(kaart);
+    geselecteerdeKaarten.remove(kaart);
   } else {  
-    if (!selectedKaarten.contains(kaart) && selectedKaarten.size() < 3) {
-      selectedKaarten.add(speelVeld[xVeld][yVeld]);
+    if (!geselecteerdeKaarten.contains(kaart) && geselecteerdeKaarten.size() < 3) {
+      geselecteerdeKaarten.add(speelVeld[xVeld][yVeld]);
       speelVeldKleur[xVeld][yVeld] = color(wit, 125);
-      if (selectedKaarten.size() == 3) { 
-        checkForSet();
+      if (geselecteerdeKaarten.size() == 3) { 
+        controleerSet();
       }
     }
   }

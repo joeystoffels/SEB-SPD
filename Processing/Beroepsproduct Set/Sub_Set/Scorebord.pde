@@ -16,7 +16,7 @@ void maakScorebord() {
 
   text(nf(scoreSpelerEen), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 7); 
   text(""+int(tijd), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 5);  
-  text(kaartenArrayList.size(), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 3);
+  text(kaartenInSpel.size(), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 3);
   text(aantalSetsSpeelveld, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 1);
   
   // Knoppen toevoegen.
@@ -30,14 +30,14 @@ void maakScorebord() {
   textFont(fontVerdanaBoldKlein); 
   fill(wit);
   text("Hint", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 1.25);
-  text("Restart", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);
+  text("Opnieuw", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);
   text("Beginscherm", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 3.25);
   text("Voeg " + yVelden + " toe", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 1.25);
 }
 
 
-// Functie om de veldlijnen te tekenen.
-void tekenVeldLijnen() {    
+// Functie om de speelveldlijnen te tekenen.
+void tekenSpeelveldLijnen() {    
   stroke(wit, 150);
 
   for (int x = 1; x < yVelden; x++) {

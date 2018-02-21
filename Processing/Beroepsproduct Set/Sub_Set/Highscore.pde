@@ -1,19 +1,21 @@
-void saveHighscore(){
-    String[] highscoresOld = loadStrings("highscores.txt");
-    String[] highscoresNew = new String[highscoresOld.length + 1];
-    
-    for (int i = 0 ; i < highscoresOld.length ; i++) {
-      highscoresNew[i] = highscoresOld[i]; 
-    }
-    
-    highscoresNew[highscoresNew.length - 1] = naam + "," + scoreSpelerEen + "," + String.format("%.2f", tijd);    
-        
-    highscoresNew = highscoreSorter(highscoresNew);
-    
-    saveStrings("data/highscores.txt", highscoresNew);
+// Functie om de highscore op te slaan.
+void opslaanHighscore(){
+  String[] highscoresOld = loadStrings("highscores.txt");
+  String[] highscoresNew = new String[highscoresOld.length + 1];
+  
+  for (int i = 0 ; i < highscoresOld.length ; i++) {
+    highscoresNew[i] = highscoresOld[i]; 
+  }
+  
+  highscoresNew[highscoresNew.length - 1] = naam + "," + scoreSpelerEen + "," + String.format("%.2f", tijd);            
+  highscoresNew = sorteerHighscores(highscoresNew);
+  
+  saveStrings("data/highscores.txt", highscoresNew);
 }
 
-String[] highscoreSorter(String[] array) {
+
+// Hulp functie om de highscore lijst te sorteren op Tijd en daarna Score.s
+String[] sorteerHighscores(String[] array) {
   for (int x = 0 ; x < array.length ; x++) {
     for (int i = 0 ; i < array.length - 1; i++) {
       
@@ -39,12 +41,9 @@ String[] highscoreSorter(String[] array) {
   return array;
 }
 
-//TODO: Naar einde verplaatsen
-//Knop beginscherm tijdens spel en aan t eind toevoegen
-//Highscore max 10
-//Highscore array sorteren op score
 
-void createHighscoreLijst() {
+// Functie om de highscore lijst aan te maken.
+void maakHighscoreLijst() {
   background(zwart);
   text("HIGHSCORES", 85, 65);
   text("Naam ", 25, 90);
@@ -52,7 +51,7 @@ void createHighscoreLijst() {
   text("Score", 200, 90);
   
   String[] namen = loadStrings("highscores.txt");
-  namen = highscoreSorter(namen);
+  namen = sorteerHighscores(namen);
   for (int i = 0 ; i < (namen.length > 10 ? 10 : namen.length) ; i++) {
     String[] line = split(namen[i], ',');
 
@@ -64,9 +63,14 @@ void createHighscoreLijst() {
   }
 }
 
-void clearHighscores() {
+
+// Functie om de highscore lijst leeg te maken.
+void verwijderHighscores() {
   String[] namen = new String[0];
   saveStrings("data/highscores.txt", namen);
 }
 
 //TODO voeg moeilijkheisgraad toe??
+//highscore enkel opslaan als de top 10 behaald is?
+//highscore op het eind tonen ipv beginscherm?
+//realtime naam invoeren in highscore array?

@@ -1,16 +1,16 @@
 // Functie om het speelveld (array) te initialiseren.
-void createSpeelVeld() {  
+void maakSpeelVeld() {  
   if(speelVeld[0][0] == null) {
     for (int x=0; x < xVelden; x++) {
       for (int y=0; y < yVelden; y++) {
-        speelVeld[x][y] = getAndRemoveFromKaarten();
+        speelVeld[x][y] = pakKaart();
       }
     }
   } else {
     for (int x=0; x < xVelden; x++) {
       for (int y=0; y < yVelden; y++) {
         if (speelVeld[x][y].equals("0000")){
-          speelVeld[x][y] = getAndRemoveFromKaarten();
+          speelVeld[x][y] = pakKaart();
         }
       }
     }
@@ -22,7 +22,7 @@ void createSpeelVeld() {
 void vulSpeelveld() {
   for (int x=0; x < xVelden; x++) {
     for (int y=0; y < yVelden; y++) {
-      createFiguur(speelVeld[x][y], x, y);
+      maakKaartFiguur(speelVeld[x][y], x, y);
     }
   }
 }
@@ -54,7 +54,7 @@ void voegKaartenToe() {
     
     speelVeld = nieuwSpeelVeld;
     speelVeldKleur = nieuwSpeelVeldKleur;  
-    createSpeelVeld();
+    maakSpeelVeld();
     aantalSetsSpeelveld();
     voegXVeldToe = true;
   }
@@ -66,7 +66,7 @@ void verwijderKaart(String kaart) {
   for (int x = 0; x < xVelden; x++) {
     for (int y = 0; y < yVelden; y++) {      
       if (speelVeld[x][y] == kaart) {
-        speelVeld[x][y] = getAndRemoveFromKaarten();
+        speelVeld[x][y] = pakKaart();
       }
     }
   }
@@ -74,14 +74,14 @@ void verwijderKaart(String kaart) {
 
 
 // Functie om het aantal sets op het speelveld te tellen.
-void aantalSetsSpeelveld() {
-  
+void aantalSetsSpeelveld() {  
   setList.clear();
   
   String[][] arrayEen = speelVeld;
   String[][] arrayTwee = speelVeld;
   String[][] arrayDrie = speelVeld;
 
+  // Loop over alle mogelijke kaart combinaties en check + opslaan welke een set zijn.
   for (int a = 0; a < xVelden; a++) {
     for (int b = 0; b < yVelden; b++) {      
       for (int c = 0; c < xVelden; c++) {
@@ -112,10 +112,10 @@ void aantalSetsSpeelveld() {
 
               // Check of de 3 kaarten een set zijn, zo ja, verhoog het aantalSetsSpeelveld en voeg de set toe aan de setList.
               if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie)) && go) {
-                if (verifySet(kaartEen, kaartTwee, kaartDrie, 0) &&
-                  verifySet(kaartEen, kaartTwee, kaartDrie, 1) &&
-                  verifySet(kaartEen, kaartTwee, kaartDrie, 2) && 
-                  (aantalVariaties == 4 ? verifySet(kaartEen, kaartTwee, kaartDrie, 3) : true)) {
+                if (verifieerSet(kaartEen, kaartTwee, kaartDrie, 0) &&
+                  verifieerSet(kaartEen, kaartTwee, kaartDrie, 1) &&
+                  verifieerSet(kaartEen, kaartTwee, kaartDrie, 2) && 
+                  (aantalVariaties == 4 ? verifieerSet(kaartEen, kaartTwee, kaartDrie, 3) : true)) {
                   aantalSetsSpeelveld++;                  
                   setList.add(temp);
                 }

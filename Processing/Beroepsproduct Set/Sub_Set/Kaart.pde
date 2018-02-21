@@ -1,22 +1,21 @@
-// Functie om een random kaart te kiezen uit de kaartenArrayList en deze 
-// vervolgens te verwijderen uit de lijst, de kaartenArrayList stelt dus 
+// Functie om een random kaart te kiezen uit de kaartenInSpel array en deze 
+// vervolgens te verwijderen uit de lijst, de kaartenInSpel array stelt dus 
 // de huidige stapel speelkaarten voor.
-String getAndRemoveFromKaarten() { 
-  if (!(kaartenArrayList.size() <= 0)) { 
-    int random = int(random(0, kaartenArrayList.size()));
-    String kaart = kaartenArrayList.get(random);
-    kaartenArrayList.remove(random);  
+String pakKaart() { 
+  if (!(kaartenInSpel.size() <= 0)) { 
+    int random = int(random(0, kaartenInSpel.size()));
+    String kaart = kaartenInSpel.get(random);
+    kaartenInSpel.remove(random);  
     return kaart;
   } else {
-    return defaultKaart; // return default zodat er geen nieuwe figuur gemaakt wordt
+    return standaardKaart; // return standaard zodat er geen nieuwe figuur gemaakt wordt
   }
 };
 
 
 // Functie om figuur aan te maken.
 // Hoogtefactor wijzigt ivm. positie van een, twee of drie figuren ten op zichte van elkaar op 1 kaart.
-void createFiguur(String kaart, int xPositie, int yPositie) {  
-
+void maakKaartFiguur(String kaart, int xPositie, int yPositie) {    
   int aantal = Integer.parseInt(str(kaart.charAt(0)));
   char figuurChar = kaart.charAt(1);
   char kleurChar = kaart.charAt(2);

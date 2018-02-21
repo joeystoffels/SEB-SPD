@@ -16,7 +16,7 @@ void setup() {
 
 
 // Initiele setup
-void setupGame() {
+void setupSpel() {
   speelVeld = new String[xVelden][yVelden];
   speelVeldKleur = new color[xVelden][yVelden];  
   surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
@@ -25,8 +25,8 @@ void setupGame() {
   kleinGridHoogte = (height - hoogteScorebord) / (yVelden * 8);
   fontVerdanaBoldGroot = createFont("Verdana Bold", hoogteScorebord / 7);
   fontVerdanaBoldKlein = createFont("Verdana Bold", hoogteScorebord / 8);
-  maakStapelKaarten(aantalVariaties);
-  createSpeelVeld();    
+  maakKaartenInSpel(aantalVariaties);
+  maakSpeelVeld();    
   aantalSetsSpeelveld();
   restartTijd = millis() / 1000.0;
 }
@@ -43,8 +43,8 @@ void draw() {
   if (!startSchermActive && !spelAfgelopen) {
     tijd = millis() / 1000.0 - restartTijd;
     background(zwart);    
-    tekenVeldLijnen();
-    kleurCellen();
+    tekenSpeelveldLijnen();
+    kleurAchtergrondKaarten();
     vulSpeelveld();  
     maakScorebord();  
     eindeSpel();
@@ -58,9 +58,9 @@ void draw() {
 
 
 // Functie om het spel te herstarten.
-void restart() {
+void herstart() {
   gameRestart = true;  
-  scoreSaved = false;
+  scoreOpgeslagen = false;
   restartTijd = millis() / 1000.0;
   tijd = millis() / 1000.0 - restartTijd;
   if(voegXVeldToe) {  // Check of er velden zijn toegevoegd aan het laatste spel en maak dit ongedaan.
@@ -69,8 +69,8 @@ void restart() {
   }  
   spelAfgelopen = false;
   tijd = 0.0;
-  kaartenArrayList = new ArrayList<String>();
-  selectedKaarten = new ArrayList<String>();
+  kaartenInSpel = new ArrayList<String>();
+  geselecteerdeKaarten = new ArrayList<String>();
   setList = new ArrayList<String[]>();
   speelVeld = new String[xVelden][yVelden];
   speelVeldKleur = new color[xVelden][yVelden];
@@ -81,7 +81,7 @@ void restart() {
   //hoogteScorebord = int(height * 0.15) > 100 ? int(height * 0.15) : 100; // min hoogte 100px //TODO in functie zetten
   kleinGridBreedte = width / (xVelden * 8);
   kleinGridHoogte = (height - hoogteScorebord) / (yVelden * 8);
-  maakStapelKaarten(aantalVariaties);
-  createSpeelVeld();    
+  maakKaartenInSpel(aantalVariaties);
+  maakSpeelVeld();    
   aantalSetsSpeelveld();  
 }

@@ -1,59 +1,44 @@
-void eindeSpel() {  
-  
+// Functie om het einde van het spel te bepalen en dan het eindscherm te tonen.
+void eindeSpel() {    
   int aantalKaartenOpSpeelveld = 0;
   
   if(!spelAfgelopen) {
     for (int x = 0 ; x < xVelden ; x++) {
       for (int y = 0 ; y < yVelden ; y++) {
-        if (speelVeld[x][y] != defaultKaart){
+        if (speelVeld[x][y] != standaardKaart){
           aantalKaartenOpSpeelveld++;
         }
       }
     }
   }
   
-  
-
-  
-  if (aantalSetsSpeelveld == 0 && ((voegXVeldToe == true || kaartenArrayList.size() <= 0) || aantalKaartenOpSpeelveld == 0)) {
-    
+  if (aantalSetsSpeelveld == 0 && ((voegXVeldToe == true || kaartenInSpel.size() <= 0) || aantalKaartenOpSpeelveld == 0)) {    
     if (tijd == 0.0) {
       tijd = millis() / 1000.0;
     }
     
-    println("EINDE SPEL");
-    
+    println("EINDE SPEL");    
     spelAfgelopen = true;
     
-    if (spelAfgelopen && !scoreSaved) {
-      text("Naam: " + naam, 0 + (width * 0.25), height / 1.5);
-    } else if (spelAfgelopen && scoreSaved) {
-      text("Score opgeslagen!", 0 + (width * 0.25), height / 1.5);
-      
-      
-      
-    }
-    
-    
-    
-    
-    //TODO add positie op highscore lijst
-    
+    if (spelAfgelopen && !scoreOpgeslagen) {
+      text("Voer naam in: " + naam, 0 + (width * 0.25), height / 1.5);
+    } else if (spelAfgelopen && scoreOpgeslagen) {
+      text("Score opgeslagen!", 0 + (width * 0.25), height / 1.5);      
+      //TODO add positie op highscore lijst?      
+    }       
     
     fill(groen, 175);
     rect((width / 7) * 1, ((height - hoogteScorebord) / 7) * 2, (width / 7) * 5, ((height - hoogteScorebord) / 7) * 3);
     
     fill(zwart);    
-    textFont(createFont("Verdana Bold", hoogteScorebord));
-    
+    textFont(createFont("Verdana Bold", hoogteScorebord));    
     textAlign(CENTER);
     fill(wit, 225);
     text("EINDE", (width / 2), (height - hoogteScorebord / 2) / 1.9);    
-    
     textAlign(LEFT);
+    
     fill(wit, 200);
     textFont(fontVerdanaBoldGroot); 
-
     text("Score: ", 0 + (width * 0.25), height - (hoogteScorebord / 9) * 7); 
     text("Tijd: ", 0 + (width * 0.25), height - (hoogteScorebord / 9) * 5);  
   
@@ -66,11 +51,13 @@ void eindeSpel() {
     
     textFont(createFont("Verdana Bold", 12));
     fill(wit);
-    text("Restart", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);  
+    text("Opnieuw", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);  
     text("Beginscherm", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 3.25);
   }
 }
 
+
+// Toetsenbord acties, gebruikt voor het invoeren van de naam van de speler aan het eind van het spel.
 void keyPressed() { 
   if (spelAfgelopen){
     if (key==BACKSPACE) { 
@@ -80,12 +67,14 @@ void keyPressed() {
         return; // Als naam al 0 lengte heeft dan niks doen.
       }
     } else if (key==ENTER) {
-      if (!scoreSaved) {
-        saveHighscore();
-        scoreSaved = true;
+      if (!scoreOpgeslagen) {
+        opslaanHighscore();
+        scoreOpgeslagen = true;
       }
-    } else if (key==SHIFT){
-      return;
+    } else if (key==CODED){
+      if (keyCode==SHIFT){
+        return;
+      }
     } else {
       setNaam(naam + key);
     }
