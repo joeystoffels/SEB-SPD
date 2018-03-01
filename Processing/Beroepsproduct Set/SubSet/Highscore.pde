@@ -45,10 +45,10 @@ String[] sorteerHighscores(String[] array) {
 // Functie om de highscore lijst aan te maken.
 void maakHighscoreLijst() {
   background(zwart);
-  text("HIGHSCORES", 85, 65);
-  text("Naam ", 25, 90);
-  text("Tijd", 135, 90);
-  text("Score", 200, 90);
+  text("HIGHSCORES", 125, height / 6);
+  text("Naam ", 125, height / 4);
+  text("Tijd", 265, height / 4);
+  text("Score", 330, height / 4);
   
   String[] namen = loadStrings("highscores.txt");
   namen = sorteerHighscores(namen);
@@ -56,9 +56,9 @@ void maakHighscoreLijst() {
     String[] line = split(namen[i], ',');
 
     if(line.length > 1) {
-      text(""+(i + 1) + ": " + line[0], 25, 115 + 20 * i);    
-      text(line[2], 135, 115 + 20 * i);
-      text(line[1], 200, 115 + 20 * i);
+      text(""+(i + 1) + ": " + line[0], 125, height / 3 + 20 * i);    
+      text(line[2], 265, height / 3 + 20 * i);
+      text(line[1], 330, height / 3 + 20 * i);
     }
   }
 }
@@ -70,7 +70,6 @@ void verwijderHighscores() {
   saveStrings("data/highscores.txt", namen);
 }
 
-//TODO voeg moeilijkheisgraad toe??
 //highscore enkel opslaan als de top 10 behaald is?
 //highscore op het eind tonen ipv beginscherm?
 //realtime naam invoeren in highscore array?

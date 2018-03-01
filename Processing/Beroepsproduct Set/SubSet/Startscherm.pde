@@ -4,9 +4,8 @@ void startScherm() {
   
   textFont(createFont("Verdana Bold", 12));
   
-  maakHighscoreLijst();
-  image(img, 260, 60, 325, 235);
-
+  //maakHighscoreLijst();
+  image(img, 100, 20, 425, 300);
   
   fill(zwart);
   stroke(wit, 150);

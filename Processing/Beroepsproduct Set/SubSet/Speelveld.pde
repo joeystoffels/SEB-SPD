@@ -1,5 +1,5 @@
 // Functie om het speelveld (array) te initialiseren.
-void maakSpeelVeld() {  
+void maakSpeelveld() {  
   if(speelVeld[0][0] == null) {
     for (int x=0; x < xVelden; x++) {
       for (int y=0; y < yVelden; y++) {
@@ -54,7 +54,7 @@ void voegKaartenToe() {
     
     speelVeld = nieuwSpeelVeld;
     speelVeldKleur = nieuwSpeelVeldKleur;  
-    maakSpeelVeld();
+    maakSpeelveld();
     aantalSetsSpeelveld();
     voegXVeldToe = true;
   }
@@ -130,4 +130,21 @@ void aantalSetsSpeelveld() {
   for ( String[] set : setList ) {    
     println(set);
   }
+}
+
+
+// Functie om de speelveldlijnen te tekenen.
+void tekenSpeelveldLijnen() {    
+  stroke(wit, 150);
+
+  for (int x = 1; x < yVelden; x++) {
+    line(0, (height - hoogteScorebord)/yVelden * x, width, (height - hoogteScorebord)/yVelden * x);
+  }
+
+  for (int y = 1; y < xVelden; y++) {
+    line(width/xVelden * y, 0, width/xVelden * y, height - hoogteScorebord);
+  }  
+
+  // Laatste lijn van het speelveld, begin van het scorebord.
+  line(0, height - hoogteScorebord, width, height - hoogteScorebord);
 }

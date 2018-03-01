@@ -30,44 +30,36 @@ void mousePressed() {
   int xVeld = mouseX / (width/xVelden);
   int yVeld = mouseY / ((height - hoogteScorebord)/yVelden);
 
-  //println("CLICKED " + mouseX, mouseY);
-  //println(((width / 8) * 4), (width / 6) + (width / 8) * 4);
-  //println((height - (hoogteScorebord / 5)), (height - (hoogteScorebord / 5))-(hoogteScorebord / 5));  
-  //println(mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4));
-  //print(mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5));
+  println("CLICKED " + mouseX, mouseY);
 
   // return indien er buiten het speelveld geklikt is.
   if (mouseY >= height - hoogteScorebord) {
     
     if (mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4) && 
       mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
-      fill(wit);  
-      rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
-      
+      //fill(wit);  
+      //rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));        
       geefHint();
     }
     
-    
    if (mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4) && 
       mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
-      fill(wit);  
-      rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
+      //fill(wit);  
+      //rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
       herstart();
     }
    
     if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
       mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
-      fill(wit);  
-      rect((width / 8) * 6, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
-      
+      //fill(wit);  
+      //rect((width / 8) * 6, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));        
       voegKaartenToe();
     } 
     
     if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
       mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
-      fill(wit);  
-      rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));      
-      
+      //fill(wit);  
+      //rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));        
       startSchermActive = true;
       herstart();
     } 
@@ -92,5 +84,32 @@ void mousePressed() {
         controleerSet();
       }
     }
+  }
+}
+
+
+// Toetsenbord acties, gebruikt voor het invoeren van de naam van de speler aan het eind van het spel.
+void keyPressed() { 
+  if (spelAfgelopen){
+    if (key==BACKSPACE) { 
+      if (naam.length() > 0) {
+        setNaam(naam.substring(0, naam.length() -1));
+      } else {
+        return; // Als naam al 0 lengte heeft dan niks doen.
+      }
+    } else if (key==ENTER) {
+      if (!scoreOpgeslagen) {
+        opslaanHighscore();
+        scoreOpgeslagen = true;
+      }
+    } else if (key==CODED){
+      if (keyCode==SHIFT){
+        return;
+      }
+    } else {
+      setNaam(naam + key);
+    }
+  } else {
+    return; // Niks doen wanneer het spel nog niet klaar is
   }
 }

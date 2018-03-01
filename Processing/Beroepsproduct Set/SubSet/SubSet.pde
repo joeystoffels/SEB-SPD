@@ -9,9 +9,7 @@ void setup() {
   background(zwart);  
   img = loadImage("data/set.png");
   startScherm();  
-  if (startSchermActive) {
-      surface.setSize(600, 500);
-  }
+  surface.setSize(600, 500);
 }
 
 
@@ -26,7 +24,7 @@ void setupSpel() {
   fontVerdanaBoldGroot = createFont("Verdana Bold", hoogteScorebord / 7);
   fontVerdanaBoldKlein = createFont("Verdana Bold", hoogteScorebord / 8);
   maakKaartenInSpel(aantalVariaties);
-  maakSpeelVeld();    
+  maakSpeelveld();    
   aantalSetsSpeelveld();
   restartTijd = millis() / 1000.0;
 }
@@ -82,6 +80,6 @@ void herstart() {
   kleinGridBreedte = width / (xVelden * 8);
   kleinGridHoogte = (height - hoogteScorebord) / (yVelden * 8);
   maakKaartenInSpel(aantalVariaties);
-  maakSpeelVeld();    
+  maakSpeelveld();    
   aantalSetsSpeelveld();  
 }

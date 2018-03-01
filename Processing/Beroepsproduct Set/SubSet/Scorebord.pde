@@ -1,4 +1,4 @@
-// Aanmaken van het scorebord, de hoogte hiervan staat vast op 15% van de hoogte.
+// Aanmaken van het scorebord, de hoogte hiervan staat vast op 15% van de hoogte en de positie is onder het speelveld.
 // TODO refactoren
 void maakScorebord() {
   // Achtergrond verversen
@@ -20,7 +20,7 @@ void maakScorebord() {
   text(aantalSetsSpeelveld, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 1);
   
   // Knoppen toevoegen.
-  // TODO text centreren in knop
+  // TODO text centreren in knop(?)
   fill(zwart);
   rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
   rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
@@ -33,21 +33,4 @@ void maakScorebord() {
   text("Opnieuw", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);
   text("Beginscherm", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 3.25);
   text("Voeg " + yVelden + " toe", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 1.25);
-}
-
-
-// Functie om de speelveldlijnen te tekenen.
-void tekenSpeelveldLijnen() {    
-  stroke(wit, 150);
-
-  for (int x = 1; x < yVelden; x++) {
-    line(0, (height - hoogteScorebord)/yVelden * x, width, (height - hoogteScorebord)/yVelden * x);
-  }
-
-  for (int y = 1; y < xVelden; y++) {
-    line(width/xVelden * y, 0, width/xVelden * y, height - hoogteScorebord);
-  }  
-
-  // Laatste lijn van het speelveld, begin van het scorebord.
-  line(0, height - hoogteScorebord, width, height - hoogteScorebord);
 }
