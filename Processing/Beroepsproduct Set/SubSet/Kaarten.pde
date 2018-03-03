@@ -8,7 +8,7 @@ String pakKaart() {
     kaartenInSpel.remove(random);  
     return kaart;
   } else {
-    return standaardKaart; // return standaard zodat er geen nieuwe figuur gemaakt wordt
+    return legeKaart; // return standaard zodat er geen nieuwe figuur gemaakt wordt
   }
 };
 

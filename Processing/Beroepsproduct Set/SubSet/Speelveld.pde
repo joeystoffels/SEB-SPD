@@ -9,7 +9,7 @@ void maakSpeelveld() {
   } else {
     for (int x=0; x < xVelden; x++) {
       for (int y=0; y < yVelden; y++) {
-        if (speelVeld[x][y].equals(standaardKaart)){
+        if (speelVeld[x][y].equals(legeKaart)){
           speelVeld[x][y] = pakKaart();
         }
       }

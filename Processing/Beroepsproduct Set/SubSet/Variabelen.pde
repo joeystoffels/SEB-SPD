@@ -2,8 +2,8 @@
 int kaartBreedte = 250;
 int kaartHoogte = 200;
 
-// Standaard kaart; laat leeg vlak zien.
-String standaardKaart = "0000";
+// Standaard lege kaart; laat een leeg vlak zien.
+String legeKaart = "0000";
 
 // kleurcodes RGB
 final color rood = color(255, 50, 50);

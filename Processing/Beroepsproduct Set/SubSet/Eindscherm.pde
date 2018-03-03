@@ -3,7 +3,7 @@ void eindeSpel() {
   if(!spelAfgelopen) {
     for (int x = 0 ; x < xVelden ; x++) {
       for (int y = 0 ; y < yVelden ; y++) {
-        if (speelVeld[x][y] != standaardKaart){
+        if (speelVeld[x][y] != legeKaart){
           aantalKaartenOpSpeelveld++;
         }
       }

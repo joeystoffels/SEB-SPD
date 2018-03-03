@@ -64,7 +64,7 @@ void selecteerKaart() {
 
   String kaart = speelVeld[xVeld][yVeld]; 
 
-  if (kaart == standaardKaart) {
+  if (kaart == legeKaart) {
     return;
   }
 
@@ -166,7 +166,7 @@ void voegKaartenToe() {
     for(int x = 0 ; x < xVelden ; x++){
       for(int y = 0 ; y < yVelden ; y++) {
         if(nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
-          nieuwSpeelVeld[x][y] = standaardKaart;
+          nieuwSpeelVeld[x][y] = legeKaart;
           nieuwSpeelVeldKleur[x][y] = zwart;
         }
       }
@@ -215,7 +215,7 @@ boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
   boolean testChar3 = aantalVariaties != 4;  
   
   for (int charToTest = 0; charToTest < aantalVariaties ; charToTest++) {
-    if (!(kaartEen == standaardKaart || kaartTwee == standaardKaart || kaartDrie == standaardKaart)) {
+    if (!(kaartEen == legeKaart || kaartTwee == legeKaart || kaartDrie == legeKaart)) {
       if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) == kaartDrie.charAt(charToTest))  || 
         (kaartEen.charAt(charToTest) != kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) != kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) != kaartDrie.charAt(charToTest))) {
         //println(kaartEen, kaartTwee, kaartDrie, charToCheck, aantalSetsSpeelveld); 
