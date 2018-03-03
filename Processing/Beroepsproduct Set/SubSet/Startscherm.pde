@@ -7,27 +7,27 @@ void startScherm() {
 
 
 void tekenKnoppenStartScherm() {
+  tekenKnopStartScherm(7);
+  tekenKnopStartScherm(7.75);
+  tekenKnopStartScherm(9);  
+
+  tekenTextInKnopStartScherm("SubSet - 3 variaties", 7);
+  tekenTextInKnopStartScherm("Set - 4 variaties", 7.75);
+  tekenTextInKnopStartScherm("Highscores verwijderen", 9);    
+}
+
+
+void tekenKnopStartScherm(float gridPosHoogte) {
   fill(zwart);
   stroke(wit, 150);
-  tekenKnop(7);
-  tekenKnop(7.75);
-  tekenKnop(9);
-  
+  rect(width / 4 * 1, height / 10 * gridPosHoogte, width / 2, 25);  
+}
+
+
+void tekenTextInKnopStartScherm(String text, float gridPosHoogte) {
   fill(wit);
   textFont(verdanaBold(15));
   textAlign(CENTER);
-  tekenTextInKnop("SubSet - 3 variaties", 7);
-  tekenTextInKnop("Set - 4 variaties", 7.75);
-  tekenTextInKnop("Highscores verwijderen", 9);  
+  text(text, width / 2, height / 10 * gridPosHoogte + 19);
   textAlign(LEFT);
-}
-
-
-void tekenKnop(float gridPosHoogte) {
-  rect(width / 4 * 1, height / 10 * gridPosHoogte, width / 2, 25);
-}
-
-
-void tekenTextInKnop(String text, float gridPosHoogte) {
-    text(text, width / 2, height / 10 * gridPosHoogte + 19);
 }

@@ -172,7 +172,7 @@ void voegKaartenToe() {
     for(int x = 0 ; x < xVelden ; x++){
       for(int y = 0 ; y < yVelden ; y++) {
         if(nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
-          nieuwSpeelVeld[x][y] = "0000";
+          nieuwSpeelVeld[x][y] = standaardKaart;
           nieuwSpeelVeldKleur[x][y] = zwart;
         }
       }

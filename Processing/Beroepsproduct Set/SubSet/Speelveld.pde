@@ -43,6 +43,7 @@ void verwijderKaart(String kaart) {
 // Functie om het aantal sets op het speelveld te tellen.
 void aantalSetsSpeelveld() {  
   setsLijst.clear();
+  aantalSetsSpeelveld = 0;  
   
   String[][] arrayEen = speelVeld;
   String[][] arrayTwee = speelVeld;
@@ -60,7 +61,7 @@ void aantalSetsSpeelveld() {
               String kaartTwee = arrayTwee[c][d];
               String kaartDrie = arrayDrie[e][f];
               
-              // Aanmaken gesorteerde temp array om te vergelijken met de arrays in de setsLijst.
+              // Aanmaken gesorteerde setKaarten array om te vergelijken met de sets in de setsLijst.
               String[] setKaarten = {kaartEen, kaartTwee, kaartDrie};              
               java.util.Arrays.sort(setKaarten);
 
@@ -109,13 +110,13 @@ void tekenSpeelveldLijnen() {
   stroke(wit, 150);
 
   for (int x = 1; x < yVelden; x++) {
-    line(0, (height - hoogteScorebord)/yVelden * x, width, (height - hoogteScorebord)/yVelden * x);
+    line(0, hoogteSpeelveld / yVelden * x, width, hoogteSpeelveld / yVelden * x);
   }
 
   for (int y = 1; y < xVelden; y++) {
-    line(width/xVelden * y, 0, width/xVelden * y, height - hoogteScorebord);
+    line(width / xVelden * y, 0, width / xVelden * y, hoogteSpeelveld);
   }  
 
   // Laatste lijn van het speelveld, begin van het scorebord.
-  line(0, height - hoogteScorebord, width, height - hoogteScorebord);
+  line(0, hoogteSpeelveld, width, hoogteSpeelveld);
 }

@@ -1,36 +1,69 @@
 // Aanmaken van het scorebord, de hoogte hiervan staat vast op 15% van de hoogte en de positie is onder het speelveld.
 // TODO refactoren
-void maakScorebord() {
-  // Achtergrond verversen
+void maakScorebord() {  
+  setAchtergrondScorebord();  
+  tekenInfoTextScorebord();  
+  tekenKnoppenScorebord();
+}
+
+
+// Achtergrond verversen van enkel het scorebord
+void setAchtergrondScorebord() {
   fill(zwart);
   rect(0, height, width, - hoogteScorebord);
+}
 
-  // Score weergeven, dubbele text velden voor betere allignment.
+
+// Info teksten toevoegen.
+void tekenInfoTextScorebord() {
+  tekenTextInKnopScorebord(""+aantalSetsSpeelveld, 1);
+  tekenTextInKnopScorebord(""+kaartenInSpel.size(), 3);
+  tekenTextInKnopScorebord(""+int(tijd), 5);
+  tekenTextInKnopScorebord(nf(scoreSpelerEen), 7);
+  
+  tekenSpelInfoText("Aantal sets: ", 1);
+  tekenSpelInfoText("Kaarten over: ", 3);
+  tekenSpelInfoText("Tijd: ", 5);
+  tekenSpelInfoText("Score: ", 7);
+}
+
+
+// Knoppen toevoegen.
+void tekenKnoppenScorebord() {
+  tekenTextInKnopScorebord("Hint", 4.1, 1.25);
+  tekenTextInKnopScorebord("Opnieuw", 4.1, 3.25);
+  tekenTextInKnopScorebord("Voeg " + yVelden + " toe", 6.1, 1.25);
+  tekenTextInKnopScorebord("Beginscherm", 6.1, 3.25);
+        
+  tekenKnopScorebord(4, 1);
+  tekenKnopScorebord(4, 3);  
+  tekenKnopScorebord(6, 1);  
+  tekenKnopScorebord(6, 3);
+}
+
+
+void tekenKnopScorebord(float gridPosBreedte, float gridPosHoogte) {
+  fill(zwart);
+  rect((width / 8) * gridPosBreedte, height - (hoogteScorebord / 5) * gridPosHoogte, width / 6, - (hoogteScorebord / 5));  
+}
+
+
+void tekenTextInKnopScorebord(String text, float gridPosBreedte, float gridPosHoogte) {
+  fill(wit);
+  textFont(verdanaBold(hoogteScorebord / 8)); 
+  text(text, (width / 8) * gridPosBreedte, height - (hoogteScorebord / 5) * gridPosHoogte);
+}
+
+
+void tekenTextInKnopScorebord(String text, float gridPosHoogte) {
   fill(wit, 225);
   textFont(verdanaBold(hoogteScorebord / 7)); 
-  
-  text("Score: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 7); 
-  text("Tijd: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 5);  
-  text("Kaarten over: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 3);
-  text("Aantal sets: ", 0 + (width * 0.05), height - (hoogteScorebord / 9) * 1);
+  text(text,   0 + (width * 0.3), height - (hoogteScorebord / 9) * gridPosHoogte); 
+}
 
-  text(nf(scoreSpelerEen), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 7); 
-  text(""+int(tijd), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 5);  
-  text(kaartenInSpel.size(), 0 + (width * 0.3), height - (hoogteScorebord / 9) * 3);
-  text(aantalSetsSpeelveld, 0 + (width * 0.3), height - (hoogteScorebord / 9) * 1);
-  
-  // Knoppen toevoegen.
-  // TODO text centreren in knop(?)
-  fill(zwart);
-  rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
-  rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
-  rect((width / 8) * 6, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));  
-  rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));
-  
-  textFont(verdanaBold(hoogteScorebord / 8)); 
-  fill(wit);
-  text("Hint", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 1.25);
-  text("Opnieuw", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);
-  text("Beginscherm", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 3.25);
-  text("Voeg " + yVelden + " toe", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 1.25);
+
+void tekenSpelInfoText(String text, float gridPosHoogte) {
+  fill(wit, 225);
+  textFont(verdanaBold(hoogteScorebord / 7)); 
+  text(text, 0 + (width * 0.05), height - (hoogteScorebord / 9) * gridPosHoogte); 
 }

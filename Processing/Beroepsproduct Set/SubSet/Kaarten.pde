@@ -25,8 +25,8 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
   int vulling = (vullingChar == 'l' ? 0 : (vullingChar == 'h' ? 100 : 255));
   String figuur = (figuurChar == 'r' ? "rechthoek" : (figuurChar == 'e' ? "ellipse" : "driehoek"));
 
-  final float xGridOffset = xPositie*(width/xVelden);
-  final float yGridOffset = yPositie*((height - hoogteScorebord)/yVelden);
+  final float xGridOffset = xPositie * (width / xVelden);
+  final float yGridOffset = yPositie * (hoogteSpeelveld / yVelden);
 
   //Configuratie waarden voor de diverse figuren
   final float[][] ellipseConfig = { {4.0, 0, 0}, {3.0, 0, 0}, {5.0, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {6.0, 0, 0} };
@@ -70,7 +70,7 @@ void kleurAchtergrondKaarten() {
   for (int x = 0; x < xVelden; x++) {
     for (int y = 0; y < yVelden; y++) {
       fill(speelVeldKleur[x][y]);
-      rect((width/xVelden) * x, ((height - hoogteScorebord)/yVelden) * y, width/xVelden, (height - hoogteScorebord)/yVelden);
+      rect((width / xVelden) * x, (hoogteSpeelveld / yVelden) * y, width / xVelden, hoogteSpeelveld / yVelden);
     }
   }
 }

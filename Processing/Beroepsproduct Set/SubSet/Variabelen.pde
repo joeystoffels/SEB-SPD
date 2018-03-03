@@ -18,6 +18,7 @@ PImage img;
 // height - hoogteScorebord als variabele declareren?
 
 int hoogteScorebord;
+int hoogteSpeelveld;
 
 // ArrayList ipv. array voor het makkelijk deleten van Strings.
 // Bevat alle mogelijke kaarten, '1drv' betekent bijv. 1 driehoek rood vol.                    

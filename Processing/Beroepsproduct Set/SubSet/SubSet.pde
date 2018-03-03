@@ -25,6 +25,7 @@ void setupSpel() {
   //fullScreen();
   kaartBreedte = width / xVelden;
   hoogteScorebord = int(height * 0.15) > 100 ? int(height * 0.15) : 100; // min hoogte 100px
+  hoogteSpeelveld = height - hoogteScorebord;
   kleinGridBreedte = width / (xVelden * 8);
   kleinGridHoogte = (height - hoogteScorebord) / (yVelden * 8);
   maakKaartenStapel(aantalVariaties);
@@ -80,7 +81,6 @@ void herstart() {
   speelVeld = new String[xVelden][yVelden];
   speelVeldKleur = new color[xVelden][yVelden];
   scoreSpelerEen = 0;
-  aantalSetsSpeelveld = 0;  
   background(zwart);  
   surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte);   
   hoogteScorebord = int(height * 0.15) > 100 ? int(height * 0.15) : 100; // min hoogte 100px //TODO in functie zetten
