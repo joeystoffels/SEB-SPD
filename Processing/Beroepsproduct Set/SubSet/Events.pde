@@ -30,41 +30,35 @@ void mousePressed() {
   if (mouseY >= height - hoogteScorebord) {
     
     if (mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4) && 
-      mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
-      //fill(wit);  
-      //rect((width / 8) * 4, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));        
+      mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){ 
       geefHint();
     }
     
    if (mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4) && 
       mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
-      //fill(wit);  
-      //rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
       herstart();
     }
    
     if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
       mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
-      //fill(wit);  
-      //rect((width / 8) * 6, height - (hoogteScorebord / 5), width / 6, - (hoogteScorebord / 5));        
       voegKaartenToe();
     } 
     
     if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
       mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
-      //fill(wit);  
-      //rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));        
       startSchermActive = true;
       herstart();
     } 
     return;
   }  
+  
+  // Wanneer er niet op het scorebord is geklikt wanneer het startscherm niet actief is, is er op een kaart geklikt.
   selecteerKaart();
 }
 
 void selecteerKaart() {
-  int xVeld = mouseX / (width/xVelden);
-  int yVeld = mouseY / ((height - hoogteScorebord)/yVelden);
+  int xVeld = mouseX / (width / xVelden);
+  int yVeld = mouseY / (hoogteSpeelveld / yVelden);
 
   println("CLICKED " + mouseX, mouseY);
 
@@ -82,7 +76,7 @@ void selecteerKaart() {
       geselecteerdeKaarten.add(speelVeld[xVeld][yVeld]);
       speelVeldKleur[xVeld][yVeld] = color(wit, 125);
       if (geselecteerdeKaarten.size() == 3) { 
-        controleerSet();
+        verifieerSet();
       }
     }
   }
@@ -93,7 +87,7 @@ void selecteerKaart() {
 void keyPressed() { 
   if (key==CODED){
     if (keyCode==KeyEvent.VK_F12) {
-      println("TEST F12");
+      println("F12 Pressed");
       startSchermActive = false;
       spelAfgelopen = true;
       aantalKaartenOpSpeelveld = 0;
@@ -188,42 +182,49 @@ void voegKaartenToe() {
 
 
 // Functie om een set te checken.
-void controleerSet() {    
+void verifieerSet() {    
   String kaartEen = geselecteerdeKaarten.get(0);
   String kaartTwee = geselecteerdeKaarten.get(1);
   String kaartDrie = geselecteerdeKaarten.get(2);
 
-  if (verifieerSet(kaartEen, kaartTwee, kaartDrie, 0) &&
-    verifieerSet(kaartEen, kaartTwee, kaartDrie, 1) &&
-    verifieerSet(kaartEen, kaartTwee, kaartDrie, 2) && 
-    verifieerSet(kaartEen, kaartTwee, kaartDrie, 3)) {
-    println("SET: " + kaartEen + " " + kaartTwee + " " + kaartDrie);
+  if (isSet(kaartEen, kaartTwee, kaartDrie)) {
+    println("SET gevonden: " + kaartEen + " " + kaartTwee + " " + kaartDrie);
     scoreSpelerEen++;
-    verwijderKaart(kaartEen);
-    verwijderKaart(kaartTwee);
-    verwijderKaart(kaartDrie);
-    geselecteerdeKaarten.removeAll(geselecteerdeKaarten);  
-    aantalSetsSpeelveld = 0; // reset aantal sets wanneer er een set gevonden is.
+    verwijderKaarten(geselecteerdeKaarten);
     aantalSetsSpeelveld(); // tel opnieuw het aantal sets op het huidige speelveld.    
+    resetSpeelveldAchtergrond();
+  }
+}
 
-    // Reset alle kaart achtergrond kleuren.
-    for (int x = 0; x < xVelden; x++) {
-      for (int y = 0; y < yVelden; y++) {
-        speelVeldKleur[x][y] = zwart;
-      }
+
+// Reset alle kaart-achtergronden van de kaarten op het speelveld.
+void resetSpeelveldAchtergrond() {     
+  for (int x = 0; x < xVelden; x++) {
+    for (int y = 0; y < yVelden; y++) {
+      speelVeldKleur[x][y] = zwart;
     }
   }
 }
 
 
-// Generieke helper functie voor het verifieren van een set.
-boolean verifieerSet(String kaartEen, String kaartTwee, String kaartDrie, int charToCheck) {
-  if (!(kaartEen == standaardKaart || kaartTwee == standaardKaart || kaartDrie == standaardKaart)) {
-    if ((kaartEen.charAt(charToCheck) == kaartTwee.charAt(charToCheck) && kaartTwee.charAt(charToCheck) == kaartDrie.charAt(charToCheck) && kaartEen.charAt(charToCheck) == kaartDrie.charAt(charToCheck))  || 
-      (kaartEen.charAt(charToCheck) != kaartTwee.charAt(charToCheck) && kaartTwee.charAt(charToCheck) != kaartDrie.charAt(charToCheck) && kaartEen.charAt(charToCheck) != kaartDrie.charAt(charToCheck))) {
-      //println(kaartEen, kaartTwee, kaartDrie, charToCheck, aantalSetsSpeelveld); 
-      return true;
+// Generieke functie voor het verifieren van een set.
+boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
+  boolean testChar0 = false;
+  boolean testChar1 = false;
+  boolean testChar2 = false;
+  boolean testChar3 = aantalVariaties != 4;  
+  
+  for (int charToTest = 0; charToTest < aantalVariaties ; charToTest++) {
+    if (!(kaartEen == standaardKaart || kaartTwee == standaardKaart || kaartDrie == standaardKaart)) {
+      if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) == kaartDrie.charAt(charToTest))  || 
+        (kaartEen.charAt(charToTest) != kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) != kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) != kaartDrie.charAt(charToTest))) {
+        //println(kaartEen, kaartTwee, kaartDrie, charToCheck, aantalSetsSpeelveld); 
+        if (charToTest == 0) testChar0 = true;
+        if (charToTest == 1) testChar1 = true;
+        if (charToTest == 2) testChar2 = true;
+        if (charToTest == 3) testChar3 = true;
+      }
     }
   }
-  return false;
+  return (testChar0 && testChar1 && testChar2 && testChar3);
 }

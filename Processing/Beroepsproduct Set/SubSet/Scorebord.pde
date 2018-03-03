@@ -16,29 +16,29 @@ void setAchtergrondScorebord() {
 
 // Info teksten toevoegen.
 void tekenInfoTextScorebord() {
-  tekenTextInKnopScorebord(""+aantalSetsSpeelveld, 1);
-  tekenTextInKnopScorebord(""+kaartenInSpel.size(), 3);
-  tekenTextInKnopScorebord(""+int(tijd), 5);
-  tekenTextInKnopScorebord(nf(scoreSpelerEen), 7);
+  tekenSpelInfoTextWaarde(""+aantalSetsSpeelveld, 1);
+  tekenSpelInfoTextWaarde(""+kaartenInSpel.size(), 3);
+  tekenSpelInfoTextWaarde(""+int(tijd), 5);
+  tekenSpelInfoTextWaarde(nf(scoreSpelerEen), 7);
   
-  tekenSpelInfoText("Aantal sets: ", 1);
-  tekenSpelInfoText("Kaarten over: ", 3);
-  tekenSpelInfoText("Tijd: ", 5);
-  tekenSpelInfoText("Score: ", 7);
+  tekenSpelInfoTextTitel("Aantal sets: ", 1);
+  tekenSpelInfoTextTitel("Kaarten over: ", 3);
+  tekenSpelInfoTextTitel("Tijd: ", 5);
+  tekenSpelInfoTextTitel("Score: ", 7);
 }
 
 
 // Knoppen toevoegen.
 void tekenKnoppenScorebord() {
-  tekenTextInKnopScorebord("Hint", 4.1, 1.25);
-  tekenTextInKnopScorebord("Opnieuw", 4.1, 3.25);
-  tekenTextInKnopScorebord("Voeg " + yVelden + " toe", 6.1, 1.25);
-  tekenTextInKnopScorebord("Beginscherm", 6.1, 3.25);
-        
   tekenKnopScorebord(4, 1);
   tekenKnopScorebord(4, 3);  
   tekenKnopScorebord(6, 1);  
   tekenKnopScorebord(6, 3);
+  
+  tekenTextInKnopScorebord("Hint", 4.1, 1.25);
+  tekenTextInKnopScorebord("Opnieuw", 4.1, 3.25);
+  tekenTextInKnopScorebord("Voeg " + yVelden + " toe", 6.1, 1.25);
+  tekenTextInKnopScorebord("Beginscherm", 6.1, 3.25);
 }
 
 
@@ -55,14 +55,14 @@ void tekenTextInKnopScorebord(String text, float gridPosBreedte, float gridPosHo
 }
 
 
-void tekenTextInKnopScorebord(String text, float gridPosHoogte) {
+void tekenSpelInfoTextWaarde(String text, float gridPosHoogte) {
   fill(wit, 225);
   textFont(verdanaBold(hoogteScorebord / 7)); 
   text(text,   0 + (width * 0.3), height - (hoogteScorebord / 9) * gridPosHoogte); 
 }
 
 
-void tekenSpelInfoText(String text, float gridPosHoogte) {
+void tekenSpelInfoTextTitel(String text, float gridPosHoogte) {
   fill(wit, 225);
   textFont(verdanaBold(hoogteScorebord / 7)); 
   text(text, 0 + (width * 0.05), height - (hoogteScorebord / 9) * gridPosHoogte); 

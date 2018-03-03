@@ -11,10 +11,11 @@ void opslaanHighscore(){
   highscoresNew = sorteerHighscores(highscoresNew);
   
   saveStrings("data/highscores.txt", highscoresNew);
+  println("Highscore opgeslagen!");
 }
 
 
-// Hulp functie om de highscore lijst te sorteren op Tijd en daarna Score.s
+// Hulp functie om de highscore lijst te sorteren op tijd en daarna op score.
 String[] sorteerHighscores(String[] array) {
   for (int x = 0 ; x < array.length ; x++) {
     for (int i = 0 ; i < array.length - 1; i++) {
@@ -68,6 +69,7 @@ void maakHighscoreLijst() {
 void verwijderHighscores() {
   String[] namen = new String[0];
   saveStrings("data/highscores.txt", namen);
+  println("Highscores verwijderd!");
 }
 
 //highscore enkel opslaan als de top 10 behaald is?

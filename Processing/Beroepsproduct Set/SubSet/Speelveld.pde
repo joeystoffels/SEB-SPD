@@ -29,14 +29,17 @@ void vulSpeelveld() {
 
 
 // Verwijdert de kaart van het huidige speelveld.
-void verwijderKaart(String kaart) {
-  for (int x = 0; x < xVelden; x++) {
-    for (int y = 0; y < yVelden; y++) {      
-      if (speelVeld[x][y] == kaart) {
-        speelVeld[x][y] = pakKaart();
+void verwijderKaarten(ArrayList<String> kaarten) {
+  for (String kaart : kaarten) {
+    for (int x = 0; x < xVelden; x++) {
+      for (int y = 0; y < yVelden; y++) {      
+        if (speelVeld[x][y] == kaart) {
+          speelVeld[x][y] = pakKaart();
+        }
       }
     }
   }
+  geselecteerdeKaarten.removeAll(geselecteerdeKaarten);
 }
 
 
@@ -69,10 +72,7 @@ void aantalSetsSpeelveld() {
 
               // Check of de 3 kaarten een set zijn, zo ja, verhoog het aantalSetsSpeelveld en voeg de set toe aan de setsLijst.
               if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie)) && isSetInSetsLijst) {
-                if (verifieerSet(kaartEen, kaartTwee, kaartDrie, 0) &&
-                  verifieerSet(kaartEen, kaartTwee, kaartDrie, 1) &&
-                  verifieerSet(kaartEen, kaartTwee, kaartDrie, 2) && 
-                  (aantalVariaties == 4 ? verifieerSet(kaartEen, kaartTwee, kaartDrie, 3) : true)) {
+                if (isSet(kaartEen, kaartTwee, kaartDrie)) {
                   aantalSetsSpeelveld++;                  
                   setsLijst.add(setKaarten);
                 }
