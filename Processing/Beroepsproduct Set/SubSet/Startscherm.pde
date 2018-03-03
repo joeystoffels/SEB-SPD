@@ -1,6 +1,5 @@
 //Functie om het startscherm weer te geven.
-void startScherm() {
-  background(zwart);
+void startScherm() {  
   image(img, width * 0.15, height * 0.02, width * 0.75, height * 0.6);
   tekenKnoppenStartScherm();
 }

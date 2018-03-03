@@ -1,9 +1,9 @@
 // Grootte v/d kaarten in pixels.
-int kaartBreedte = 250;
+int kaartBreedte;
 int kaartHoogte = 200;
 
 // Standaard lege kaart; laat een leeg vlak zien.
-String legeKaart = "0000";
+final String legeKaart = "0000";
 
 // kleurcodes RGB
 final color rood = color(255, 50, 50);
@@ -20,8 +20,9 @@ final float[][] driehoekConfig = { {4.75, 3.25, 4.75}, {3.75, 2.25, 3.75}, {5.75
 // Startscherm image, wordt in setup geinitialiseerd.
 PImage img;
 
-// height - hoogteScorebord als variabele declareren?
 
+
+// Worden in setupSpel() geinitialiseerd.
 int hoogteScorebord;
 int hoogteSpeelveld;
 

@@ -150,8 +150,6 @@ void voegKaartenToe() {
   if(!voegXVeldToe){
     xVelden++;
     surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
-    //kaartBreedte = width / xVelden;
-    //kleinGridBreedte = width / (xVelden * 8);
     
     String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
     color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
