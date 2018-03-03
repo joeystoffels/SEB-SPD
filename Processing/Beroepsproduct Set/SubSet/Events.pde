@@ -22,15 +22,9 @@ void mousePressed() {
     if ((mouseX > 150 && mouseX < 450) && 
         mouseY > 450 && mouseY < 475) {
       verwijderHighscores();
-    }      
-     
+    }          
     return;
   }
-  
-  int xVeld = mouseX / (width/xVelden);
-  int yVeld = mouseY / ((height - hoogteScorebord)/yVelden);
-
-  println("CLICKED " + mouseX, mouseY);
 
   // return indien er buiten het speelveld geklikt is.
   if (mouseY >= height - hoogteScorebord) {
@@ -63,9 +57,16 @@ void mousePressed() {
       startSchermActive = true;
       herstart();
     } 
-    
     return;
-  }
+  }  
+  selecteerKaart();
+}
+
+void selecteerKaart() {
+  int xVeld = mouseX / (width/xVelden);
+  int yVeld = mouseY / ((height - hoogteScorebord)/yVelden);
+
+  println("CLICKED " + mouseX, mouseY);
 
   String kaart = speelVeld[xVeld][yVeld]; 
 
@@ -90,6 +91,15 @@ void mousePressed() {
 
 // Toetsenbord acties, gebruikt voor het invoeren van de naam van de speler aan het eind van het spel.
 void keyPressed() { 
+  if (key==CODED){
+    if (keyCode==KeyEvent.VK_F12) {
+      println("TEST F12");
+      startSchermActive = false;
+      spelAfgelopen = true;
+      aantalKaartenOpSpeelveld = 0;
+      aantalSetsSpeelveld = 0;
+    }
+  }
   if (spelAfgelopen){
     if (key==BACKSPACE) { 
       if (naam.length() > 0) {
@@ -112,4 +122,108 @@ void keyPressed() {
   } else {
     return; // Niks doen wanneer het spel nog niet klaar is
   }
+
+}
+
+
+// Functie om een hint te geven door 2 kaarten een andere (random) achtergrondkleur te geven.
+void geefHint() {   
+  if (aantalSetsSpeelveld == 0) {
+    return; // Als er geen sets zijn is er geen hint.
+  }
+  
+   String[] set = setsLijst.get(int(random(0, setsLijst.size())));
+   
+   int counter = 0;
+   color randomKleurRood = int(random(0, 255));
+   color randomKleurGeel = int(random(0, 255));
+   color randomKleurBlauw = int(random(0, 255));
+   
+   for(int x = 0 ; x < speelVeldKleur.length ; x++) {
+     for(int y = 0 ; y < speelVeldKleur[x].length ; y++){
+       if(java.util.Arrays.asList(set).contains(speelVeld[x][y]) && counter < 2) {         
+         speelVeldKleur[x][y] = color(randomKleurRood, randomKleurGeel, randomKleurBlauw, 125);
+         counter++;
+       }       
+     }
+   }    
+   scoreSpelerEen = scoreSpelerEen - 0.5;
+}
+
+
+// Functie om een extra kolom kaarten toe te voegen aan het huidige speelveld.
+void voegKaartenToe() {
+  if(!voegXVeldToe){
+    xVelden++;
+    surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
+    //kaartBreedte = width / xVelden;
+    //kleinGridBreedte = width / (xVelden * 8);
+    
+    String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
+    color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
+    
+    for(int x = 0 ; x < xVelden-1 ; x++){
+      for(int y = 0 ; y < yVelden ; y++) {
+        nieuwSpeelVeld[x][y] = speelVeld[x][y];
+        nieuwSpeelVeldKleur[x][y] = speelVeldKleur[x][y];    
+      }
+    }
+    
+    for(int x = 0 ; x < xVelden ; x++){
+      for(int y = 0 ; y < yVelden ; y++) {
+        if(nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
+          nieuwSpeelVeld[x][y] = "0000";
+          nieuwSpeelVeldKleur[x][y] = zwart;
+        }
+      }
+    }
+    
+    speelVeld = nieuwSpeelVeld;
+    speelVeldKleur = nieuwSpeelVeldKleur;  
+    maakSpeelveld();
+    aantalSetsSpeelveld();
+    voegXVeldToe = true;
+  }
+}
+
+
+// Functie om een set te checken.
+void controleerSet() {    
+  String kaartEen = geselecteerdeKaarten.get(0);
+  String kaartTwee = geselecteerdeKaarten.get(1);
+  String kaartDrie = geselecteerdeKaarten.get(2);
+
+  if (verifieerSet(kaartEen, kaartTwee, kaartDrie, 0) &&
+    verifieerSet(kaartEen, kaartTwee, kaartDrie, 1) &&
+    verifieerSet(kaartEen, kaartTwee, kaartDrie, 2) && 
+    verifieerSet(kaartEen, kaartTwee, kaartDrie, 3)) {
+    println("SET: " + kaartEen + " " + kaartTwee + " " + kaartDrie);
+    scoreSpelerEen++;
+    verwijderKaart(kaartEen);
+    verwijderKaart(kaartTwee);
+    verwijderKaart(kaartDrie);
+    geselecteerdeKaarten.removeAll(geselecteerdeKaarten);  
+    aantalSetsSpeelveld = 0; // reset aantal sets wanneer er een set gevonden is.
+    aantalSetsSpeelveld(); // tel opnieuw het aantal sets op het huidige speelveld.    
+
+    // Reset alle kaart achtergrond kleuren.
+    for (int x = 0; x < xVelden; x++) {
+      for (int y = 0; y < yVelden; y++) {
+        speelVeldKleur[x][y] = zwart;
+      }
+    }
+  }
+}
+
+
+// Generieke helper functie voor het verifieren van een set.
+boolean verifieerSet(String kaartEen, String kaartTwee, String kaartDrie, int charToCheck) {
+  if (!(kaartEen == standaardKaart || kaartTwee == standaardKaart || kaartDrie == standaardKaart)) {
+    if ((kaartEen.charAt(charToCheck) == kaartTwee.charAt(charToCheck) && kaartTwee.charAt(charToCheck) == kaartDrie.charAt(charToCheck) && kaartEen.charAt(charToCheck) == kaartDrie.charAt(charToCheck))  || 
+      (kaartEen.charAt(charToCheck) != kaartTwee.charAt(charToCheck) && kaartTwee.charAt(charToCheck) != kaartDrie.charAt(charToCheck) && kaartEen.charAt(charToCheck) != kaartDrie.charAt(charToCheck))) {
+      //println(kaartEen, kaartTwee, kaartDrie, charToCheck, aantalSetsSpeelveld); 
+      return true;
+    }
+  }
+  return false;
 }

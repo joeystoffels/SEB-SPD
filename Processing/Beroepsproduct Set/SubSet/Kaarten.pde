@@ -63,3 +63,55 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
     stroke(wit, 150);
   }
 }
+
+
+// Functie voor in draw() om continu de achtergrond van de kaarten te kleuren.
+void kleurAchtergrondKaarten() {  
+  for (int x = 0; x < xVelden; x++) {
+    for (int y = 0; y < yVelden; y++) {
+      fill(speelVeldKleur[x][y]);
+      rect((width/xVelden) * x, ((height - hoogteScorebord)/yVelden) * y, width/xVelden, (height - hoogteScorebord)/yVelden);
+    }
+  }
+}
+
+
+
+
+// Maak de stapel kaarten adhv. het aantal geconfigureerde variaties.
+void maakKaartenStapel(int aantalVariaties) {
+  String[] aantal = {"1", "2", "3"};
+  String[] kleur = {"r", "g", "b"}; // rood, groen, blauw
+  String[] figuur = {"d", "r", "e"}; // driehoek, rechthoek, ellipse
+  String[] vulling = {"l", "h", "v"}; // leeg, half, vol
+
+  if (kaartenInSpel.size() > 0) {
+   kaartenInSpel = new ArrayList<String>(); 
+  }
+
+  if (aantalVariaties == 3) {
+    for (int a = 0; a < aantal.length; a++) {
+      for (int f = 0; f < figuur.length; f++) {
+        for (int k = 0; k < kleur.length; k++) {
+          kaartenInSpel.add(aantal[a] + figuur[f] + kleur[k] + "0"); // "0" als default waarde zodat verifySet() goed uitgevoerd wordt
+        }
+      }
+    }
+  }
+  
+  if (aantalVariaties == 4) {
+    for (int a = 0; a < aantal.length; a++) {
+      for (int f = 0; f < figuur.length; f++) {
+        for (int k = 0; k < kleur.length; k++) {
+          for (int v = 0; v < vulling.length; v++) {
+            kaartenInSpel.add(aantal[a] + figuur[f] + kleur[k] + vulling[v]);
+          }
+        }
+      }
+    }
+  }
+
+  // Console logging.
+  println("Kaartenstapel: " + kaartenInSpel);
+  println("Totaal aantal kaarten: " + kaartenInSpel.size());
+}

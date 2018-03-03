@@ -45,10 +45,10 @@ String[] sorteerHighscores(String[] array) {
 // Functie om de highscore lijst aan te maken.
 void maakHighscoreLijst() {
   background(zwart);
-  text("HIGHSCORES", 125, height / 6);
-  text("Naam ", 125, height / 4);
-  text("Tijd", 265, height / 4);
-  text("Score", 330, height / 4);
+  text("HIGHSCORES", (width / 5) * 1.5, height / 4);
+  text("Naam ", (width / 5) * 1.5, height / 4 + 25);
+  text("Tijd", (width / 5) * 2.5, height / 4 + 25);
+  text("Score", (width / 5) * 3.5, height / 4 + 25);
   
   String[] namen = loadStrings("highscores.txt");
   namen = sorteerHighscores(namen);
@@ -56,9 +56,9 @@ void maakHighscoreLijst() {
     String[] line = split(namen[i], ',');
 
     if(line.length > 1) {
-      text(""+(i + 1) + ": " + line[0], 125, height / 3 + 20 * i);    
-      text(line[2], 265, height / 3 + 20 * i);
-      text(line[1], 330, height / 3 + 20 * i);
+      text(""+(i + 1) + ": " + line[0], (width / 5) * 1.5, (height / 3) + 20 * i);    
+      text(line[2], (width / 5) * 2.5, (height / 3) + 20 * i);
+      text(line[1], (width / 5) * 3.5, (height / 3) + 20 * i);
     }
   }
 }

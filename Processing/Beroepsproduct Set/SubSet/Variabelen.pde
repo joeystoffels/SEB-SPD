@@ -1,6 +1,6 @@
 // Grootte v/d kaarten in pixels.
-final int kaartBreedte = 150;
-final int kaartHoogte = 200;
+int kaartBreedte = 250;
+int kaartHoogte = 200;
 
 // Standaard kaart; laat leeg vlak zien.
 String standaardKaart = "0000";
@@ -36,13 +36,9 @@ float kleinGridHoogte;
 ArrayList<String> geselecteerdeKaarten = new ArrayList<String>();
 
 float scoreSpelerEen = 0;
-//int scoreSpelerTwee = 0;
+//int scoreSpelerTwee = 0; // Future feature
 int aantalSetsSpeelveld;
-ArrayList<String[]> setList = new ArrayList<String[]>();
-
-// Custom font
-PFont fontVerdanaBoldGroot;
-PFont fontVerdanaBoldKlein;
+ArrayList<String[]> setsLijst = new ArrayList<String[]>();
 
 // Gamestate variabelen
 int aantalVariaties = 3;
@@ -58,6 +54,8 @@ String naam = "";
 float tijd = 0.0;
 float restartTijd = 0.0;
 
+int aantalKaartenOpSpeelveld = 0;
+
 // Aantal spelvlakken (aantal kaarten per as).
 int xVelden = 4; // Niet final omdat deze waarde tijdens het spel kan wijzigen
 final int yVelden = 3;  
@@ -69,4 +67,9 @@ void setNaam(String naamNieuw) {
    naamNieuw = naamNieuw.substring(0, 10); 
   }   
   naam = naamNieuw;
+}
+
+// Custom font
+PFont verdanaBold(int size) {
+  return createFont("Verdana Bold", size);
 }

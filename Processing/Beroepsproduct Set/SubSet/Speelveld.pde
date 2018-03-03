@@ -9,7 +9,7 @@ void maakSpeelveld() {
   } else {
     for (int x=0; x < xVelden; x++) {
       for (int y=0; y < yVelden; y++) {
-        if (speelVeld[x][y].equals("0000")){
+        if (speelVeld[x][y].equals(standaardKaart)){
           speelVeld[x][y] = pakKaart();
         }
       }
@@ -28,39 +28,6 @@ void vulSpeelveld() {
 }
 
 
-// Functie om een extra kolom kaarten toe te voegen aan het huidige speelveld.
-void voegKaartenToe() {
-  if(!voegXVeldToe){
-    xVelden++;
-    surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
-    String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
-    color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
-    
-    for(int x = 0 ; x < xVelden-1 ; x++){
-      for(int y = 0 ; y < yVelden ; y++) {
-        nieuwSpeelVeld[x][y] = speelVeld[x][y];
-        nieuwSpeelVeldKleur[x][y] = speelVeldKleur[x][y];    
-      }
-    }
-    
-    for(int x = 0 ; x < xVelden ; x++){
-      for(int y = 0 ; y < yVelden ; y++) {
-        if(nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
-          nieuwSpeelVeld[x][y] = "0000";
-          nieuwSpeelVeldKleur[x][y] = zwart;
-        }
-      }
-    }
-    
-    speelVeld = nieuwSpeelVeld;
-    speelVeldKleur = nieuwSpeelVeldKleur;  
-    maakSpeelveld();
-    aantalSetsSpeelveld();
-    voegXVeldToe = true;
-  }
-}
-
-
 // Verwijdert de kaart van het huidige speelveld.
 void verwijderKaart(String kaart) {
   for (int x = 0; x < xVelden; x++) {
@@ -75,7 +42,7 @@ void verwijderKaart(String kaart) {
 
 // Functie om het aantal sets op het speelveld te tellen.
 void aantalSetsSpeelveld() {  
-  setList.clear();
+  setsLijst.clear();
   
   String[][] arrayEen = speelVeld;
   String[][] arrayTwee = speelVeld;
@@ -92,32 +59,21 @@ void aantalSetsSpeelveld() {
               String kaartEen = arrayEen[a][b];
               String kaartTwee = arrayTwee[c][d];
               String kaartDrie = arrayDrie[e][f];
+              
+              // Aanmaken gesorteerde temp array om te vergelijken met de arrays in de setsLijst.
+              String[] setKaarten = {kaartEen, kaartTwee, kaartDrie};              
+              java.util.Arrays.sort(setKaarten);
 
-              // Aanmaken gesorteerde temp array om te vergelijken met de arrays in de setList.
-              String[] temp = {kaartEen, kaartTwee, kaartDrie};              
-              java.util.Arrays.sort(temp);
+              boolean isSetInSetsLijst = setInSetsLijst(setKaarten);
 
-              // Helper boolean om te checken of de set al geteld is.
-              boolean go = true;
-
-              // Check of de 3 kaarten al als een set in de setList aanwezig is.
-              for (int x = 0; x < setList.size(); x++) {
-                  if (java.util.Arrays.equals(setList.get(x), temp)) {
-                    go = false;
-                    break;
-                  } else {
-                    go = true;
-                  }                
-              }
-
-              // Check of de 3 kaarten een set zijn, zo ja, verhoog het aantalSetsSpeelveld en voeg de set toe aan de setList.
-              if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie)) && go) {
+              // Check of de 3 kaarten een set zijn, zo ja, verhoog het aantalSetsSpeelveld en voeg de set toe aan de setsLijst.
+              if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie)) && isSetInSetsLijst) {
                 if (verifieerSet(kaartEen, kaartTwee, kaartDrie, 0) &&
                   verifieerSet(kaartEen, kaartTwee, kaartDrie, 1) &&
                   verifieerSet(kaartEen, kaartTwee, kaartDrie, 2) && 
                   (aantalVariaties == 4 ? verifieerSet(kaartEen, kaartTwee, kaartDrie, 3) : true)) {
                   aantalSetsSpeelveld++;                  
-                  setList.add(temp);
+                  setsLijst.add(setKaarten);
                 }
               }
             }
@@ -126,10 +82,25 @@ void aantalSetsSpeelveld() {
       }
     }
   }
-  println("Sets op speelveld:");
-  for ( String[] set : setList ) {    
-    println(set);
+  println("Er liggen " + setsLijst.size() + " sets op het speelveld:");
+  for ( String[] set : setsLijst ) {   
+    println("SET #" + (setsLijst.indexOf(set) + 1) + ": " + set[0] + ", " + set[1] + ", " + set[2]);
   }
+}
+
+// Check of de 3 kaarten al als een set in de setsLijst aanwezig is.
+boolean setInSetsLijst(String[] setKaarten) {
+  boolean isSetInSetsLijst = true;
+
+  for (int x = 0; x < setsLijst.size(); x++) {
+      if (java.util.Arrays.equals(setsLijst.get(x), setKaarten)) {
+        isSetInSetsLijst = false;
+        break;
+      } else {
+        isSetInSetsLijst = true;
+      }                
+  }
+  return isSetInSetsLijst;
 }
 
 

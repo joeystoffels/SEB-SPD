@@ -1,6 +1,6 @@
 // Functie om het einde van het spel te bepalen en dan het eindscherm te tonen.
 void eindeSpel() {    
-  int aantalKaartenOpSpeelveld = 0;
+  
   
   if(!spelAfgelopen) {
     for (int x = 0 ; x < xVelden ; x++) {
@@ -33,14 +33,14 @@ void eindeSpel() {
     rect((width / 7), ((height - hoogteScorebord) / 9), (width / 7) * 5, ((height - hoogteScorebord) / 9));
     
     fill(zwart);    
-    textFont(createFont("Verdana Bold", hoogteScorebord / 4));    
+    textFont(verdanaBold(hoogteScorebord / 4));    
     textAlign(CENTER);
     fill(wit, 225);
     text("EINDE", (width / 2), (height - hoogteScorebord) / 9 + ((height - hoogteScorebord) / 9) / 1.5);    
     textAlign(LEFT);
     
     fill(wit, 200);
-    textFont(fontVerdanaBoldGroot); 
+    textFont(verdanaBold(hoogteScorebord / 7)); 
     text("Score: ", 0 + (width * 0.25), height - (hoogteScorebord / 9) * 7); 
     text("Tijd: ", 0 + (width * 0.25), height - (hoogteScorebord / 9) * 5);  
   
@@ -51,7 +51,7 @@ void eindeSpel() {
     rect((width / 8) * 4, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
     rect((width / 8) * 6, height - (hoogteScorebord / 5) * 3, width / 6, - (hoogteScorebord / 5));  
     
-    textFont(createFont("Verdana Bold", 12));
+    textFont(verdanaBold(12));
     fill(wit);
     text("Opnieuw", (width / 8) * 4.1, height - (hoogteScorebord / 5) * 3.25);  
     text("Beginscherm", (width / 8) * 6.1, height - (hoogteScorebord / 5) * 3.25);
