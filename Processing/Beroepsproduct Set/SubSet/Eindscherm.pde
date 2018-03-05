@@ -1,5 +1,5 @@
 // Functie om het einde van het spel te bepalen en dan het eindscherm te tonen.
-void eindeSpel() {       
+void checkEindeSpel() {       
   if(!spelAfgelopen) {
     for (int x = 0 ; x < xVelden ; x++) {
       for (int y = 0 ; y < yVelden ; y++) {
@@ -10,11 +10,12 @@ void eindeSpel() {
     }
   }
   
-  if (aantalSetsSpeelveld == 0 && ((voegXVeldToe == true || kaartenInSpel.size() <= 0) || aantalKaartenOpSpeelveld == 0)) {    
+  if (aantalSetsSpeelveld == 0 && ((kaartenToegevoegd == true || kaartenInSpel.size() <= 0) || aantalKaartenOpSpeelveld == 0)) {    
     if (tijd == 0.0) {
       tijd = millis() / 1000.0;
     }
     
+    spelActief = false;
     spelAfgelopen = true;     
     tekenEindscherm();
   }
@@ -26,10 +27,10 @@ void tekenEindscherm() {
   tekenNaamInvoer();     
   tekenEindeTitel();  
   
-  tekenKnopScorebord(4, 3); 
-  tekenKnopScorebord(6, 3);
-  tekenTextInKnopScorebord("Opnieuw", 4.1, 3.25);
-  tekenTextInKnopScorebord("Beginscherm", 6.1, 3.25);  
+  tekenKnopScorebord(6, 3); 
+  tekenKnopScorebord(6, 1);
+  tekenTextInKnopScorebord("Opnieuw", 6.1, 3.25);
+  tekenTextInKnopScorebord("Startscherm", 6.1, 1.25);  
   
   tekenSpelInfoTextTitel("Tijd: ", 5);
   tekenSpelInfoTextTitel("Score: ", 7);
@@ -40,9 +41,9 @@ void tekenEindscherm() {
 
 void tekenNaamInvoer() {
   if (spelAfgelopen && !scoreOpgeslagen) {
-    text("Voer naam in: " + naam, 0 + (width * 0.25), height / 1.25);
+    text("Voer naam in: " + naam, 0 + (width * 0.25), height * 0.7);
   } else if (spelAfgelopen && scoreOpgeslagen) {
-    text("Score opgeslagen!", 0 + (width * 0.25), height / 1.25);      
+    text("Je bent geeindigd op de " + plaatsOpHighscoreLijst + "e plaats!", 0 + (width * 0.25), height * 0.7);      
     //TODO add positie op highscore lijst?      
   }  
 }

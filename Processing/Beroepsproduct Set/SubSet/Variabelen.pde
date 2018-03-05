@@ -43,6 +43,7 @@ final String[] aantalFiguren = {"1", "2", "3"};
 final String[] kleurFiguur = {"r", "g", "b"}; // rood, groen, blauw
 final String[] figuurType = {"d", "r", "e"}; // driehoek, rechthoek, ellipse
 final String[] vullingFiguur = {"l", "h", "v"}; // leeg, half, vol
+//TODO 5e variatie toevoegen?
 
 // Lijst met geselecteerde kaarten.
 ArrayList<String> geselecteerdeKaarten = new ArrayList<String>();
@@ -56,10 +57,12 @@ ArrayList<String[]> setsLijst = new ArrayList<String[]>();
 int aantalVariaties = 3;
 
 boolean scoreOpgeslagen = false;
-boolean gameRestart = false;
+
+boolean spelActief = false;
 boolean startSchermActive = true;
 boolean spelAfgelopen = false;
-boolean voegXVeldToe = false;
+boolean kaartenToegevoegd = false;
+
 
 String naam = "";
 
@@ -75,11 +78,13 @@ final int yVelden = 3;
 
 // Filter functie om max lengte v/d naam op 10 karakters te zetten
 void setNaam(String naamNieuw) {    
-  if (naamNieuw.length() >= 10){ 
-   naamNieuw = naamNieuw.substring(0, 10); 
+  if (naamNieuw.length() >= 8){ 
+   naamNieuw = naamNieuw.substring(0, 8); 
   }   
   naam = naamNieuw;
 }
+
+int plaatsOpHighscoreLijst;
 
 // Custom font
 PFont verdanaBold(int size) {

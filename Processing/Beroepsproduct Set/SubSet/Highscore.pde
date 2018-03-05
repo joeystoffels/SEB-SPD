@@ -1,17 +1,31 @@
 // Functie om de highscore op te slaan.
 void opslaanHighscore(){
-  String[] highscoresOld = loadStrings("highscores.txt");
+  String[] highscoresOld = loadStrings("highscores" + aantalVariaties + ".txt");
   String[] highscoresNew = new String[highscoresOld.length + 1];
   
   for (int i = 0 ; i < highscoresOld.length ; i++) {
     highscoresNew[i] = highscoresOld[i]; 
   }
   
-  highscoresNew[highscoresNew.length - 1] = naam + "," + scoreSpelerEen + "," + String.format("%.2f", tijd);            
+  String highscore = naam + "," + scoreSpelerEen + "," + String.format("%.2f", tijd); 
+  highscoresNew[highscoresNew.length - 1] = highscore;
   highscoresNew = sorteerHighscores(highscoresNew);
+
+  plaatsOpHighscoreLijst = getIndexOf(highscoresNew, highscore);
   
-  saveStrings("data/highscores.txt", highscoresNew);
+  saveStrings("data/highscores" + aantalVariaties + ".txt", highscoresNew);
   println("Highscore opgeslagen!");
+  println("Plaats op highscore lijst: " + plaatsOpHighscoreLijst);
+}
+
+
+int getIndexOf(String[] array, String value) {
+  int x = -1;
+    for(int i=0; i<array.length; i++) {
+         if(array[i].equals(value))
+             x = i + 1;
+    }
+    return x;             
 }
 
 
@@ -46,20 +60,20 @@ String[] sorteerHighscores(String[] array) {
 // Functie om de highscore lijst aan te maken.
 void maakHighscoreLijst() {
   background(zwart);
-  text("HIGHSCORES", (width / 5) * 1.5, height / 4);
-  text("Naam ", (width / 5) * 1.5, height / 4 + 25);
-  text("Tijd", (width / 5) * 2.5, height / 4 + 25);
-  text("Score", (width / 5) * 3.5, height / 4 + 25);
+  text("HIGHSCORES", (width / 6) * 1.5, height / 4);
+  text("Naam ", (width / 6) * 1.5, height / 4 + 25);
+  text("Tijd", (width / 6) * 3, height / 4 + 25);
+  text("Score", (width / 6) * 3.75, height / 4 + 25);
   
-  String[] namen = loadStrings("highscores.txt");
+  String[] namen = loadStrings("highscores" + aantalVariaties + ".txt");
   namen = sorteerHighscores(namen);
   for (int i = 0 ; i < (namen.length > 10 ? 10 : namen.length) ; i++) {
     String[] line = split(namen[i], ',');
 
     if(line.length > 1) {
-      text(""+(i + 1) + ": " + line[0], (width / 5) * 1.5, (height / 3) + 20 * i);    
-      text(line[2], (width / 5) * 2.5, (height / 3) + 20 * i);
-      text(line[1], (width / 5) * 3.5, (height / 3) + 20 * i);
+      text(""+(i + 1) + ": " + line[0], (width / 6) * 1.5, (height / 3) + 20 * i);    
+      text(line[2], (width / 6) * 3, (height / 3) + 20 * i);
+      text(line[1], (width / 6) * 3.75, (height / 3) + 20 * i);
     }
   }
 }
@@ -68,10 +82,10 @@ void maakHighscoreLijst() {
 // Functie om de highscore lijst leeg te maken.
 void verwijderHighscores() {
   String[] namen = new String[0];
-  saveStrings("data/highscores.txt", namen);
+  saveStrings("data/highscores3.txt", namen);
+  saveStrings("data/highscores4.txt", namen);
   println("Highscores verwijderd!");
 }
 
 //highscore enkel opslaan als de top 10 behaald is?
-//highscore op het eind tonen ipv beginscherm?
 //realtime naam invoeren in highscore array?

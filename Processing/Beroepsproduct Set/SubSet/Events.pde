@@ -1,57 +1,69 @@
+import java.awt.event.KeyEvent;
+
 // Muisklik functie om kaarten te kunnen selecteren.
 // Deze functie triggert het checken op een set na het selecteren van 3 kaarten.
-void mousePressed() {      
+void mousePressed() {  
+  println("CLICKED " + mouseX, mouseY);
+
   if (startSchermActive) { // Wanneer startScherm actief is zijn onderstaande knoppen beschikbaar.
     // Click Subset - 3 variations button
-    if ((mouseX > 150 && mouseX < 450) && 
-        mouseY > 350 && mouseY < 375) {
+    if ((mouseX > width / 4 && mouseX < width / 4 * 3) && 
+      mouseY > height / 10 * 7 && mouseY < height / 10 * 7 + 25) {
       aantalVariaties = 3;
       startSchermActive = false;
-      setupSpel();   
+      spelActief = true;
+      setupSpel();
     }
-    
+
     // Click Set - 4 variations button
-    if ((mouseX > 150 && mouseX < 450) && 
-        mouseY > 390 && mouseY < 415) {
+    if ((mouseX > width / 4 && mouseX < width / 4 * 3) && 
+      mouseY > height / 10 * 7.75 && mouseY < height / 10 * 7.75 + 25) {
       aantalVariaties = 4;
       startSchermActive = false;
-      setupSpel();   
+      spelActief = true;
+      setupSpel();
     }      
-     
+
     // Click clear highscores button 
-    if ((mouseX > 150 && mouseX < 450) && 
-        mouseY > 450 && mouseY < 475) {
+    if ((mouseX > width / 4 && mouseX < width / 4 * 3) && 
+      mouseY > height / 10 * 9 && mouseY < height / 10 * 9 + 25) {
       verwijderHighscores();
     }          
     return;
   }
 
   // return indien er buiten het speelveld geklikt is.
-  if (mouseY >= height - hoogteScorebord) {
-    
-    if (mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4) && 
-      mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){ 
+  if (mouseY >= height - hoogteScorebord) { 
+
+    if (mouseX > (width / 8) * 4 && mouseX < ((width / 8) * 4) + 100 && 
+      mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)) { 
+      println("Voeg kaarten toe");
+      voegKaartenToe();
+    }
+
+    if (mouseX > (width / 8) * 4 && mouseX < ((width / 8) * 4) + 100 && 
+      mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)) {      
+      println("Geef hint");
       geefHint();
     }
-    
-   if (mouseX > ((width / 8) * 4) && mouseX < (width / 6) + ((width / 8) * 4) && 
-      mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
-      herstart();
-    }
-   
-    if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
-      mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)){
-      voegKaartenToe();
-    } 
-    
-    if (mouseX > ((width / 8) * 6) && mouseX < (width / 6) + ((width / 8) * 6) && 
-      mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)){
+
+    if (mouseX > (width / 8) * 6 && mouseX < ((width / 8) * 6) + 100 && 
+      mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)) {
+      println("Beginscherm");
+      spelActief = false;
       startSchermActive = true;
+      herstart();
+    } 
+
+    if (mouseX > (width / 8) * 6 && mouseX < ((width / 8) * 6) + 100 && 
+      mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)) {
+      println("Opnieuw");
+      spelActief = true;
       herstart();
     } 
     return;
   }  
-  
+
   // Wanneer er niet op het scorebord is geklikt wanneer het startscherm niet actief is, is er op een kaart geklikt.
   selecteerKaart();
 }
@@ -59,8 +71,6 @@ void mousePressed() {
 void selecteerKaart() {
   int xVeld = mouseX / (width / xVelden);
   int yVeld = mouseY / (hoogteSpeelveld / yVelden);
-
-  println("CLICKED " + mouseX, mouseY);
 
   String kaart = speelVeld[xVeld][yVeld]; 
 
@@ -106,6 +116,8 @@ void keyPressed() {
         opslaanHighscore();
         scoreOpgeslagen = true;
       }
+    } else if (key==',') {
+      return;
     } else if (key==CODED){
       if (keyCode==SHIFT){
         return;
@@ -125,56 +137,56 @@ void geefHint() {
   if (aantalSetsSpeelveld == 0) {
     return; // Als er geen sets zijn is er geen hint.
   }
-  
-   String[] set = setsLijst.get(int(random(0, setsLijst.size())));
-   
-   int counter = 0;
-   color randomKleurRood = int(random(0, 255));
-   color randomKleurGeel = int(random(0, 255));
-   color randomKleurBlauw = int(random(0, 255));
-   
-   for(int x = 0 ; x < speelVeldKleur.length ; x++) {
-     for(int y = 0 ; y < speelVeldKleur[x].length ; y++){
-       if(java.util.Arrays.asList(set).contains(speelVeld[x][y]) && counter < 2) {         
-         speelVeldKleur[x][y] = color(randomKleurRood, randomKleurGeel, randomKleurBlauw, 125);
-         counter++;
-       }       
-     }
-   }    
-   scoreSpelerEen = scoreSpelerEen - 0.5;
+
+  String[] set = setsLijst.get(int(random(0, setsLijst.size())));
+
+  int counter = 0;
+  color randomKleurRood = int(random(0, 255));
+  color randomKleurGeel = int(random(0, 255));
+  color randomKleurBlauw = int(random(0, 255));
+
+  for (int x = 0; x < speelVeldKleur.length; x++) {
+    for (int y = 0; y < speelVeldKleur[x].length; y++) {
+      if (java.util.Arrays.asList(set).contains(speelVeld[x][y]) && counter < 2) {         
+        speelVeldKleur[x][y] = color(randomKleurRood, randomKleurGeel, randomKleurBlauw, 125);
+        counter++;
+      }
+    }
+  }    
+  scoreSpelerEen = scoreSpelerEen - 0.5;
 }
 
 
 // Functie om een extra kolom kaarten toe te voegen aan het huidige speelveld.
 void voegKaartenToe() {
-  if(!voegXVeldToe){
+  if (!kaartenToegevoegd) {
     xVelden++;
     surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
-    
+
     String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
     color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
-    
-    for(int x = 0 ; x < xVelden-1 ; x++){
-      for(int y = 0 ; y < yVelden ; y++) {
+
+    for (int x = 0; x < xVelden-1; x++) {
+      for (int y = 0; y < yVelden; y++) {
         nieuwSpeelVeld[x][y] = speelVeld[x][y];
-        nieuwSpeelVeldKleur[x][y] = speelVeldKleur[x][y];    
+        nieuwSpeelVeldKleur[x][y] = speelVeldKleur[x][y];
       }
     }
-    
-    for(int x = 0 ; x < xVelden ; x++){
-      for(int y = 0 ; y < yVelden ; y++) {
-        if(nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
+
+    for (int x = 0; x < xVelden; x++) {
+      for (int y = 0; y < yVelden; y++) {
+        if (nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
           nieuwSpeelVeld[x][y] = legeKaart;
           nieuwSpeelVeldKleur[x][y] = zwart;
         }
       }
     }
-    
+
     speelVeld = nieuwSpeelVeld;
     speelVeldKleur = nieuwSpeelVeldKleur;  
     maakSpeelveld();
     aantalSetsSpeelveld();
-    voegXVeldToe = true;
+    kaartenToegevoegd = true;
   }
 }
 
@@ -211,8 +223,8 @@ boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
   boolean testChar1 = false;
   boolean testChar2 = false;
   boolean testChar3 = aantalVariaties != 4;  
-  
-  for (int charToTest = 0; charToTest < aantalVariaties ; charToTest++) {
+
+  for (int charToTest = 0; charToTest < aantalVariaties; charToTest++) {
     if (!(kaartEen == legeKaart || kaartTwee == legeKaart || kaartDrie == legeKaart)) {
       if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) == kaartDrie.charAt(charToTest))  || 
         (kaartEen.charAt(charToTest) != kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) != kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) != kaartDrie.charAt(charToTest))) {

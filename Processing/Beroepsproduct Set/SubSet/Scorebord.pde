@@ -1,6 +1,5 @@
 // Aanmaken van het scorebord, de hoogte hiervan staat vast op 15% van de hoogte en de positie is onder het speelveld.
-// TODO refactoren
-void maakScorebord() {  
+void tekenScorebord() {  
   setAchtergrondScorebord();  
   tekenInfoTextScorebord();  
   tekenKnoppenScorebord();
@@ -35,16 +34,16 @@ void tekenKnoppenScorebord() {
   tekenKnopScorebord(6, 1);  
   tekenKnopScorebord(6, 3);
   
-  tekenTextInKnopScorebord("Hint", 4.1, 1.25);
-  tekenTextInKnopScorebord("Opnieuw", 4.1, 3.25);
-  tekenTextInKnopScorebord("Voeg " + yVelden + " toe", 6.1, 1.25);
-  tekenTextInKnopScorebord("Beginscherm", 6.1, 3.25);
+  tekenTextInKnopScorebord("Hint", 4.1, 3.25);
+  tekenTextInKnopScorebord("Voeg " + yVelden + " toe", 4.1, 1.25);
+  tekenTextInKnopScorebord("Opnieuw", 6.1, 3.25);
+  tekenTextInKnopScorebord("Startscherm", 6.1, 1.25);  
 }
 
 
 void tekenKnopScorebord(float gridPosBreedte, float gridPosHoogte) {
   fill(zwart);
-  rect((width / 8) * gridPosBreedte, height - (hoogteScorebord / 5) * gridPosHoogte, width / 6, - (hoogteScorebord / 5));  
+  rect((width / 8) * gridPosBreedte, height - (hoogteScorebord / 5) * gridPosHoogte, 100, - (hoogteScorebord / 5));  
 }
 
 

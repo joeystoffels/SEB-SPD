@@ -1,5 +1,5 @@
 //Functie om het startscherm weer te geven.
-void startScherm() {  
+void tekenStartScherm() {  
   image(img, width * 0.15, height * 0.02, width * 0.75, height * 0.6);
   tekenKnoppenStartScherm();
 }
@@ -19,7 +19,7 @@ void tekenKnoppenStartScherm() {
 void tekenKnopStartScherm(float gridPosHoogte) {
   fill(zwart);
   stroke(wit, 150);
-  rect(width / 4 * 1, height / 10 * gridPosHoogte, width / 2, 25);  
+  rect(width / 4, height / 10 * gridPosHoogte, width / 2, 25);  
 }
 
 
