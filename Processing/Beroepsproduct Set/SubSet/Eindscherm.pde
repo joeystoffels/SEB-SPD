@@ -44,7 +44,6 @@ void tekenNaamInvoer() {
     text("Voer naam in: " + naam, 0 + (width * 0.25), height * 0.7);
   } else if (spelAfgelopen && scoreOpgeslagen) {
     text("Je bent geeindigd op de " + plaatsOpHighscoreLijst + "e plaats!", 0 + (width * 0.25), height * 0.7);      
-    //TODO add positie op highscore lijst?      
   }  
 }
 

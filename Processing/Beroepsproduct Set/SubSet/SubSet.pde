@@ -17,9 +17,9 @@ void setupSpel() {
   speelVeld = new String[xVelden][yVelden];
   speelVeldKleur = new color[xVelden][yVelden];   
   surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
-  hoogteSpeelveld = height - hoogteScorebord;
-  kleinGridBreedte = width / (xVelden * 8);
-  kleinGridHoogte = hoogteSpeelveld / (yVelden * 8);
+  hoogteSpeelveld = height - hoogteScorebord;  
+  kaartGridBreedte = width / (xVelden * 8);
+  kaartGridHoogte = hoogteSpeelveld / (yVelden * 8);
   maakKaartenStapel(aantalVariaties);
   maakSpeelveld();    
   aantalSetsSpeelveld();
@@ -47,7 +47,6 @@ void draw() {
   }
   
   if (spelAfgelopen) {
-    //tekenScorebord();  
     tekenEindscherm();
   }
 }

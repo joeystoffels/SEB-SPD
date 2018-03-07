@@ -13,14 +13,15 @@ final color wit = color(255, 255, 255);
 final color zwart = color(0, 0, 0);
 
 //Configuratie waarden voor de diverse figuren
+// Betreffen factoren binnen het in een kaart gedefineerde grid (8 x 8)
+//  kaartGridBreedte = width / (xVelden * 8);
+//  kaartGridHoogte = hoogteSpeelveld / (yVelden * 8);
 final float[][] ellipseConfig = { {4.0, 0, 0}, {3.0, 0, 0}, {5.0, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {6.0, 0, 0} };
 final float[][] rechthoekConfig = { {3.25, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {1.0, 0, 0}, {3.25, 0, 0}, {5.5, 0, 0} };
 final float[][] driehoekConfig = { {4.75, 3.25, 4.75}, {3.75, 2.25, 3.75}, {5.75, 4.25, 5.75}, {2.75, 1.25, 2.75}, {4.75, 3.25, 4.75}, {6.75, 5.25, 6.75} };
 
 // Startscherm image, wordt in setup geinitialiseerd.
 PImage img;
-
-
 
 // Worden in setupSpel() geinitialiseerd.
 int hoogteScorebord;
@@ -36,8 +37,8 @@ color[][] speelVeldKleur;
 
 // Het veld wordt opgedeeld in delen wat kleinGridBreedte/Hoogte voorsteld.
 // Variabelen kunnen pas worden geinitialiseerd zodra de screensize in setup bekend is.
-float kleinGridBreedte;
-float kleinGridHoogte;
+float kaartGridBreedte;
+float kaartGridHoogte;
 
 final String[] aantalFiguren = {"1", "2", "3"};
 final String[] kleurFiguur = {"r", "g", "b"}; // rood, groen, blauw

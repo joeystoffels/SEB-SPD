@@ -1,28 +1,27 @@
 // Functie om de highscore op te slaan.
 void opslaanHighscore(){
-  String[] highscoresOld = loadStrings("highscores" + aantalVariaties + ".txt");
-  String[] highscoresNew = new String[highscoresOld.length + 1];
+  String[] highscoresOud = loadStrings("highscores" + aantalVariaties + ".txt");
+  String[] highscoresNieuw = new String[highscoresOud.length + 1];
   
-  for (int i = 0 ; i < highscoresOld.length ; i++) {
-    highscoresNew[i] = highscoresOld[i]; 
+  for (int i = 0 ; i < highscoresOud.length ; i++) {
+    highscoresNieuw[i] = highscoresOud[i]; 
   }
   
   String highscore = naam + "," + scoreSpelerEen + "," + String.format("%.2f", tijd); 
-  highscoresNew[highscoresNew.length - 1] = highscore;
-  highscoresNew = sorteerHighscores(highscoresNew);
+  highscoresNieuw[highscoresNieuw.length - 1] = highscore;
+  highscoresNieuw = sorteerHighscores(highscoresNieuw);
 
-  plaatsOpHighscoreLijst = getIndexOf(highscoresNew, highscore);
+  plaatsOpHighscoreLijst = getPlaatsInHighscoresLijst(highscoresNieuw, highscore);
   
-  saveStrings("data/highscores" + aantalVariaties + ".txt", highscoresNew);
-  println("Highscore opgeslagen!");
-  println("Plaats op highscore lijst: " + plaatsOpHighscoreLijst);
+  saveStrings("data/highscores" + aantalVariaties + ".txt", highscoresNieuw);
+  println("Highscore opgeslagen! \n Plaats op highscore lijst: " + plaatsOpHighscoreLijst);
 }
 
 
-int getIndexOf(String[] array, String value) {
+int getPlaatsInHighscoresLijst(String[] highscores, String highscore) {
   int x = -1;
-    for(int i=0; i<array.length; i++) {
-         if(array[i].equals(value))
+    for(int i=0; i<highscores.length; i++) {
+         if(highscores[i].equals(highscore))
              x = i + 1;
     }
     return x;             
@@ -30,30 +29,32 @@ int getIndexOf(String[] array, String value) {
 
 
 // Hulp functie om de highscore lijst te sorteren op tijd en daarna op score.
-String[] sorteerHighscores(String[] array) {
-  for (int x = 0 ; x < array.length ; x++) {
-    for (int i = 0 ; i < array.length - 1; i++) {
+String[] sorteerHighscores(String[] highscoreLijst) {
+  for (int x = 0 ; x < highscoreLijst.length ; x++) {
+    for (int i = 0 ; i < highscoreLijst.length - 1; i++) {
       
-      String array1 = array[i];
-      String array2 = array[i+1];
+      String huidigeHighscore = highscoreLijst[i];
+      String volgendeHighscore = highscoreLijst[i+1];
       
-      String[] test1 = split(array[i], ',');    
-      String[] test2 = split(array[i+1], ',');
+      String[] scoreHuidigeHighscore = split(highscoreLijst[i], ',');    
+      String[] scoreVolgendeHighscore = split(highscoreLijst[i+1], ',');
       
-      if (float(test1[2]) > float(test2[2])) {
-        array[i] = array2;
-        array[i+1] = array1;
+      // Sorteer op tijd
+      if (float(scoreHuidigeHighscore[2]) > float(scoreVolgendeHighscore[2])) {
+        highscoreLijst[i] = volgendeHighscore;
+        highscoreLijst[i+1] = huidigeHighscore;
       } 
       
-      if (float(test1[2]) == float(test2[2])) {
-        if (float(test1[1]) < float(test2[1])) {
-          array[i] = array2;
-          array[i+1] = array1;
+      // Wanneer tijden gelijk zijn, sorteer op score
+      if (float(scoreHuidigeHighscore[2]) == float(scoreVolgendeHighscore[2])) {
+        if (float(scoreHuidigeHighscore[1]) < float(scoreVolgendeHighscore[1])) {
+          highscoreLijst[i] = volgendeHighscore;
+          highscoreLijst[i+1] = huidigeHighscore;
         } 
       }    
     }
   }
-  return array;
+  return highscoreLijst;
 }
 
 
