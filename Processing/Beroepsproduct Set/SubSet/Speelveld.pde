@@ -110,13 +110,13 @@ void tekenSpeelveldLijnen() {
   stroke(wit, 150);
 
   for (int x = 1; x < yVelden; x++) {
-    line(0, hoogteSpeelveld / yVelden * x, width, hoogteSpeelveld / yVelden * x);
+    line(0, speelveldHoogte / yVelden * x, width, speelveldHoogte / yVelden * x);
   }
 
   for (int y = 1; y < xVelden; y++) {
-    line(width / xVelden * y, 0, width / xVelden * y, hoogteSpeelveld);
+    line(width / xVelden * y, 0, width / xVelden * y, speelveldHoogte);
   }  
 
   // Laatste lijn van het speelveld, begin van het scorebord.
-  line(0, hoogteSpeelveld, width, hoogteSpeelveld);
+  line(0, speelveldHoogte, width, speelveldHoogte);
 }

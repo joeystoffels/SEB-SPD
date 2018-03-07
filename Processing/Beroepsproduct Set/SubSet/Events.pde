@@ -1,76 +1,74 @@
-import java.awt.event.KeyEvent;
-
 // Muisklik functie om kaarten te kunnen selecteren.
 // Deze functie triggert het checken op een set na het selecteren van 3 kaarten.
 void mousePressed() {  
   println("CLICKED " + mouseX, mouseY);
 
   if (startSchermActive) { // Wanneer startScherm actief is zijn onderstaande knoppen beschikbaar.
-    // Click Subset - 3 variations button
-    if ((mouseX > width / 4 && mouseX < width / 4 * 3) && 
-      mouseY > height / 10 * 7 && mouseY < height / 10 * 7 + 25) {
-      aantalVariaties = 3;
-      startSchermActive = false;
-      spelActief = true;
-      setupSpel();
+    if (mouseX > width / 4 && mouseX < width / 4 * 3){
+    
+      // Click Subset - 3 variations button
+      if (mouseY > height / 10 * 7 && mouseY < height / 10 * 7 + 25) {
+        aantalVariaties = 3;
+        startSchermActive = false;
+        spelActief = true;
+        setupSpel();
+      }
+  
+      // Click Set - 4 variations button
+      if (mouseY > height / 10 * 7.75 && mouseY < height / 10 * 7.75 + 25) {
+        aantalVariaties = 4;
+        startSchermActive = false;
+        spelActief = true;
+        setupSpel();
+      }      
+  
+      // Click clear highscores button 
+      if (mouseY > height / 10 * 9 && mouseY < height / 10 * 9 + 25) {
+        verwijderHighscores();
+      }       
     }
-
-    // Click Set - 4 variations button
-    if ((mouseX > width / 4 && mouseX < width / 4 * 3) && 
-      mouseY > height / 10 * 7.75 && mouseY < height / 10 * 7.75 + 25) {
-      aantalVariaties = 4;
-      startSchermActive = false;
-      spelActief = true;
-      setupSpel();
-    }      
-
-    // Click clear highscores button 
-    if ((mouseX > width / 4 && mouseX < width / 4 * 3) && 
-      mouseY > height / 10 * 9 && mouseY < height / 10 * 9 + 25) {
-      verwijderHighscores();
-    }          
     return;
   }
 
   // return indien er buiten het speelveld geklikt is.
-  if (mouseY >= height - hoogteScorebord) { 
+  if (mouseY >= height - scorebordHoogte) { 
+    if (mouseX > (width / 8) * 4 && mouseX < ((width / 8) * 4) + 100) {
 
-    if (mouseX > (width / 8) * 4 && mouseX < ((width / 8) * 4) + 100 && 
-      mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)) { 
-      println("Voeg kaarten toe");
-      voegKaartenToe();
+      if (mouseY < (height - (scorebordHoogte / 5)) && mouseY > (height - (scorebordHoogte / 5))-(scorebordHoogte / 5)) { 
+        println("Voeg kaarten toe");
+        voegKaartenToe();
+      }
+  
+      if (mouseY < (height - (scorebordHoogte / 5) * 3) && mouseY > (height - (scorebordHoogte / 5) * 3)-(scorebordHoogte / 5)) {      
+        println("Geef hint");
+        geefHint();
+      }
     }
 
-    if (mouseX > (width / 8) * 4 && mouseX < ((width / 8) * 4) + 100 && 
-      mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)) {      
-      println("Geef hint");
-      geefHint();
+    if (mouseX > (width / 8) * 6 && mouseX < ((width / 8) * 6) + 100) {
+      if (mouseY < (height - (scorebordHoogte / 5)) && mouseY > (height - (scorebordHoogte / 5))-(scorebordHoogte / 5)) {
+        println("Beginscherm");
+        spelActief = false;
+        startSchermActive = true;
+        herstart();
+      } 
+  
+      if (mouseY < (height - (scorebordHoogte / 5) * 3) && mouseY > (height - (scorebordHoogte / 5) * 3)-(scorebordHoogte / 5)) {
+        println("Opnieuw");
+        spelActief = true;
+        herstart();
+      } 
     }
-
-    if (mouseX > (width / 8) * 6 && mouseX < ((width / 8) * 6) + 100 && 
-      mouseY < (height - (hoogteScorebord / 5)) && mouseY > (height - (hoogteScorebord / 5))-(hoogteScorebord / 5)) {
-      println("Beginscherm");
-      spelActief = false;
-      startSchermActive = true;
-      herstart();
-    } 
-
-    if (mouseX > (width / 8) * 6 && mouseX < ((width / 8) * 6) + 100 && 
-      mouseY < (height - (hoogteScorebord / 5) * 3) && mouseY > (height - (hoogteScorebord / 5) * 3)-(hoogteScorebord / 5)) {
-      println("Opnieuw");
-      spelActief = true;
-      herstart();
-    } 
     return;
   }  
 
-  // Wanneer er niet op het scorebord is geklikt wanneer het startscherm niet actief is, is er op een kaart geklikt.
+  // Wanneer er niet op het scorebord is geklikt wanneer het startScherm niet actief is, is er op een kaart geklikt.
   selecteerKaart();
 }
 
 void selecteerKaart() {
-  int xVeld = mouseX / (width / xVelden);
-  int yVeld = mouseY / (hoogteSpeelveld / yVelden);
+  int xVeld = mouseX / kaartBreedte;
+  int yVeld = mouseY / kaartHoogte;
 
   String kaart = speelVeld[xVeld][yVeld]; 
 
@@ -96,7 +94,7 @@ void selecteerKaart() {
 // Toetsenbord acties, gebruikt voor het invoeren van de naam van de speler aan het eind van het spel.
 void keyPressed() { 
   if (key==CODED){
-    if (keyCode==KeyEvent.VK_F12) {
+    if (keyCode==123) { // == F12 knop
       println("F12 Pressed");
       startSchermActive = false;
       spelAfgelopen = true;
@@ -161,7 +159,7 @@ void geefHint() {
 void voegKaartenToe() {
   if (!kaartenToegevoegd) {
     xVelden++;
-    surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte); 
+    maakSpelScherm();
 
     String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
     color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];

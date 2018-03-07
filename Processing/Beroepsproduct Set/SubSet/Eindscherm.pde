@@ -1,9 +1,9 @@
 // Functie om het einde van het spel te bepalen en dan het eindscherm te tonen.
 void checkEindeSpel() {       
   if(!spelAfgelopen) {
-    for (int x = 0 ; x < xVelden ; x++) {
-      for (int y = 0 ; y < yVelden ; y++) {
-        if (speelVeld[x][y] != legeKaart){
+    for (int xPos = 0 ; xPos < xVelden ; xPos++) {
+      for (int yPos = 0 ; yPos < yVelden ; yPos++) {
+        if (speelVeld[xPos][yPos] != legeKaart){
           aantalKaartenOpSpeelveld++;
         }
       }
@@ -11,10 +11,6 @@ void checkEindeSpel() {
   }
   
   if (aantalSetsSpeelveld == 0 && ((kaartenToegevoegd == true || kaartenInSpel.size() <= 0) || aantalKaartenOpSpeelveld == 0)) {    
-    if (tijd == 0.0) {
-      tijd = millis() / 1000.0;
-    }
-    
     spelActief = false;
     spelAfgelopen = true;     
     tekenEindscherm();
@@ -50,11 +46,11 @@ void tekenNaamInvoer() {
 
 void tekenEindeTitel() {
   fill(groen, 175);
-  rect((width / 7), (hoogteSpeelveld / 9), (width / 7) * 5, (hoogteSpeelveld / 9));
+  rect((width / 7), (speelveldHoogte / 9), (width / 7) * 5, (speelveldHoogte / 9));
   
   fill(wit, 225);
   textAlign(CENTER);
-  textFont(verdanaBold(hoogteScorebord / 4));   
-  text("EINDE", (width / 2), hoogteSpeelveld / 9 + (hoogteSpeelveld / 9) / 1.5);    
+  textFont(verdanaBold(scorebordHoogte / 4));   
+  text("EINDE", (width / 2), speelveldHoogte / 9 + (speelveldHoogte / 9) / 1.5);    
   textAlign(LEFT);
 }

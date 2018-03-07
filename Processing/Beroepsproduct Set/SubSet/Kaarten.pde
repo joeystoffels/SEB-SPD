@@ -22,8 +22,8 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
   color kleur = (kaart.charAt(2) == 'r' ? rood : (kaart.charAt(2) == 'g' ? groen : blauw));
   int vulling = (kaart.charAt(3) == 'l' ? 0 : (kaart.charAt(3) == 'h' ? 100 : 255));  
 
-  final float xPosSpeelveld = xPositie * (width / xVelden);
-  final float yPosSpeelveld = yPositie * (hoogteSpeelveld / yVelden);
+  final float xPosSpeelveld = xPositie * kaartBreedte;
+  final float yPosSpeelveld = yPositie * kaartHoogte;
 
   float[][] kaartConfig;
 
@@ -68,7 +68,7 @@ void kleurAchtergrondKaarten() {
   for (int xPos = 0; xPos < xVelden; xPos++) {
     for (int yPos = 0; yPos < yVelden; yPos++) {
       fill(speelVeldKleur[xPos][yPos]);
-      rect(kaartBreedte * xPos, (hoogteSpeelveld / yVelden) * yPos, kaartBreedte, hoogteSpeelveld / yVelden);
+      rect(kaartBreedte * xPos, (speelveldHoogte / yVelden) * yPos, kaartBreedte, speelveldHoogte / yVelden);
     }
   }
 }

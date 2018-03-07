@@ -9,7 +9,7 @@ void tekenScorebord() {
 // Achtergrond verversen van enkel het scorebord
 void setAchtergrondScorebord() {
   fill(zwart);
-  rect(0, height, width, - hoogteScorebord);
+  rect(0, schermHoogte, width, -scorebordHoogte);
 }
 
 
@@ -43,26 +43,26 @@ void tekenKnoppenScorebord() {
 
 void tekenKnopScorebord(float gridPosBreedte, float gridPosHoogte) {
   fill(zwart);
-  rect((width / 8) * gridPosBreedte, height - (hoogteScorebord / 5) * gridPosHoogte, 100, - (hoogteScorebord / 5));  
+  rect((width / 8) * gridPosBreedte, schermHoogte - (scorebordHoogte / 5) * gridPosHoogte, 100, - (scorebordHoogte / 5));  
 }
 
 
 void tekenTextInKnopScorebord(String text, float gridPosBreedte, float gridPosHoogte) {
   fill(wit);
-  textFont(verdanaBold(hoogteScorebord / 8)); 
-  text(text, (width / 8) * gridPosBreedte, height - (hoogteScorebord / 5) * gridPosHoogte);
+  textFont(verdanaBold(scorebordHoogte / 8)); 
+  text(text, (width / 8) * gridPosBreedte, schermHoogte - (scorebordHoogte / 5) * gridPosHoogte);
 }
 
 
 void tekenSpelInfoTextWaarde(String text, float gridPosHoogte) {
   fill(wit, 225);
-  textFont(verdanaBold(hoogteScorebord / 7)); 
-  text(text,   0 + (width * 0.3), height - (hoogteScorebord / 9) * gridPosHoogte); 
+  textFont(verdanaBold(scorebordHoogte / 7)); 
+  text(text,   0 + (width * 0.3), schermHoogte - (scorebordHoogte / 9) * gridPosHoogte); 
 }
 
 
 void tekenSpelInfoTextTitel(String text, float gridPosHoogte) {
   fill(wit, 225);
-  textFont(verdanaBold(hoogteScorebord / 7)); 
-  text(text, 0 + (width * 0.05), height - (hoogteScorebord / 9) * gridPosHoogte); 
+  textFont(verdanaBold(scorebordHoogte / 7)); 
+  text(text, 0 + (width * 0.05), schermHoogte - (scorebordHoogte / 9) * gridPosHoogte); 
 }
