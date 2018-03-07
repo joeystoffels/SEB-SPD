@@ -114,7 +114,7 @@ void tekenSpeelveldLijnen() {
   }
 
   for (int y = 1; y < xVelden; y++) {
-    line(width / xVelden * y, 0, width / xVelden * y, speelveldHoogte);
+    line(schermBreedte * y, 0, schermBreedte * y, speelveldHoogte);
   }  
 
   // Laatste lijn van het speelveld, begin van het scorebord.

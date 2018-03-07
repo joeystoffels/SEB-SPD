@@ -37,9 +37,9 @@ void tekenEindscherm() {
 
 void tekenNaamInvoer() {
   if (spelAfgelopen && !scoreOpgeslagen) {
-    text("Voer naam in: " + naam, 0 + (width * 0.25), height * 0.7);
+    text("Voer naam in: " + naam, 0 + (width * 0.25), schermHoogte * 0.7);
   } else if (spelAfgelopen && scoreOpgeslagen) {
-    text("Je bent geeindigd op de " + plaatsOpHighscoreLijst + "e plaats!", 0 + (width * 0.25), height * 0.7);      
+    text("Je bent geeindigd op de " + plaatsOpHighscoreLijst + "e plaats!", 0 + (width * 0.25), schermHoogte * 0.7);      
   }  
 }
 
