@@ -31,7 +31,7 @@ void mousePressed() {
   }
 
   // return indien er buiten het speelveld geklikt is.
-  if (mouseY >= height - scorebordHoogte) { 
+  if (mouseY > speelveldHoogte){// height - scorebordHoogte) { 
     if (mouseX > (width / 8) * 4 && mouseX < ((width / 8) * 4) + 100) {
 
       if (mouseY < (height - (scorebordHoogte / 5)) && mouseY > (height - (scorebordHoogte / 5))-(scorebordHoogte / 5)) { 
@@ -69,8 +69,14 @@ void mousePressed() {
 void selecteerKaart() {
   int xVeld = mouseX / kaartBreedte;
   int yVeld = mouseY / kaartHoogte;
-
-  String kaart = speelVeld[xVeld][yVeld]; 
+  String kaart = "";
+  
+  try {
+    kaart = speelVeld[xVeld][yVeld];
+  } catch (IndexOutOfBoundsException e) {
+    println("IndexOutOfBoundsException, mouseX = " + mouseX + ", mouseY = " + mouseY + ".");
+    return;
+  }
 
   if (kaart == legeKaart) {
     return;
