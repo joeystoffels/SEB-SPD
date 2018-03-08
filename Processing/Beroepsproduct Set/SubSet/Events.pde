@@ -4,41 +4,43 @@ void mousePressed() {
   println("CLICKED " + mouseX, mouseY);
 
   if (startSchermActive) { // Wanneer startScherm actief is zijn onderstaande knoppen beschikbaar.
-    if (mouseX > width / 4 && mouseX < width / 4 * 3){
-    
+    if (mouseX > width / 4 && mouseX < width / 4 * 3) {
+
       // Click Subset - 3 variations button
       if (mouseY > height / 10 * 7 && mouseY < height / 10 * 7 + 25) {
-        aantalVariaties = 3;
+        
         startSchermActive = false;
-        spelActief = true;
+        spelActief = true;       
+        aantalVariaties = 3;
         setupSpel();
       }
-  
+
       // Click Set - 4 variations button
-      if (mouseY > height / 10 * 7.75 && mouseY < height / 10 * 7.75 + 25) {
-        aantalVariaties = 4;
+      if (mouseY > height / 10 * 7.5 && mouseY < height / 10 * 7.5 + 25) {
+
+        spelActief = true;                
         startSchermActive = false;
-        spelActief = true;
+        aantalVariaties = 4;
         setupSpel();
       }      
-  
+
       // Click clear highscores button 
       if (mouseY > height / 10 * 9 && mouseY < height / 10 * 9 + 25) {
         verwijderHighscores();
-      }       
+      }
     }
     return;
   }
 
   // return indien er buiten het speelveld geklikt is.
-  if (mouseY > speelveldHoogte){// height - scorebordHoogte) { 
+  if (mouseY > speelveldHoogte) { 
     if (mouseX > (width / 8) * 4 && mouseX < ((width / 8) * 4) + 100) {
 
       if (mouseY < (height - (scorebordHoogte / 5)) && mouseY > (height - (scorebordHoogte / 5))-(scorebordHoogte / 5)) { 
         println("Voeg kaarten toe");
         voegKaartenToe();
       }
-  
+
       if (mouseY < (height - (scorebordHoogte / 5) * 3) && mouseY > (height - (scorebordHoogte / 5) * 3)-(scorebordHoogte / 5)) {      
         println("Geef hint");
         geefHint();
@@ -52,12 +54,13 @@ void mousePressed() {
         startSchermActive = true;
         herstart();
       } 
-  
+
       if (mouseY < (height - (scorebordHoogte / 5) * 3) && mouseY > (height - (scorebordHoogte / 5) * 3)-(scorebordHoogte / 5)) {
         println("Opnieuw");
         spelActief = true;
+        startSchermActive = false;
         herstart();
-      } 
+      }
     }
     return;
   }  
@@ -70,10 +73,11 @@ void selecteerKaart() {
   int xVeld = mouseX / kaartBreedte;
   int yVeld = mouseY / kaartHoogte;
   String kaart = "";
-  
+
   try {
     kaart = speelVeld[xVeld][yVeld];
-  } catch (IndexOutOfBoundsException e) {
+  } 
+  catch (IndexOutOfBoundsException e) {
     println("IndexOutOfBoundsException, mouseX = " + mouseX + ", mouseY = " + mouseY + ".");
     return;
   }
@@ -88,7 +92,7 @@ void selecteerKaart() {
   } else {  
     if (!geselecteerdeKaarten.contains(kaart) && geselecteerdeKaarten.size() < 3) {
       geselecteerdeKaarten.add(speelVeld[xVeld][yVeld]);
-      speelVeldKleur[xVeld][yVeld] = color(wit, 125);
+      speelVeldKleur[xVeld][yVeld] = color(wit, 225);
       if (geselecteerdeKaarten.size() == 3) { 
         verifieerSet();
       }
@@ -96,45 +100,53 @@ void selecteerKaart() {
   }
 }
 
-
 // Toetsenbord acties, gebruikt voor het invoeren van de naam van de speler aan het eind van het spel.
-void keyPressed() { 
-  if (key==CODED){
-    if (keyCode==123) { // == F12 knop
-      println("F12 Pressed");
-      startSchermActive = false;
-      spelAfgelopen = true;
-      aantalKaartenOpSpeelveld = 0;
-      aantalSetsSpeelveld = 0;
-    }
+void keyPressed() {   
+  switch(key) {
+    case CODED: 
+      keyPressedCoded(); 
+      break;
+    default: 
+      keyPressedNonCoded(); 
+      break;    
   }
-  if (spelAfgelopen){
-    if (key==BACKSPACE) { 
-      if (naam.length() > 0) {
+}
+
+void keyPressedCoded() {
+  switch(keyCode) {
+    case 121:
+      activeerThema("Ateam");
+      break;
+    case 122:
+      activeerThema("Airwolf");
+      break;
+    case 123:  
+      activeerEindeSpel();
+      break;
+    default: 
+      return;
+  }
+}
+
+void keyPressedNonCoded() {
+  switch(key) {
+    case BACKSPACE: 
+      if (spelAfgelopen && naam.length() > 0) {
         setNaam(naam.substring(0, naam.length() -1));
-      } else {
-        return; // Als naam al 0 lengte heeft dan niks doen.
-      }
-    } else if (key==ENTER) {
-      if (!scoreOpgeslagen) {
+      } 
+      break;
+    case ENTER:   
+      if (spelAfgelopen && !scoreOpgeslagen) {
         opslaanHighscore();
         scoreOpgeslagen = true;
       }
-    } else if (key==',') {
-      return;
-    } else if (key==CODED){
-      if (keyCode==SHIFT){
-        return;
+      break;
+    default:     
+      if (Character.isLetter(key) || Character.isDigit(key)){
+        setNaam(naam + key);
       }
-    } else {
-      setNaam(naam + key);
-    }
-  } else {
-    return; // Niks doen wanneer het spel nog niet klaar is
   }
-
 }
-
 
 // Functie om een hint te geven door 2 kaarten een andere (random) achtergrondkleur te geven.
 void geefHint() {   
@@ -148,6 +160,8 @@ void geefHint() {
   color randomKleurRood = int(random(0, 255));
   color randomKleurGeel = int(random(0, 255));
   color randomKleurBlauw = int(random(0, 255));
+  
+  resetSpeelveldAchtergrond();
 
   for (int x = 0; x < speelVeldKleur.length; x++) {
     for (int y = 0; y < speelVeldKleur[x].length; y++) {
@@ -159,7 +173,6 @@ void geefHint() {
   }    
   scoreSpelerEen = scoreSpelerEen - 0.5;
 }
-
 
 // Functie om een extra kolom kaarten toe te voegen aan het huidige speelveld.
 void voegKaartenToe() {
@@ -194,7 +207,6 @@ void voegKaartenToe() {
   }
 }
 
-
 // Functie om een set te checken.
 void verifieerSet() {    
   String kaartEen = geselecteerdeKaarten.get(0);
@@ -210,7 +222,6 @@ void verifieerSet() {
   }
 }
 
-
 // Reset alle kaart-achtergronden van de kaarten op het speelveld.
 void resetSpeelveldAchtergrond() {     
   for (int x = 0; x < xVelden; x++) {
@@ -219,7 +230,6 @@ void resetSpeelveldAchtergrond() {
     }
   }
 }
-
 
 // Generieke functie voor het verifieren van een set.
 boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
@@ -230,7 +240,7 @@ boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
 
   for (int charToTest = 0; charToTest < aantalVariaties; charToTest++) {
     if (!(kaartEen == legeKaart || kaartTwee == legeKaart || kaartDrie == legeKaart)) {
-      if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) == kaartDrie.charAt(charToTest))  || 
+      if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest)) || 
         (kaartEen.charAt(charToTest) != kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) != kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) != kaartDrie.charAt(charToTest))) {
         //println(kaartEen, kaartTwee, kaartDrie, charToCheck, aantalSetsSpeelveld); 
         if (charToTest == 0) testChar0 = true;

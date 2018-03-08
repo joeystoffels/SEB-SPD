@@ -1,6 +1,6 @@
 // Functie om het speelveld (array) te initialiseren.
 void maakSpeelveld() {  
-  if(speelVeld[0][0] == null) {
+  if (speelVeld[0][0] == null) {
     for (int x=0; x < xVelden; x++) {
       for (int y=0; y < yVelden; y++) {
         speelVeld[x][y] = pakKaart();
@@ -9,14 +9,13 @@ void maakSpeelveld() {
   } else {
     for (int x=0; x < xVelden; x++) {
       for (int y=0; y < yVelden; y++) {
-        if (speelVeld[x][y].equals(legeKaart)){
+        if (speelVeld[x][y].equals(legeKaart)) {
           speelVeld[x][y] = pakKaart();
         }
       }
     }
   }
 }
-
 
 // Functie om het speelveld te vullen met kaarten.
 void vulSpeelveld() {
@@ -26,7 +25,6 @@ void vulSpeelveld() {
     }
   }
 }
-
 
 // Verwijdert de kaart van het huidige speelveld.
 void verwijderKaarten(ArrayList<String> kaarten) {
@@ -42,12 +40,11 @@ void verwijderKaarten(ArrayList<String> kaarten) {
   geselecteerdeKaarten.removeAll(geselecteerdeKaarten);
 }
 
-
 // Functie om het aantal sets op het speelveld te tellen.
 void aantalSetsSpeelveld() {  
   setsLijst.clear();
   aantalSetsSpeelveld = 0;  
-  
+
   String[][] arrayEen = speelVeld;
   String[][] arrayTwee = speelVeld;
   String[][] arrayDrie = speelVeld;
@@ -63,10 +60,10 @@ void aantalSetsSpeelveld() {
               String kaartEen = arrayEen[a][b];
               String kaartTwee = arrayTwee[c][d];
               String kaartDrie = arrayDrie[e][f];
-              
+
               // Aanmaken gesorteerde setKaarten array om te vergelijken met de sets in de setsLijst.
               String[] setKaarten = {kaartEen, kaartTwee, kaartDrie};              
-              java.util.Arrays.sort(setKaarten);
+              sort(setKaarten);
 
               boolean isSetInSetsLijst = setInSetsLijst(setKaarten);
 
@@ -94,29 +91,12 @@ boolean setInSetsLijst(String[] setKaarten) {
   boolean isSetInSetsLijst = true;
 
   for (int x = 0; x < setsLijst.size(); x++) {
-      if (java.util.Arrays.equals(setsLijst.get(x), setKaarten)) {
-        isSetInSetsLijst = false;
-        break;
-      } else {
-        isSetInSetsLijst = true;
-      }                
+    if (java.util.Arrays.equals(setsLijst.get(x), setKaarten)) {
+      isSetInSetsLijst = false;
+      break;
+    } else {
+      isSetInSetsLijst = true;
+    }
   }
   return isSetInSetsLijst;
-}
-
-
-// Functie om de speelveldlijnen te tekenen.
-void tekenSpeelveldLijnen() {    
-  stroke(wit, 150);
-
-  for (int x = 1; x < yVelden; x++) {
-    line(0, speelveldHoogte / yVelden * x, width, speelveldHoogte / yVelden * x);
-  }
-
-  for (int y = 1; y < xVelden; y++) {
-    line(schermBreedte * y, 0, schermBreedte * y, speelveldHoogte);
-  }  
-
-  // Laatste lijn van het speelveld, begin van het scorebord.
-  line(0, speelveldHoogte, width, speelveldHoogte);
 }

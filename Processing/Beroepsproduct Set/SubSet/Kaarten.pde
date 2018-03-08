@@ -12,11 +12,10 @@ String pakKaart() {
   }
 };
 
-
 // Functie om figuur aan te maken.
 // Hoogtefactor wijzigt ivm. positie van een, twee of drie figuren ten op zichte van elkaar op 1 kaart.
 void maakKaartFiguur(String kaart, int xPositie, int yPositie) {    
-  
+
   int aantal = Integer.parseInt(str(kaart.charAt(0)));
   String figuur = (kaart.charAt(1) == 'r' ? "rechthoek" : (kaart.charAt(1) == 'e' ? "ellipse" : "driehoek"));
   color kleur = (kaart.charAt(2) == 'r' ? rood : (kaart.charAt(2) == 'g' ? groen : blauw));
@@ -28,9 +27,14 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
   float[][] kaartConfig;
 
   switch (figuur) {
-    case "rechthoek": kaartConfig = rechthoekConfig; break;
-    case "ellipse": kaartConfig = ellipseConfig; break;
-    default: kaartConfig = driehoekConfig; // default ivm compile error in volgende for loop
+  case "rechthoek": 
+    kaartConfig = rechthoekConfig; 
+    break;
+  case "ellipse": 
+    kaartConfig = ellipseConfig; 
+    break;
+  default: 
+    kaartConfig = driehoekConfig; // default ivm compile error in volgende for loop
   }
 
   final int forLoopHelperValue = aantal - (aantal == 3 ? 0 : 1);
@@ -58,28 +62,22 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
         (kaartGridBreedte * 4.0), (kaartGridHoogte * 1.5));
     }
 
-    stroke(wit, 150);
+    stroke(wit);
   }
 }
-
 
 // Functie voor in draw() om continu de achtergrond van de kaarten te kleuren.
 void kleurAchtergrondKaarten() {  
   for (int xPos = 0; xPos < xVelden; xPos++) {
     for (int yPos = 0; yPos < yVelden; yPos++) {
-      fill(speelVeldKleur[xPos][yPos]);
-      rect(kaartBreedte * xPos, (speelveldHoogte / yVelden) * yPos, kaartBreedte, speelveldHoogte / yVelden);
+      fill(speelVeldKleur[xPos][yPos], 100);
+      rect(kaartBreedte * xPos, (speelveldHoogte / yVelden) * yPos, kaartBreedte, speelveldHoogte / yVelden, 25);
     }
   }
 }
 
-
 // Maak de stapel kaarten adhv. het aantal geconfigureerde variaties.
 void maakKaartenStapel(int aantalVariaties) {
-  if (kaartenInSpel.size() > 0) {
-   kaartenInSpel = new ArrayList<String>(); 
-  }
-
   if (aantalVariaties == 3) {
     for (int a = 0; a < aantalFiguren.length; a++) {
       for (int f = 0; f < figuurType.length; f++) {
@@ -89,7 +87,7 @@ void maakKaartenStapel(int aantalVariaties) {
       }
     }
   }
-  
+
   if (aantalVariaties == 4) {
     for (int a = 0; a < aantalFiguren.length; a++) {
       for (int f = 0; f < figuurType.length; f++) {
@@ -101,8 +99,6 @@ void maakKaartenStapel(int aantalVariaties) {
       }
     }
   }
-
-  // Console logging.
   println("Kaartenstapel: " + kaartenInSpel);
   println("Totaal aantal kaarten: " + kaartenInSpel.size());
 }

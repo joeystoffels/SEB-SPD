@@ -5,47 +5,47 @@ void tekenScorebord() {
   tekenKnoppenScorebord();
 }
 
-
 // Achtergrond verversen van enkel het scorebord
 void setAchtergrondScorebord() {
   fill(zwart);
+  stroke(zwart, 0);
   rect(0, schermHoogte, width, -scorebordHoogte);
+  stroke(wit, 225);
 }
 
-
 // Info teksten toevoegen.
-void tekenInfoTextScorebord() {
+void tekenInfoTextScorebord() {  
+  fill(zwart, 150);
+  rect(width * 0.025, height * 0.855, width * 0.38, height * 0.14, 25);
+  
   tekenSpelInfoTextWaarde(""+aantalSetsSpeelveld, 1);
   tekenSpelInfoTextWaarde(""+kaartenInSpel.size(), 3);
   tekenSpelInfoTextWaarde(""+int(tijd), 5);
   tekenSpelInfoTextWaarde(nf(scoreSpelerEen), 7);
-  
+
   tekenSpelInfoTextTitel("Aantal sets: ", 1);
   tekenSpelInfoTextTitel("Kaarten over: ", 3);
   tekenSpelInfoTextTitel("Tijd: ", 5);
   tekenSpelInfoTextTitel("Score: ", 7);
 }
 
-
 // Knoppen toevoegen.
-void tekenKnoppenScorebord() {
+void tekenKnoppenScorebord() {    
   tekenKnopScorebord(4, 1);
   tekenKnopScorebord(4, 3);  
   tekenKnopScorebord(6, 1);  
   tekenKnopScorebord(6, 3);
-  
+
   tekenTextInKnopScorebord("Hint", 4.1, 3.25);
   tekenTextInKnopScorebord("Voeg " + yVelden + " toe", 4.1, 1.25);
   tekenTextInKnopScorebord("Opnieuw", 6.1, 3.25);
-  tekenTextInKnopScorebord("Startscherm", 6.1, 1.25);  
+  tekenTextInKnopScorebord("Startscherm", 6.1, 1.25);
 }
-
 
 void tekenKnopScorebord(float gridPosBreedte, float gridPosHoogte) {
-  fill(zwart);
-  rect((width / 8) * gridPosBreedte, schermHoogte - (scorebordHoogte / 5) * gridPosHoogte, 100, - (scorebordHoogte / 5));  
+  fill(zwart, 175);
+  rect((width / 8) * gridPosBreedte, schermHoogte - (scorebordHoogte / 5) * gridPosHoogte, 100, - (scorebordHoogte / 5), 25);
 }
-
 
 void tekenTextInKnopScorebord(String text, float gridPosBreedte, float gridPosHoogte) {
   fill(wit);
@@ -53,16 +53,14 @@ void tekenTextInKnopScorebord(String text, float gridPosBreedte, float gridPosHo
   text(text, (width / 8) * gridPosBreedte, schermHoogte - (scorebordHoogte / 5) * gridPosHoogte);
 }
 
-
 void tekenSpelInfoTextWaarde(String text, float gridPosHoogte) {
-  fill(wit, 225);
+  fill(wit);
   textFont(verdanaBold(scorebordHoogte / 7)); 
-  text(text,   0 + (width * 0.3), schermHoogte - (scorebordHoogte / 9) * gridPosHoogte); 
+  text(text, 0 + (width * 0.3), schermHoogte - (scorebordHoogte / 9) * gridPosHoogte);
 }
 
-
 void tekenSpelInfoTextTitel(String text, float gridPosHoogte) {
-  fill(wit, 225);
+  fill(wit);
   textFont(verdanaBold(scorebordHoogte / 7)); 
-  text(text, 0 + (width * 0.05), schermHoogte - (scorebordHoogte / 9) * gridPosHoogte); 
+  text(text, 0 + (width * 0.05), schermHoogte - (scorebordHoogte / 9) * gridPosHoogte);
 }

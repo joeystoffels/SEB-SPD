@@ -31,12 +31,45 @@ final color zwart = color(0, 0, 0);
 
 // Configuratie waarden voor de diverse figuren
 // Betreffen factoren binnen het in een kaart gedefineerde grid (8 x 8)
-final float[][] ellipseConfig = { {4.0, 0, 0}, {3.0, 0, 0}, {5.0, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {6.0, 0, 0} };
-final float[][] rechthoekConfig = { {3.25, 0, 0}, {2.0, 0, 0}, {4.0, 0, 0}, {1.0, 0, 0}, {3.25, 0, 0}, {5.5, 0, 0} };
-final float[][] driehoekConfig = { {4.75, 3.25, 4.75}, {3.75, 2.25, 3.75}, {5.75, 4.25, 5.75}, {2.75, 1.25, 2.75}, {4.75, 3.25, 4.75}, {6.75, 5.25, 6.75} };
+final float[][] ellipseConfig = { 
+  {4.0, 0, 0}, 
+  {3.0, 0, 0}, 
+  {5.0, 0, 0}, 
+  {2.0, 0, 0}, 
+  {4.0, 0, 0}, 
+  {6.0, 0, 0} 
+};
+final float[][] rechthoekConfig = { 
+{3.25, 0, 0},
+{2.0, 0, 0},
+{4.0, 0, 0},
+{1.0, 0, 0},
+{3.25, 0, 0},
+{5.5, 0, 0}
+};
+final float[][] driehoekConfig = { 
+{4.75, 3.25, 4.75}, 
+{3.75, 2.25, 3.75}, 
+{5.75, 4.25, 5.75}, 
+{2.75, 1.25, 2.75}, 
+{4.75, 3.25, 4.75}, 
+{6.75, 5.25, 6.75} 
+};
 
 // Startscherm image, wordt in setup geinitialiseerd.
-PImage img;
+String setImgBestandsLocatie = "data/set.png";
+String airwolfMuziekBestandsLocatie = "AirwolfSound.mp3";
+String airwolfVideoBestandsLocatie = "AirwolfMovie.mp4";
+String ateamMuziekBestandsLocatie = "AteamSound.mp3";
+String ateamVideoBestandsLocatie = "AteamMovie.mp4";
+
+PImage setImg;
+SoundFile airwolfMuziek;
+Movie airwolfVideo;
+SoundFile ateamMuziek;
+Movie ateamVideo;
+
+String theme = "";
 
 // ArrayList ipv. array voor het makkelijk deleten van Strings.
 // Bevat alle mogelijke kaarten, '1drv' betekent bijv. 1 driehoek rood vol.                    
@@ -70,7 +103,8 @@ boolean spelActief = false;
 boolean startSchermActive = true;
 boolean spelAfgelopen = false;
 boolean kaartenToegevoegd = false;
-
+boolean airwolfThemeActive = false;
+boolean ateamThemeActive = false;
 
 String naam = "";
 
@@ -79,12 +113,10 @@ float restartTijd = 0.0;
 
 int aantalKaartenOpSpeelveld = 0;
 
-
-
 // Filter functie om max lengte v/d naam op 10 karakters te zetten
 void setNaam(String naamNieuw) {    
-  if (naamNieuw.length() >= 8){ 
-   naamNieuw = naamNieuw.substring(0, 8); 
+  if (naamNieuw.length() >= 8) { 
+    naamNieuw = naamNieuw.substring(0, 8);
   }   
   naam = naamNieuw;
 }
@@ -97,11 +129,11 @@ PFont verdanaBold(int size) {
 }
 
 void maakSpelScherm() {
-    surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte + scorebordHoogte); 
+  surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte + scorebordHoogte);
 }
 
 void resetSpelVariabelen() {  
-  scoreOpgeslagen = false;
+  scoreOpgeslagen = false; //<>//
   spelAfgelopen = false;
   kaartenInSpel = new ArrayList<String>();
   geselecteerdeKaarten = new ArrayList<String>();
@@ -110,16 +142,16 @@ void resetSpelVariabelen() {
   speelVeldKleur = new color[xVelden][yVelden];  
   naam = "";
   scoreSpelerEen = 0;
-  
-  if(kaartenToegevoegd) {  // Check of er velden zijn toegevoegd aan het laatste spel en maak dit ongedaan.
+
+  if (kaartenToegevoegd) {  // Check of er velden zijn toegevoegd aan het laatste spel en maak dit ongedaan.
     xVelden--;
     kaartenToegevoegd = false;
-  }  
+  }
 }
 
 void timer() {  
   if (spelAfgelopen) {
-    tijd = tijd == 0.0 ? millis() / 1000.0 : tijd;   
+    tijd = tijd == 0.0 ? millis() / 1000.0 : tijd;
   } else {
     tijd = millis() / 1000.0 - restartTijd;
   }
