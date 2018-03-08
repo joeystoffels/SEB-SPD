@@ -16,7 +16,7 @@ void setAchtergrondScorebord() {
 // Info teksten toevoegen.
 void tekenInfoTextScorebord() {  
   fill(zwart, 150);
-  rect(width * 0.025, height * 0.855, width * 0.38, height * 0.14, 25);
+  rect(width * 0.025, height - scorebordHoogte + 3, width * 0.38, scorebordHoogte - 6, 25);
   
   tekenSpelInfoTextWaarde(""+aantalSetsSpeelveld, 1);
   tekenSpelInfoTextWaarde(""+kaartenInSpel.size(), 3);

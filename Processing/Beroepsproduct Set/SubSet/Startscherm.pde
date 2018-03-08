@@ -6,7 +6,7 @@ void tekenStartScherm() {
   rect(width * 0.1, height * 0.075, width * 0.8, height * 0.5, 25);
   image(setImg, width * 0.15, height * 0.1, width * 0.75, height * 0.45);
   tekenKnoppenStartScherm();
-  strokeWeight(2);
+  //strokeWeight(2);
 }
 
 void tekenKnoppenStartScherm() {

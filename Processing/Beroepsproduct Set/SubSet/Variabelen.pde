@@ -1,5 +1,5 @@
-final int schermBreedte = 600;
-final int schermHoogte = 650;
+final int schermBreedte = 700;
+final int schermHoogte = int(schermBreedte * 1.1);
 final int scorebordHoogte = 100;
 final int speelveldHoogte = schermHoogte - scorebordHoogte;  
 
@@ -11,7 +11,6 @@ final int yVelden = 3;
 // Variabelen kunnen pas worden geinitialiseerd zodra de screensize in setup bekend is.
 int kaartGridBreedte = schermBreedte / (xVelden * 8);
 int kaartGridHoogte = speelveldHoogte / (yVelden * 8);
-
 
 // Grootte v/d kaarten in pixels.
 //int  kaartBreedte = schermBreedte / xVelden;
@@ -40,20 +39,20 @@ final float[][] ellipseConfig = {
   {6.0, 0, 0} 
 };
 final float[][] rechthoekConfig = { 
-{3.25, 0, 0},
-{2.0, 0, 0},
-{4.0, 0, 0},
-{1.0, 0, 0},
-{3.25, 0, 0},
-{5.5, 0, 0}
+  {3.25, 0, 0},
+  {2.0, 0, 0},
+  {4.0, 0, 0},
+  {1.0, 0, 0},
+  {3.25, 0, 0},
+  {5.5, 0, 0}
 };
 final float[][] driehoekConfig = { 
-{4.75, 3.25, 4.75}, 
-{3.75, 2.25, 3.75}, 
-{5.75, 4.25, 5.75}, 
-{2.75, 1.25, 2.75}, 
-{4.75, 3.25, 4.75}, 
-{6.75, 5.25, 6.75} 
+  {4.75, 3.25, 4.75}, 
+  {3.75, 2.25, 3.75}, 
+  {5.75, 4.25, 5.75}, 
+  {2.75, 1.25, 2.75}, 
+  {4.75, 3.25, 4.75}, 
+  {6.75, 5.25, 6.75} 
 };
 
 // Startscherm image, wordt in setup geinitialiseerd.
@@ -78,7 +77,6 @@ ArrayList<String> kaartenInSpel = new ArrayList<String>();
 // Twee dimensionaal array om het speelveld te maken
 String[][] speelVeld = new String[xVelden][yVelden];
 color[][] speelVeldKleur = new color[xVelden][yVelden];
-
 
 final String[] aantalFiguren = {"1", "2", "3"};
 final String[] kleurFiguur = {"r", "g", "b"}; // rood, groen, blauw

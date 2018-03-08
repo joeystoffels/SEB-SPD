@@ -23,7 +23,7 @@ void tekenEindscherm() {
   tekenEindeTitel();  
   
   fill(zwart, 150);
-  rect(width * 0.025, height * 0.855, width * 0.38, height * 0.075, 25);
+  rect(width * 0.025, height - scorebordHoogte, width * 0.38, scorebordHoogte / 1.6, 25);
 
   tekenKnopScorebord(6, 3); 
   tekenKnopScorebord(6, 1);
@@ -38,9 +38,9 @@ void tekenEindscherm() {
 
 void tekenNaamInvoer() {
   if (spelAfgelopen && !scoreOpgeslagen) {
-    text("Voer naam in: " + naam, 0 + (width * 0.25), schermHoogte * 0.7);
+    text("Voer naam in: " + naam, 0 + (width * 0.25), schermHoogte * 0.725);
   } else if (spelAfgelopen && scoreOpgeslagen) {
-    text("Je bent geeindigd op de " + plaatsOpHighscoreLijst + "e plaats!", 0 + (width * 0.25), schermHoogte * 0.7);
+    text("Je bent geeindigd op de " + plaatsOpHighscoreLijst + "e plaats!", 0 + (width * 0.25), schermHoogte * 0.725);
   }
 }
 

@@ -59,7 +59,7 @@ String[] sorteerHighscores(String[] highscoreLijst) {
 // Functie om de highscore lijst aan te maken.
 void maakHighscoreLijst() {  
   fill(zwart, 175);
-  rect(width * 0.15, height * 0.2, width * 0.7, height * 0.6, 25);
+  rect(width * 0.15, height * 0.21, width * 0.7, height * 0.56, 25);
   
   fill(wit);
   text("HIGHSCORES", (width / 6) * 1.5, schermHoogte / 4);
