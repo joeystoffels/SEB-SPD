@@ -7,8 +7,7 @@ void mousePressed() {
     if (mouseX > width / 4 && mouseX < width / 4 * 3) {
 
       // Click Subset - 3 variations button
-      if (mouseY > height / 10 * 7 && mouseY < height / 10 * 7 + 25) {
-        
+      if (mouseY > height / 10 * 7 && mouseY < height / 10 * 7 + 25) {        
         startSchermActive = false;
         spelActief = true;       
         aantalVariaties = 3;
@@ -17,7 +16,6 @@ void mousePressed() {
 
       // Click Set - 4 variations button
       if (mouseY > height / 10 * 7.5 && mouseY < height / 10 * 7.5 + 25) {
-
         spelActief = true;                
         startSchermActive = false;
         aantalVariaties = 4;
@@ -114,11 +112,12 @@ void keyPressed() {
 
 void keyPressedCoded() {
   switch(keyCode) {
-    case 121:
-      activeerThema("Ateam");
+    case 121: 
+      aantalHintKaarten = 3;
+      println("Cheat: Hint 3 kaarten in plaats van 2!");
       break;
     case 122:
-      activeerThema("Airwolf");
+      setAchtergrondVideo("Airwolf");      
       break;
     case 123:  
       activeerEindeSpel();
@@ -155,22 +154,20 @@ void geefHint() {
   }
 
   String[] set = setsLijst.get(int(random(0, setsLijst.size())));
-
-  int counter = 0;
-  color randomKleurRood = int(random(0, 255));
-  color randomKleurGeel = int(random(0, 255));
-  color randomKleurBlauw = int(random(0, 255));
+  color[] pastelKleurenArray = {color(255, 179, 186, 200), color(186, 255, 201, 200), color(186, 225, 255, 200) };  
+  color randomPastelKleur = pastelKleurenArray[int(random(0, pastelKleurenArray.length))];
   
   resetSpeelveldAchtergrond();
-
+  int counter = 0;
+  
   for (int x = 0; x < speelVeldKleur.length; x++) {
     for (int y = 0; y < speelVeldKleur[x].length; y++) {
-      if (java.util.Arrays.asList(set).contains(speelVeld[x][y]) && counter < 2) {         
-        speelVeldKleur[x][y] = color(randomKleurRood, randomKleurGeel, randomKleurBlauw, 125);
+      if (contains(set, speelVeld[x][y]) && counter < aantalHintKaarten) {
+        speelVeldKleur[x][y] = randomPastelKleur;
         counter++;
       }
     }
-  }    
+  }
   scoreSpelerEen = scoreSpelerEen - 0.5;
 }
 
@@ -251,4 +248,8 @@ boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
     }
   }
   return (testChar0 && testChar1 && testChar2 && testChar3);
+}
+
+void movieEvent(Movie movie) {
+  movie.read(); 
 }

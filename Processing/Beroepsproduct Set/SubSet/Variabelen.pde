@@ -13,8 +13,6 @@ int kaartGridBreedte = schermBreedte / (xVelden * 8);
 int kaartGridHoogte = speelveldHoogte / (yVelden * 8);
 
 // Grootte v/d kaarten in pixels.
-//int  kaartBreedte = schermBreedte / xVelden;
-//int  kaartHoogte = (schermHoogte - scorebordHoogte) / yVelden;
 final int kaartBreedte = schermBreedte / xVelden;
 final int kaartHoogte = (schermHoogte - scorebordHoogte) / yVelden;
 
@@ -40,8 +38,8 @@ final float[][] ellipseConfig = {
 };
 final float[][] rechthoekConfig = { 
   {3.25, 0, 0},
-  {2.0, 0, 0},
-  {4.0, 0, 0},
+  {2.4, 0, 0},
+  {4.4, 0, 0},
   {1.0, 0, 0},
   {3.25, 0, 0},
   {5.5, 0, 0}
@@ -56,17 +54,15 @@ final float[][] driehoekConfig = {
 };
 
 // Startscherm image, wordt in setup geinitialiseerd.
+String achtergrondVideoBestandsLocatie= "rainbow.mov";
 String setImgBestandsLocatie = "data/set.png";
 String airwolfMuziekBestandsLocatie = "AirwolfSound.mp3";
 String airwolfVideoBestandsLocatie = "AirwolfMovie.mp4";
-String ateamMuziekBestandsLocatie = "AteamSound.mp3";
-String ateamVideoBestandsLocatie = "AteamMovie.mp4";
 
 PImage setImg;
 SoundFile airwolfMuziek;
 Movie airwolfVideo;
-SoundFile ateamMuziek;
-Movie ateamVideo;
+Movie achtergrondVideo;
 
 String theme = "";
 
@@ -95,14 +91,13 @@ ArrayList<String[]> setsLijst = new ArrayList<String[]>();
 // Gamestate variabelen
 int aantalVariaties = 3;
 
-boolean scoreOpgeslagen = false;
-
 boolean spelActief = false;
 boolean startSchermActive = true;
 boolean spelAfgelopen = false;
 boolean kaartenToegevoegd = false;
 boolean airwolfThemeActive = false;
-boolean ateamThemeActive = false;
+boolean scoreOpgeslagen = false;
+int aantalHintKaarten = 2;
 
 String naam = "";
 
@@ -140,11 +135,19 @@ void resetSpelVariabelen() {
   speelVeldKleur = new color[xVelden][yVelden];  
   naam = "";
   scoreSpelerEen = 0;
+  aantalHintKaarten = 2;
 
   if (kaartenToegevoegd) {  // Check of er velden zijn toegevoegd aan het laatste spel en maak dit ongedaan.
     xVelden--;
     kaartenToegevoegd = false;
   }
+}
+
+void laadMediaBestanden() {
+  setImg = loadImage(setImgBestandsLocatie);  
+  achtergrondVideo = new Movie(this, achtergrondVideoBestandsLocatie);  
+  airwolfVideo = new Movie(this, airwolfVideoBestandsLocatie);
+  airwolfMuziek = new SoundFile(this, airwolfMuziekBestandsLocatie);
 }
 
 void timer() {  

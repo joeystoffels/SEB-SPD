@@ -18,7 +18,7 @@ void maakSpeelveld() {
 }
 
 // Functie om het speelveld te vullen met kaarten.
-void vulSpeelveld() {
+void tekenKaartFiguren() {
   for (int x=0; x < xVelden; x++) {
     for (int y=0; y < yVelden; y++) {
       maakKaartFiguur(speelVeld[x][y], x, y);
@@ -63,7 +63,7 @@ void aantalSetsSpeelveld() {
 
               // Aanmaken gesorteerde setKaarten array om te vergelijken met de sets in de setsLijst.
               String[] setKaarten = {kaartEen, kaartTwee, kaartDrie};              
-              sort(setKaarten);
+              setKaarten = sort(setKaarten);
 
               boolean isSetInSetsLijst = setInSetsLijst(setKaarten);
 

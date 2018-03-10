@@ -1,45 +1,31 @@
-void activeerThema(String theme) {
+void setAchtergrondVideo(String theme) {  
   switch (theme) {
     case "Airwolf": 
       airwolfThemeActive = !airwolfThemeActive;
-      if (airwolfThemeActive && !ateamThemeActive) {
+      if (airwolfThemeActive) {
+        achtergrondVideo.stop();
         airwolfVideo.play();
-        airwolfVideo.speed(1);
         airwolfVideo.volume(0);      
         airwolfMuziek.play();
         image(airwolfVideo, 0, 0, width, height);  
       } else {
+        achtergrondVideo.play();
         airwolfVideo.stop();
         airwolfMuziek.stop();
       }
-      break;
-    case "Ateam":
-      ateamThemeActive = !ateamThemeActive;
-      if (ateamThemeActive && !airwolfThemeActive) {
-        ateamVideo.play();
-        ateamVideo.speed(1);
-        ateamVideo.volume(0);      
-        ateamMuziek.play();
-        image(ateamVideo, 0, 0, width, height); 
-      } else {
-        ateamVideo.stop();
-        ateamMuziek.stop();
-      }
-      break;
+      break;        
   }
-  println("Custom theme activated: - " + theme + "!");
+  println(theme + " theme " + (airwolfThemeActive ? "activated" : "deactivated") + "!");
 }
 
-void customTheme() {  
+void toonAchtergrondVideo() {  
   if (airwolfThemeActive) {  
     tint(255, 225);
     image(airwolfVideo, 0, 0, width, height); 
     noTint();
-  } 
-  
-  if (ateamThemeActive) {
-    tint(255, 225);
-    image(ateamVideo, 0, 0, width, height); 
+  } else {
+    tint(255, 175);
+    image(achtergrondVideo, 0, 0, width, height); 
     noTint();
   }  
 }  

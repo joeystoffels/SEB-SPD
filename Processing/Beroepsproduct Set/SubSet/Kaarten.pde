@@ -62,15 +62,16 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
         (kaartGridBreedte * 4.0), (kaartGridHoogte * 1.5));
     }
 
-    stroke(wit);
+    
   }
+  stroke(wit);
 }
 
 // Functie voor in draw() om continu de achtergrond van de kaarten te kleuren.
 void kleurAchtergrondKaarten() {  
   for (int xPos = 0; xPos < xVelden; xPos++) {
     for (int yPos = 0; yPos < yVelden; yPos++) {
-      fill(speelVeldKleur[xPos][yPos], 100);
+      fill(speelVeldKleur[xPos][yPos], 200);
       rect(kaartBreedte * xPos, (speelveldHoogte / yVelden) * yPos, kaartBreedte, speelveldHoogte / yVelden, 25);
     }
   }

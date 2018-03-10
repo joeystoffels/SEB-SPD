@@ -7,40 +7,34 @@ import processing.video.*;
 
 // Setup van het startScherm en enkele variabelen.
 void setup() {
-  setImg = loadImage(setImgBestandsLocatie);  
-  airwolfVideo = new Movie(this, airwolfVideoBestandsLocatie);
-  airwolfMuziek = new SoundFile(this, airwolfMuziekBestandsLocatie);
-  ateamVideo = new Movie(this, ateamVideoBestandsLocatie);
-  ateamMuziek = new SoundFile(this, ateamMuziekBestandsLocatie);  
-  tekenStartScherm();  
+  frameRate(30);  
   maakSpelScherm();
+  laadMediaBestanden();
+  tekenStartScherm();    
 }
 
 // Functie voor het weergeven van de inhoud van het scherm.
 void draw() { 
   smooth();
-  background(zwart);  
-  customTheme();
+  background(zwart);   
 
   if (startSchermActive) { 
+    toonAchtergrondVideo();
     tekenStartScherm();
   }
 
   if (spelActief) {     
     kleurAchtergrondKaarten();    
-    vulSpeelveld();  
+    tekenKaartFiguren();  
     tekenScorebord(); 
     timer();
     checkEindeSpel();
   }
 
   if (spelAfgelopen) { 
+    toonAchtergrondVideo();
     tekenEindscherm();   
   }
-}
-
-void movieEvent(Movie movie) {
-  movie.read(); 
 }
 
 // Setup van het gekozen speltype (3 of 4 varianten).

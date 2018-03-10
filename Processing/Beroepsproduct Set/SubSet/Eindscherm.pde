@@ -45,12 +45,12 @@ void tekenNaamInvoer() {
 }
 
 void tekenEindeTitel() {
-  fill(groen, 150);
+  fill(zwart, 150);
   rect((width / 7), (speelveldHoogte / 9), (width / 7) * 5, (speelveldHoogte / 9), 25);
 
-  fill(wit, 225);
+  fill(wit);
   textAlign(CENTER);
-  textFont(verdanaBold(scorebordHoogte / 4));   
+  textFont(verdanaBold(scorebordHoogte / 3));   
   text("EINDE", (width / 2), speelveldHoogte / 9 + (speelveldHoogte / 9) / 1.5);    
   textAlign(LEFT);
 }
