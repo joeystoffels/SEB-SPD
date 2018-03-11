@@ -96,7 +96,7 @@ void selecteerKaart() {
     return;
   }
 
-  if (kaart == legeKaart) {
+  if (kaart.equals(legeKaart)) {
     return;
   }
 
@@ -106,7 +106,7 @@ void selecteerKaart() {
   } else {  
     if (!geselecteerdeKaarten.contains(kaart) && geselecteerdeKaarten.size() < 3) {
       geselecteerdeKaarten.add(speelVeld[xVeld][yVeld]);
-      speelVeldKleur[xVeld][yVeld] = color(wit, 0);
+      speelVeldKleur[xVeld][yVeld] = color(zwart, 75);
       if (geselecteerdeKaarten.size() == 3) { 
         verifieerSet();
       }
@@ -179,10 +179,10 @@ void geefHint() {
   resetSpeelveldAchtergrond();
   int counter = 0;
   
-  for (int x = 0; x < speelVeldKleur.length; x++) {
-    for (int y = 0; y < speelVeldKleur[x].length; y++) {
+  for (int x = 0; x < speelkaartBorderKleur.length; x++) {
+    for (int y = 0; y < speelkaartBorderKleur[x].length; y++) {
       if (contains(set, speelVeld[x][y]) && counter < aantalHintKaarten) {
-        speelVeldKleur[x][y] = randomPastelKleur;
+        speelkaartBorderKleur[x][y] = color(255, 0, 255);
         counter++;
       }
     }
@@ -198,11 +198,13 @@ void voegKaartenToe() {
 
     String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
     color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
+    color[][] nieuwSpeelkaartBorderKleur = new color[xVelden][yVelden];
 
     for (int x = 0; x < xVelden-1; x++) {
       for (int y = 0; y < yVelden; y++) {
         nieuwSpeelVeld[x][y] = speelVeld[x][y];
         nieuwSpeelVeldKleur[x][y] = speelVeldKleur[x][y];
+        nieuwSpeelkaartBorderKleur[x][y] = speelkaartBorderKleur[x][y];
       }
     }
 
@@ -211,12 +213,14 @@ void voegKaartenToe() {
         if (nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
           nieuwSpeelVeld[x][y] = legeKaart;
           nieuwSpeelVeldKleur[x][y] = zwart;
+          nieuwSpeelkaartBorderKleur[x][y] = wit;
         }
       }
     }
 
     speelVeld = nieuwSpeelVeld;
-    speelVeldKleur = nieuwSpeelVeldKleur;  
+    speelVeldKleur = nieuwSpeelVeldKleur; 
+    speelkaartBorderKleur = nieuwSpeelkaartBorderKleur;
     maakSpeelveld();
     telAantalSetsSpeelveld();
     kaartenToegevoegd = true;
@@ -243,6 +247,7 @@ void resetSpeelveldAchtergrond() {
   for (int x = 0; x < xVelden; x++) {
     for (int y = 0; y < yVelden; y++) {
       speelVeldKleur[x][y] = zwart;
+      speelkaartBorderKleur[x][y] = wit;
     }
   }
 }

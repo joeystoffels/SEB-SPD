@@ -5,6 +5,7 @@ void setAchtergrondVideo(Movie video) {
 }
 
 void toonAchtergrondVideo() {   
+  achtergrondVideo.play();
   achtergrondVideo.loop();
   image(achtergrondVideo, 0, 0, width, height); 
 }  

@@ -5,7 +5,9 @@ void tekenScorebord() {
 }
 
 // Info teksten toevoegen.
-void tekenInfoTextScorebord() {  
+void tekenInfoTextScorebord() { 
+  stroke(wit);
+  strokeWeight(2);
   fill(zwart, 150);
   rect(width * 0.025, height - scorebordHoogte + 3, width * 0.38, scorebordHoogte - 6, 25);
   

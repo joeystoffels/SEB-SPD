@@ -21,8 +21,8 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
   color kleur = (kaart.charAt(2) == 'r' ? rood : (kaart.charAt(2) == 'g' ? groen : blauw));
   int vulling = (kaart.charAt(3) == 'l' ? 0 : (kaart.charAt(3) == 'h' ? 100 : 255));  
 
-  final float xPosSpeelveld = xPositie * kaartBreedte;
-  final float yPosSpeelveld = yPositie * kaartHoogte;
+  final float xPosSpeelveld = xPositie * kaartBreedte + 3;
+  final float yPosSpeelveld = yPositie * kaartHoogte + 2;
 
   float[][] kaartConfig;
 
@@ -37,7 +37,7 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
     kaartConfig = driehoekConfig; // default ivm compile error in volgende for loop
   }
   
-  strokeWeight(2);
+  strokeWeight(3);
   stroke(kleur);
   fill(kleur, vulling);
     
@@ -65,15 +65,16 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
         (kaartGridBreedte * 4.0), (kaartGridHoogte * 1.5));
     }    
   }
-  stroke(wit);
 }
 
 // Functie voor in draw() om continu de achtergrond van de kaarten te kleuren.
 void toonAchtergrondKaarten() {  
   for (int xPos = 0; xPos < xVelden; xPos++) {
     for (int yPos = 0; yPos < yVelden; yPos++) {
-      fill(speelVeldKleur[xPos][yPos], 200);
-      rect(kaartBreedte * xPos, (speelveldHoogte / yVelden) * yPos, kaartBreedte, speelveldHoogte / yVelden, 25);
+      strokeWeight(3);
+      stroke(speelkaartBorderKleur[xPos][yPos]);
+      fill(speelVeldKleur[xPos][yPos], 175);
+      rect(kaartBreedte * xPos + 10, (speelveldHoogte / yVelden) * yPos + 10, kaartBreedte - 20, speelveldHoogte / yVelden - 20, 25);
     }
   }
 }
