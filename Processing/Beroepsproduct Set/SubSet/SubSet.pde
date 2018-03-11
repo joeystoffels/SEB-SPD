@@ -9,8 +9,7 @@ import processing.video.*;
 void setup() {
   frameRate(30);  
   maakSpelScherm();
-  laadMediaBestanden();
-  tekenStartScherm();    
+  laadMediaBestanden(); 
 }
 
 // Functie voor het weergeven van de inhoud van het scherm.
@@ -18,9 +17,18 @@ void draw() {
   smooth();
   background(zwart);   
 
-  if (startSchermActive) { 
+  if (startSchermActief) { 
     toonAchtergrondVideo();
     tekenStartScherm();
+  }
+  
+  if (spelregelsActief) {
+    toonAchtergrondVideo();
+    fill(zwart, 150);
+    stroke(wit, 200);
+    strokeWeight(3);
+    rect(width * 0.09, height * 0.21, width * 0.82, height * 0.58, 25);
+    image(setSpelregels, width * 0.14, height * 0.25, width * 0.72, height * 0.5);
   }
 
   if (spelActief) {     
@@ -44,11 +52,5 @@ void setupSpel() {
   maakKaartenStapel(aantalVariaties);
   maakSpeelveld();    
   aantalSetsSpeelveld();
-  restartTijd = millis() / 1000.0;
-}
-
-// Functie om het spel te herstarten, spelvariabelen worden gereset.
-void herstart() {
-  resetSpelVariabelen();  
-  setupSpel();
+  restartTimer();
 }

@@ -1,4 +1,4 @@
-final int schermBreedte = 700;
+int schermBreedte = 700;
 final int schermHoogte = int(schermBreedte * 1.1);
 final int scorebordHoogte = 100;
 final int speelveldHoogte = schermHoogte - scorebordHoogte;  
@@ -25,6 +25,9 @@ final color groen = color(100, 255, 100);
 final color blauw = color(0, 100, 255);
 final color wit = color(255, 255, 255);
 final color zwart = color(0, 0, 0);
+final color pastelRood = color(255, 179, 186);
+final color pastelGroen = color(186, 255, 201);
+final color pastelBlauw = color(186, 225, 255);
 
 // Configuratie waarden voor de diverse figuren
 // Betreffen factoren binnen het in een kaart gedefineerde grid (8 x 8)
@@ -56,13 +59,14 @@ final float[][] driehoekConfig = {
 // Startscherm image, wordt in setup geinitialiseerd.
 String achtergrondVideoBestandsLocatie= "rainbow.mov";
 String setImgBestandsLocatie = "data/set.png";
-String airwolfMuziekBestandsLocatie = "AirwolfSound.mp3";
+String setSpelregelsBestandsLocatie = "data/spelregels.png";
 String airwolfVideoBestandsLocatie = "AirwolfMovie.mp4";
 
 PImage setImg;
-SoundFile airwolfMuziek;
 Movie airwolfVideo;
 Movie achtergrondVideo;
+Movie rainbowVideo;
+PImage setSpelregels;
 
 String theme = "";
 
@@ -92,8 +96,9 @@ ArrayList<String[]> setsLijst = new ArrayList<String[]>();
 int aantalVariaties = 3;
 
 boolean spelActief = false;
-boolean startSchermActive = true;
+boolean startSchermActief = true;
 boolean spelAfgelopen = false;
+boolean spelregelsActief = false;
 boolean kaartenToegevoegd = false;
 boolean airwolfThemeActive = false;
 boolean scoreOpgeslagen = false;
@@ -125,7 +130,7 @@ void maakSpelScherm() {
   surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte + scorebordHoogte);
 }
 
-void resetSpelVariabelen() {  
+void resetSpelVariabelen() { 
   scoreOpgeslagen = false; //<>//
   spelAfgelopen = false;
   kaartenInSpel = new ArrayList<String>();
@@ -136,18 +141,15 @@ void resetSpelVariabelen() {
   naam = "";
   scoreSpelerEen = 0;
   aantalHintKaarten = 2;
-
-  if (kaartenToegevoegd) {  // Check of er velden zijn toegevoegd aan het laatste spel en maak dit ongedaan.
-    xVelden--;
-    kaartenToegevoegd = false;
-  }
+  kaartenToegevoegd = false;
 }
 
 void laadMediaBestanden() {
   setImg = loadImage(setImgBestandsLocatie);  
+  setSpelregels = loadImage(setSpelregelsBestandsLocatie);
   achtergrondVideo = new Movie(this, achtergrondVideoBestandsLocatie);  
+  rainbowVideo = new Movie(this, achtergrondVideoBestandsLocatie);
   airwolfVideo = new Movie(this, airwolfVideoBestandsLocatie);
-  airwolfMuziek = new SoundFile(this, airwolfMuziekBestandsLocatie);
 }
 
 void timer() {  
@@ -156,4 +158,8 @@ void timer() {
   } else {
     tijd = millis() / 1000.0 - restartTijd;
   }
+}
+
+void restartTimer() {
+    restartTijd = millis() / 1000.0;
 }

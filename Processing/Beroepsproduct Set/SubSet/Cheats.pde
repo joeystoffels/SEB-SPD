@@ -1,38 +1,17 @@
-void setAchtergrondVideo(String theme) {  
-  switch (theme) {
-    case "Airwolf": 
-      airwolfThemeActive = !airwolfThemeActive;
-      if (airwolfThemeActive) {
-        achtergrondVideo.stop();
-        airwolfVideo.play();
-        airwolfVideo.volume(0);      
-        airwolfMuziek.play();
-        image(airwolfVideo, 0, 0, width, height);  
-      } else {
-        achtergrondVideo.play();
-        airwolfVideo.stop();
-        airwolfMuziek.stop();
-      }
-      break;        
-  }
-  println(theme + " theme " + (airwolfThemeActive ? "activated" : "deactivated") + "!");
+void setAchtergrondVideo(Movie video) {   
+  achtergrondVideo.stop();
+  achtergrondVideo = video;  
+  achtergrondVideo.play();
 }
 
-void toonAchtergrondVideo() {  
-  if (airwolfThemeActive) {  
-    tint(255, 225);
-    image(airwolfVideo, 0, 0, width, height); 
-    noTint();
-  } else {
-    tint(255, 175);
-    image(achtergrondVideo, 0, 0, width, height); 
-    noTint();
-  }  
+void toonAchtergrondVideo() {   
+  achtergrondVideo.loop();
+  image(achtergrondVideo, 0, 0, width, height); 
 }  
 
 void activeerEindeSpel() {
   println("F12 Pressed - Skipping to end game!");
-  startSchermActive = false;
+  startSchermActief = false;
   spelAfgelopen = true;
   aantalKaartenOpSpeelveld = 0;
   aantalSetsSpeelveld = 0;  

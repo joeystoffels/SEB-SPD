@@ -1,26 +1,34 @@
 // Muisklik functie om kaarten te kunnen selecteren.
 // Deze functie triggert het checken op een set na het selecteren van 3 kaarten.
 void mousePressed() {  
-  println("CLICKED " + mouseX, mouseY);
+  //println("CLICKED " + mouseX, mouseY);
 
-  if (startSchermActive) { // Wanneer startScherm actief is zijn onderstaande knoppen beschikbaar.
+  if (startSchermActief) { // Wanneer startScherm actief is zijn onderstaande knoppen beschikbaar.
     if (mouseX > width / 4 && mouseX < width / 4 * 3) {
 
       // Click Subset - 3 variations button
       if (mouseY > height / 10 * 7 && mouseY < height / 10 * 7 + 25) {        
-        startSchermActive = false;
+        startSchermActief = false;
         spelActief = true;       
         aantalVariaties = 3;
+        xVelden = 3;
+        schermBreedte = (int) 0.75 * schermBreedte;
         setupSpel();
       }
 
       // Click Set - 4 variations button
       if (mouseY > height / 10 * 7.5 && mouseY < height / 10 * 7.5 + 25) {
         spelActief = true;                
-        startSchermActive = false;
+        startSchermActief = false;
         aantalVariaties = 4;
+        xVelden = 4;
         setupSpel();
       }      
+      
+      if (mouseY > height / 10 * 8.5 && mouseY < height / 10 * 8.5 + 25) {
+        startSchermActief = false;
+        spelregelsActief = true;
+      }
 
       // Click clear highscores button 
       if (mouseY > height / 10 * 9 && mouseY < height / 10 * 9 + 25) {
@@ -29,6 +37,12 @@ void mousePressed() {
     }
     return;
   }
+  
+  if (spelregelsActief) {
+    spelregelsActief = !spelregelsActief;
+    startSchermActief = true;
+  }
+    
 
   // return indien er buiten het speelveld geklikt is.
   if (mouseY > speelveldHoogte) { 
@@ -49,15 +63,17 @@ void mousePressed() {
       if (mouseY < (height - (scorebordHoogte / 5)) && mouseY > (height - (scorebordHoogte / 5))-(scorebordHoogte / 5)) {
         println("Beginscherm");
         spelActief = false;
-        startSchermActive = true;
-        herstart();
+        startSchermActief = true;
+        xVelden = 4;
+        setupSpel();
       } 
 
       if (mouseY < (height - (scorebordHoogte / 5) * 3) && mouseY > (height - (scorebordHoogte / 5) * 3)-(scorebordHoogte / 5)) {
         println("Opnieuw");
         spelActief = true;
-        startSchermActive = false;
-        herstart();
+        startSchermActief = false;
+        xVelden = aantalVariaties;
+        setupSpel();
       }
     }
     return;
@@ -117,7 +133,10 @@ void keyPressedCoded() {
       println("Cheat: Hint 3 kaarten in plaats van 2!");
       break;
     case 122:
-      setAchtergrondVideo("Airwolf");      
+      if (airwolfThemeActive) setAchtergrondVideo(rainbowVideo);
+      else setAchtergrondVideo(airwolfVideo);
+      airwolfThemeActive = !airwolfThemeActive;      
+      println("Cheat: Airwolf theme " + (airwolfThemeActive ? "activated" : "deactivated") + "!");
       break;
     case 123:  
       activeerEindeSpel();
@@ -154,7 +173,7 @@ void geefHint() {
   }
 
   String[] set = setsLijst.get(int(random(0, setsLijst.size())));
-  color[] pastelKleurenArray = {color(255, 179, 186, 200), color(186, 255, 201, 200), color(186, 225, 255, 200) };  
+  color[] pastelKleurenArray = {(color(pastelRood, 200)), color(pastelGroen, 200), color(pastelBlauw, 200) };  
   color randomPastelKleur = pastelKleurenArray[int(random(0, pastelKleurenArray.length))];
   
   resetSpeelveldAchtergrond();
@@ -230,24 +249,19 @@ void resetSpeelveldAchtergrond() {
 
 // Generieke functie voor het verifieren van een set.
 boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
-  boolean testChar0 = false;
-  boolean testChar1 = false;
-  boolean testChar2 = false;
-  boolean testChar3 = aantalVariaties != 4;  
+  boolean testCharResult = false;
 
   for (int charToTest = 0; charToTest < aantalVariaties; charToTest++) {
     if (!(kaartEen == legeKaart || kaartTwee == legeKaart || kaartDrie == legeKaart)) {
       if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest)) || 
         (kaartEen.charAt(charToTest) != kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) != kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) != kaartDrie.charAt(charToTest))) {
-        //println(kaartEen, kaartTwee, kaartDrie, charToCheck, aantalSetsSpeelveld); 
-        if (charToTest == 0) testChar0 = true;
-        if (charToTest == 1) testChar1 = true;
-        if (charToTest == 2) testChar2 = true;
-        if (charToTest == 3) testChar3 = true;
+        testCharResult = true;
+      } else {
+        return false;
       }
     }
   }
-  return (testChar0 && testChar1 && testChar2 && testChar3);
+  return testCharResult;
 }
 
 void movieEvent(Movie movie) {
