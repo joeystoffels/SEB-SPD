@@ -13,13 +13,13 @@ void checkEindeSpel() {
   if (aantalSetsSpeelveld == 0 && ((kaartenToegevoegd == true || kaartenInSpel.size() <= 0) || aantalKaartenOpSpeelveld == 0)) {    
     spelActief = false;
     spelAfgelopen = true;     
-    tekenEindscherm();
+    toonEindscherm();
   }
 }
 
-void tekenEindscherm() {      
-  maakHighscoreLijst();
-  tekenNaamInvoer();     
+void toonEindscherm() {      
+  toonHighscoreLijst();
+  tekenNaamInvoer();       
   tekenEindeTitel();  
   
   fill(zwart, 150);

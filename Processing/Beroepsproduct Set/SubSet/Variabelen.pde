@@ -32,20 +32,12 @@ final color pastelBlauw = color(186, 225, 255);
 // Configuratie waarden voor de diverse figuren
 // Betreffen factoren binnen het in een kaart gedefineerde grid (8 x 8)
 final float[][] ellipseConfig = { 
-  {4.0, 0, 0}, 
-  {3.0, 0, 0}, 
-  {5.0, 0, 0}, 
-  {2.0, 0, 0}, 
-  {4.0, 0, 0}, 
-  {6.0, 0, 0} 
+  {4.0}, {3.0}, {5.0}, 
+  {2.0}, {4.0}, {6.0} 
 };
 final float[][] rechthoekConfig = { 
-  {3.25, 0, 0},
-  {2.4, 0, 0},
-  {4.4, 0, 0},
-  {1.0, 0, 0},
-  {3.25, 0, 0},
-  {5.5, 0, 0}
+  {3.25}, {2.4},{4.4},
+  {1.0}, {3.25}, {5.5}
 };
 final float[][] driehoekConfig = { 
   {4.75, 3.25, 4.75}, 
@@ -112,11 +104,8 @@ float restartTijd = 0.0;
 int aantalKaartenOpSpeelveld = 0;
 
 // Filter functie om max lengte v/d naam op 10 karakters te zetten
-void setNaam(String naamNieuw) {    
-  if (naamNieuw.length() >= 8) { 
-    naamNieuw = naamNieuw.substring(0, 8);
-  }   
-  naam = naamNieuw;
+void setNaam(String naamNieuw) {      
+  naam = naamNieuw.length() >= 10 ? naamNieuw.substring(0, 10) : naamNieuw;
 }
 
 int plaatsOpHighscoreLijst;
@@ -126,7 +115,7 @@ PFont verdanaBold(int size) {
   return createFont("Verdana Bold", size);
 }
 
-void maakSpelScherm() {
+void maakSpelScherm(int xVelden) {
   surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte + scorebordHoogte);
 }
 
@@ -142,6 +131,7 @@ void resetSpelVariabelen() {
   scoreSpelerEen = 0;
   aantalHintKaarten = 2;
   kaartenToegevoegd = false;
+  restartTijd = millis() / 1000.0;
 }
 
 void laadMediaBestanden() {
@@ -152,14 +142,6 @@ void laadMediaBestanden() {
   airwolfVideo = new Movie(this, airwolfVideoBestandsLocatie);
 }
 
-void timer() {  
-  if (spelAfgelopen) {
-    tijd = tijd == 0.0 ? millis() / 1000.0 : tijd;
-  } else {
+void updateTijd() {  
     tijd = millis() / 1000.0 - restartTijd;
-  }
-}
-
-void restartTimer() {
-    restartTijd = millis() / 1000.0;
 }

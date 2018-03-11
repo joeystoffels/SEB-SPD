@@ -41,7 +41,7 @@ void verwijderKaarten(ArrayList<String> kaarten) {
 }
 
 // Functie om het aantal sets op het speelveld te tellen.
-void aantalSetsSpeelveld() {  
+void telAantalSetsSpeelveld() {  
   setsLijst.clear();
   aantalSetsSpeelveld = 0;  
 
@@ -68,8 +68,7 @@ void aantalSetsSpeelveld() {
               boolean isSetInSetsLijst = setInSetsLijst(setKaarten);
 
               // Check of de 3 kaarten een set zijn, zo ja, verhoog het aantalSetsSpeelveld en voeg de set toe aan de setsLijst.
-              if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie)) && isSetInSetsLijst) {
-                if (isSet(kaartEen, kaartTwee, kaartDrie)) {
+                if (isSet(kaartEen, kaartTwee, kaartDrie) && !isSetInSetsLijst) {
                   aantalSetsSpeelveld++;                  
                   setsLijst.add(setKaarten);
                 }
@@ -79,7 +78,7 @@ void aantalSetsSpeelveld() {
         }
       }
     }
-  }
+  
   println("Er liggen " + setsLijst.size() + " sets op het speelveld:");
   for ( String[] set : setsLijst ) {   
     println("SET #" + (setsLijst.indexOf(set) + 1) + ": " + set[0] + ", " + set[1] + ", " + set[2]);
@@ -88,14 +87,14 @@ void aantalSetsSpeelveld() {
 
 // Check of de 3 kaarten al als een set in de setsLijst aanwezig is.
 boolean setInSetsLijst(String[] setKaarten) {
-  boolean isSetInSetsLijst = true;
+  boolean isSetInSetsLijst = false;
 
   for (int x = 0; x < setsLijst.size(); x++) {
     if (java.util.Arrays.equals(setsLijst.get(x), setKaarten)) {
-      isSetInSetsLijst = false;
+      isSetInSetsLijst = true;
       break;
     } else {
-      isSetInSetsLijst = true;
+      isSetInSetsLijst = false;
     }
   }
   return isSetInSetsLijst;

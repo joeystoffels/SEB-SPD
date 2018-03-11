@@ -8,49 +8,42 @@ import processing.video.*;
 // Setup van het startScherm en enkele variabelen.
 void setup() {
   frameRate(30);  
-  maakSpelScherm();
+  maakSpelScherm(xVelden);
   laadMediaBestanden(); 
 }
 
 // Functie voor het weergeven van de inhoud van het scherm.
 void draw() { 
   smooth();
-  background(zwart);   
+  toonAchtergrondVideo();
 
   if (startSchermActief) { 
-    toonAchtergrondVideo();
-    tekenStartScherm();
+    toonStartScherm();
   }
   
   if (spelregelsActief) {
-    toonAchtergrondVideo();
-    fill(zwart, 150);
-    stroke(wit, 200);
-    strokeWeight(3);
-    rect(width * 0.09, height * 0.21, width * 0.82, height * 0.58, 25);
-    image(setSpelregels, width * 0.14, height * 0.25, width * 0.72, height * 0.5);
+    toonSpelregels();
   }
 
-  if (spelActief) {     
-    kleurAchtergrondKaarten();    
+  if (spelActief) {  
+    toonAchtergrondKaarten();    
     tekenKaartFiguren();  
     tekenScorebord(); 
-    timer();
+    updateTijd();
     checkEindeSpel();
   }
 
   if (spelAfgelopen) { 
-    toonAchtergrondVideo();
-    tekenEindscherm();   
+    maakSpelScherm(4);
+    toonEindscherm();   
   }
 }
 
 // Setup van het gekozen speltype (3 of 4 varianten).
 void setupSpel() {
   resetSpelVariabelen();
-  maakSpelScherm(); 
+  maakSpelScherm(xVelden); 
   maakKaartenStapel(aantalVariaties);
   maakSpeelveld();    
-  aantalSetsSpeelveld();
-  restartTimer();
+  telAantalSetsSpeelveld();  
 }

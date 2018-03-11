@@ -21,7 +21,7 @@ void mousePressed() {
         spelActief = true;                
         startSchermActief = false;
         aantalVariaties = 4;
-        xVelden = 4;
+        //xVelden = 4;
         setupSpel();
       }      
       
@@ -106,7 +106,7 @@ void selecteerKaart() {
   } else {  
     if (!geselecteerdeKaarten.contains(kaart) && geselecteerdeKaarten.size() < 3) {
       geselecteerdeKaarten.add(speelVeld[xVeld][yVeld]);
-      speelVeldKleur[xVeld][yVeld] = color(wit, 225);
+      speelVeldKleur[xVeld][yVeld] = color(wit, 0);
       if (geselecteerdeKaarten.size() == 3) { 
         verifieerSet();
       }
@@ -173,7 +173,7 @@ void geefHint() {
   }
 
   String[] set = setsLijst.get(int(random(0, setsLijst.size())));
-  color[] pastelKleurenArray = {(color(pastelRood, 200)), color(pastelGroen, 200), color(pastelBlauw, 200) };  
+  color[] pastelKleurenArray = {(color(pastelRood, 150)), color(pastelGroen, 150), color(pastelBlauw, 150) };  
   color randomPastelKleur = pastelKleurenArray[int(random(0, pastelKleurenArray.length))];
   
   resetSpeelveldAchtergrond();
@@ -194,7 +194,7 @@ void geefHint() {
 void voegKaartenToe() {
   if (!kaartenToegevoegd) {
     xVelden++;
-    maakSpelScherm();
+    maakSpelScherm(xVelden);
 
     String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
     color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
@@ -218,7 +218,7 @@ void voegKaartenToe() {
     speelVeld = nieuwSpeelVeld;
     speelVeldKleur = nieuwSpeelVeldKleur;  
     maakSpeelveld();
-    aantalSetsSpeelveld();
+    telAantalSetsSpeelveld();
     kaartenToegevoegd = true;
   }
 }
@@ -233,7 +233,7 @@ void verifieerSet() {
     println("SET gevonden: " + kaartEen + " " + kaartTwee + " " + kaartDrie);
     scoreSpelerEen++;
     verwijderKaarten(geselecteerdeKaarten);
-    aantalSetsSpeelveld(); // tel opnieuw het aantal sets op het huidige speelveld.    
+    telAantalSetsSpeelveld(); // tel opnieuw het aantal sets op het huidige speelveld.    
     resetSpeelveldAchtergrond();
   }
 }
@@ -250,14 +250,15 @@ void resetSpeelveldAchtergrond() {
 // Generieke functie voor het verifieren van een set.
 boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
   boolean testCharResult = false;
-
-  for (int charToTest = 0; charToTest < aantalVariaties; charToTest++) {
-    if (!(kaartEen == legeKaart || kaartTwee == legeKaart || kaartDrie == legeKaart)) {
-      if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest)) || 
-        (kaartEen.charAt(charToTest) != kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) != kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) != kaartDrie.charAt(charToTest))) {
-        testCharResult = true;
-      } else {
-        return false;
+  if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie))) {
+    if (!(kaartEen == legeKaart || kaartTwee == legeKaart || kaartDrie == legeKaart)) { 
+      for (int charToTest = 0; charToTest < aantalVariaties; charToTest++) {
+        if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest)) || 
+          (kaartEen.charAt(charToTest) != kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) != kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) != kaartDrie.charAt(charToTest))) {
+          testCharResult = true;
+        } else {
+          return false;
+        }
       }
     }
   }

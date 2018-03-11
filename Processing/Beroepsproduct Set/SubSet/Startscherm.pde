@@ -1,5 +1,5 @@
 //Functie om het startscherm weer te geven.
-void tekenStartScherm() {  
+void toonStartScherm() {  
   fill(zwart, 150);
   stroke(wit, 200);
   strokeWeight(3);

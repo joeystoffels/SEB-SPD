@@ -56,8 +56,8 @@ String[] sorteerHighscores(String[] highscoreLijst) {
   return highscoreLijst;
 }
 
-// Functie om de highscore lijst aan te maken.
-void maakHighscoreLijst() {  
+// Functie om de highscore lijst weer te geven.
+void toonHighscoreLijst() {  
   fill(zwart, 175);
   rect(width * 0.15, height * 0.21, width * 0.7, height * 0.56, 25);
   

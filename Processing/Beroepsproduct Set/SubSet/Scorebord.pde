@@ -1,16 +1,7 @@
 // Aanmaken van het scorebord, de hoogte hiervan staat vast op 15% van de hoogte en de positie is onder het speelveld.
 void tekenScorebord() {  
-  setAchtergrondScorebord();  
   tekenInfoTextScorebord();  
   tekenKnoppenScorebord();
-}
-
-// Achtergrond verversen van enkel het scorebord
-void setAchtergrondScorebord() {
-  fill(zwart);
-  stroke(zwart, 0);
-  rect(0, schermHoogte, width, -scorebordHoogte);
-  stroke(wit, 225);
 }
 
 // Info teksten toevoegen.
