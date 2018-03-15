@@ -17,7 +17,6 @@ void opslaanHighscore() {
   println("Highscore opgeslagen! \n Plaats op highscore lijst: " + plaatsOpHighscoreLijst);
 }
 
-
 int getPlaatsInHighscoresLijst(String[] highscores, String highscore) {
   int x = -1;
   for (int i=0; i<highscores.length; i++) {

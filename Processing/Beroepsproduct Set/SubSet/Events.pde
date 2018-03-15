@@ -129,8 +129,8 @@ void keyPressed() {
 void keyPressedCoded() {
   switch(keyCode) {
     case 121: 
-      aantalHintKaarten = 3;
-      println("Cheat: Hint 3 kaarten in plaats van 2!");
+      aantalHintKaarten = aantalHintKaarten == 3 ? 2 : 3;
+      println("Cheat: Hint " + aantalHintKaarten + " kaarten!");
       break;
     case 122:
       if (airwolfThemeActive) setAchtergrondVideo(rainbowVideo);
