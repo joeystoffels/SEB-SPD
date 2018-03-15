@@ -1,5 +1,5 @@
 int schermBreedte = 700;
-final int schermHoogte = int(schermBreedte * 1.1);
+final int schermHoogte = int(schermBreedte * 1.2);
 final int scorebordHoogte = 100;
 final int speelveldHoogte = schermHoogte - scorebordHoogte;  
 
@@ -60,9 +60,8 @@ Movie airwolfVideo;
 Movie achtergrondVideo;
 Movie rainbowVideo;
 
-// ArrayList ipv. array voor het makkelijk deleten van Strings.
-// Bevat alle mogelijke kaarten, '1drv' betekent bijv. 1 driehoek rood vol.                    
-ArrayList<String> kaartenInSpel = new ArrayList<String>();
+// Bevat alle mogelijke kaarten, '1drv' betekent bijv. 1 driehoek rood vol.        
+String kaartenInSpel[] = new String[0];
 
 // Twee dimensionaal array om het speelveld te maken
 String[][] speelVeld = new String[xVelden][yVelden];
@@ -73,13 +72,12 @@ final String[] aantalFiguren = {"1", "2", "3"};
 final String[] kleurFiguur = {"r", "g", "b"}; // rood, groen, blauw
 final String[] figuurType = {"d", "r", "e"}; // driehoek, rechthoek, ellipse
 final String[] vullingFiguur = {"l", "h", "v"}; // leeg, half, vol
-//TODO 5e variatie toevoegen?
 
 // Lijst met geselecteerde kaarten.
-ArrayList<String> geselecteerdeKaarten = new ArrayList<String>();
+//ArrayList<String> geselecteerdeKaarten = new ArrayList<String>();
+String[] geselecteerdeKaarten = new String[0];
 
 float scoreSpelerEen = 0;
-//int scoreSpelerTwee = 0; // Future feature
 int aantalSetsSpeelveld;
 ArrayList<String[]> setsLijst = new ArrayList<String[]>();
 
@@ -116,10 +114,10 @@ void maakSpelScherm(int xVelden) {
 }
 
 void resetSpelVariabelen() { 
-  scoreOpgeslagen = false; //<>//
+  scoreOpgeslagen = false;
   spelAfgelopen = false;
-  kaartenInSpel = new ArrayList<String>();
-  geselecteerdeKaarten = new ArrayList<String>();
+  kaartenInSpel = new String[0];
+  geselecteerdeKaarten = new String[0];
   setsLijst = new ArrayList<String[]>();
   speelVeld = new String[xVelden][yVelden];
   speelVeldKleur = new color[xVelden][yVelden];  

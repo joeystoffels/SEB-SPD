@@ -27,7 +27,7 @@ void tekenKaartFiguren() {
 }
 
 // Verwijdert de kaart van het huidige speelveld.
-void verwijderKaarten(ArrayList<String> kaarten) {
+void verwijderKaarten(String[] kaarten) {
   for (String kaart : kaarten) {
     for (int x = 0; x < xVelden; x++) {
       for (int y = 0; y < yVelden; y++) {      
@@ -37,7 +37,8 @@ void verwijderKaarten(ArrayList<String> kaarten) {
       }
     }
   }
-  geselecteerdeKaarten.removeAll(geselecteerdeKaarten);
+  //geselecteerdeKaarten.removeAll(geselecteerdeKaarten);
+  geselecteerdeKaarten = new String[0];
 }
 
 // Functie om het aantal sets op het speelveld te tellen.

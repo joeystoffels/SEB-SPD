@@ -12,7 +12,7 @@ void tekenInfoTextScorebord() {
   rect(width * 0.025, height - scorebordHoogte + 3, width * 0.38, scorebordHoogte - 6, 25);
   
   tekenSpelInfoTextWaarde(""+aantalSetsSpeelveld, 1);
-  tekenSpelInfoTextWaarde(""+kaartenInSpel.size(), 3);
+  tekenSpelInfoTextWaarde(""+kaartenInSpel.length, 3);
   tekenSpelInfoTextWaarde(""+int(tijd), 5);
   tekenSpelInfoTextWaarde(nf(scoreSpelerEen), 7);
 
@@ -42,7 +42,7 @@ void tekenKnopScorebord(float gridPosBreedte, float gridPosHoogte) {
 
 void tekenTextInKnopScorebord(String text, float gridPosBreedte, float gridPosHoogte) {
   fill(wit);
-  textFont(verdanaBold(scorebordHoogte / 8)); 
+  textFont(verdanaBold(12)); 
   text(text, (width / 8) * gridPosBreedte, schermHoogte - (scorebordHoogte / 5) * gridPosHoogte);
 }
 

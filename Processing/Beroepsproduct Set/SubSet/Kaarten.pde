@@ -2,10 +2,10 @@
 // vervolgens te verwijderen uit de lijst, de kaartenInSpel array stelt dus 
 // de huidige stapel speelkaarten voor.
 String pakKaart() { 
-  if (!(kaartenInSpel.size() <= 0)) { 
-    int random = int(random(0, kaartenInSpel.size()));
-    String kaart = kaartenInSpel.get(random);
-    kaartenInSpel.remove(random);  
+  if (!(kaartenInSpel.length <= 0)) { 
+    int random = int(random(0, kaartenInSpel.length));
+    String kaart = kaartenInSpel[random];
+    kaartenInSpel = removeFromArray(kaartenInSpel, random);  
     return kaart;
   } else {
     return legeKaart; // return standaard zodat er geen nieuwe figuur gemaakt wordt
@@ -21,7 +21,7 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
   color kleur = (kaart.charAt(2) == 'r' ? rood : (kaart.charAt(2) == 'g' ? groen : blauw));
   int vulling = (kaart.charAt(3) == 'l' ? 0 : (kaart.charAt(3) == 'h' ? 100 : 255));  
 
-  final float xPosSpeelveld = xPositie * kaartBreedte + 3;
+  final float xPosSpeelveld = xPositie * kaartBreedte + 2;
   final float yPosSpeelveld = yPositie * kaartHoogte + 2;
 
   float[][] kaartConfig;
@@ -87,14 +87,14 @@ void maakKaartenStapel(int aantalVariaties) {
         for (int k = 0; k < kleurFiguur.length; k++) {     
           if (aantalVariaties == 4) {
             for (int v = 0; v < vullingFiguur.length; v++) {
-              kaartenInSpel.add(aantalFiguren[a] + figuurType[f] + kleurFiguur[k] + vullingFiguur[v]);
+              kaartenInSpel = append(kaartenInSpel, (aantalFiguren[a] + figuurType[f] + kleurFiguur[k] + vullingFiguur[v]));
             }
           } else {
-            kaartenInSpel.add(aantalFiguren[a] + figuurType[f] + kleurFiguur[k] + "0"); // "0" als default waarde zodat verifySet() goed uitgevoerd wordt
+            kaartenInSpel = append(kaartenInSpel, aantalFiguren[a] + figuurType[f] + kleurFiguur[k] + "0"); // "0" als default waarde zodat verifySet() goed uitgevoerd wordt
           }
         }
       }
     }
   println("Kaartenstapel: " + kaartenInSpel);
-  println("Totaal aantal kaarten: " + kaartenInSpel.size());
+  println("Totaal aantal kaarten: " + kaartenInSpel.length);
 }

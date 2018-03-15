@@ -10,7 +10,7 @@ void checkEindeSpel() {
     }
   }
 
-  if (aantalSetsSpeelveld == 0 && ((kaartenToegevoegd == true || kaartenInSpel.size() <= 0) || aantalKaartenOpSpeelveld == 0)) {    
+  if (aantalSetsSpeelveld == 0 && ((kaartenToegevoegd == true || kaartenInSpel.length <= 0) || aantalKaartenOpSpeelveld == 0)) {    
     spelActief = false;
     spelAfgelopen = true;     
     toonEindscherm();

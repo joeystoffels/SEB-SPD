@@ -100,14 +100,14 @@ void selecteerKaart() {
     return;
   }
 
-  if (geselecteerdeKaarten.contains(kaart)) {
+  if (arrayContains(geselecteerdeKaarten, kaart)) { //<>//
     speelVeldKleur[xVeld][yVeld] = zwart;
-    geselecteerdeKaarten.remove(kaart);
+    geselecteerdeKaarten = removeFromArray(geselecteerdeKaarten, arrayIndexOf(geselecteerdeKaarten, kaart));
   } else {  
-    if (!geselecteerdeKaarten.contains(kaart) && geselecteerdeKaarten.size() < 3) {
-      geselecteerdeKaarten.add(speelVeld[xVeld][yVeld]);
+    if (!arrayContains(geselecteerdeKaarten, kaart) && geselecteerdeKaarten.length < 3) {
+      geselecteerdeKaarten = append(geselecteerdeKaarten, kaart); //geselecteerdeKaarten.add(speelVeld[xVeld][yVeld]);
       speelVeldKleur[xVeld][yVeld] = color(zwart, 75);
-      if (geselecteerdeKaarten.size() == 3) { 
+      if (geselecteerdeKaarten.length == 3) { 
         verifieerSet();
       }
     }
@@ -173,8 +173,6 @@ void geefHint() {
   }
 
   String[] set = setsLijst.get(int(random(0, setsLijst.size())));
-  color[] pastelKleurenArray = {(color(pastelRood, 150)), color(pastelGroen, 150), color(pastelBlauw, 150) };  
-  color randomPastelKleur = pastelKleurenArray[int(random(0, pastelKleurenArray.length))];
   
   resetSpeelveldAchtergrond();
   int counter = 0;
@@ -229,9 +227,9 @@ void voegKaartenToe() {
 
 // Functie om een set te checken.
 void verifieerSet() {    
-  String kaartEen = geselecteerdeKaarten.get(0);
-  String kaartTwee = geselecteerdeKaarten.get(1);
-  String kaartDrie = geselecteerdeKaarten.get(2);
+  String kaartEen = geselecteerdeKaarten[0];
+  String kaartTwee = geselecteerdeKaarten[1];
+  String kaartDrie = geselecteerdeKaarten[2];
 
   if (isSet(kaartEen, kaartTwee, kaartDrie)) {
     println("SET gevonden: " + kaartEen + " " + kaartTwee + " " + kaartDrie);
