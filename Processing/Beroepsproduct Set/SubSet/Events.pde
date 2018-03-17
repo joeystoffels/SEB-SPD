@@ -166,7 +166,7 @@ void keyPressedNonCoded() {
   }
 }
 
-// Functie om een hint te geven door 2 kaarten een andere (random) achtergrondkleur te geven.
+// Functie om een hint te geven door 2 kaarten een andere borderkleur te geven.
 void geefHint() {   
   if (aantalSetsSpeelveld == 0) {
     return; // Als er geen sets zijn is er geen hint.
