@@ -133,8 +133,15 @@ void keyPressedCoded() {
       println("Cheat: Hint " + aantalHintKaarten + " kaarten!");
       break;
     case 122:
-      if (airwolfThemeActive) setAchtergrondVideo(rainbowVideo);
-      else setAchtergrondVideo(airwolfVideo);
+      if (airwolfThemeActive) {
+        setAchtergrondVideo(rainbowVideo);
+        setLogo = loadImage(setImgBestandsLocatie);
+      }
+      else {
+        setAchtergrondVideo(airwolfVideo);        
+        setLogo = airwolfLogo;
+      }
+      
       airwolfThemeActive = !airwolfThemeActive;      
       println("Cheat: Airwolf theme " + (airwolfThemeActive ? "activated" : "deactivated") + "!");
       break;

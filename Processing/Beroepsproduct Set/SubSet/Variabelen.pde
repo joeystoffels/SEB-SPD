@@ -49,13 +49,15 @@ final float[][] driehoekConfig = {
 };
 
 // Startscherm image, wordt in setup geinitialiseerd.
-String achtergrondVideoBestandsLocatie= "rainbow.mov";
-String setImgBestandsLocatie = "data/set.png";
-String setSpelregelsBestandsLocatie = "data/spelregels.png";
-String airwolfVideoBestandsLocatie = "AirwolfMovie.mp4";
+String achtergrondVideoBestandsLocatie= "RainbowVideo.mov";
+String setImgBestandsLocatie = "data/SetLogo.png";
+String setSpelregelsBestandsLocatie = "data/Spelregels.png";
+String airwolfVideoBestandsLocatie = "AirwolfVideo.mp4";
+String airwolfLogoBestandsLocatie = "AirwolfLogo.jpg";
 
 PImage setLogo;
 PImage setSpelregels;
+PImage airwolfLogo;
 Movie airwolfVideo;
 Movie achtergrondVideo;
 Movie rainbowVideo;
@@ -133,6 +135,7 @@ void resetSpelVariabelen() {
 void laadMediaBestanden() {
   setLogo = loadImage(setImgBestandsLocatie);  
   setSpelregels = loadImage(setSpelregelsBestandsLocatie);
+  airwolfLogo = loadImage(airwolfLogoBestandsLocatie);
   achtergrondVideo = new Movie(this, achtergrondVideoBestandsLocatie);  
   rainbowVideo = new Movie(this, achtergrondVideoBestandsLocatie);
   airwolfVideo = new Movie(this, airwolfVideoBestandsLocatie);

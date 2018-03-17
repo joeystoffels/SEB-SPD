@@ -9,7 +9,9 @@ void tekenLogo() {
   stroke(wit, 200);
   strokeWeight(3);
   rect(width * 0.2, height * 0.075, width * 0.6, height * 0.5, 25);
-  image(setLogo, width * 0.32, height * 0.1, width * 0.36, height * 0.45);
+  tint(255, 185);
+  image(setLogo, width * 0.3, height * 0.1, width * 0.4, height * 0.45);
+  noTint();
 }
 
 void tekenKnoppenStartScherm() {
@@ -30,6 +32,6 @@ void tekenTextInKnopStartScherm(String text, float gridPosHoogte) {
   fill(wit);
   textFont(verdanaBold(15));
   textAlign(CENTER);
-  text(text, width / 2, height / 10 * gridPosHoogte + 19);
+  text(text, width / 2, height / 10 * gridPosHoogte + 18);
   textAlign(LEFT);
 }
