@@ -5,12 +5,13 @@
 import processing.sound.*;
 import processing.video.*;
 
+void settings() {
+  size(schermBreedte, schermHoogte);
+}
+
 // Setup van het startScherm en enkele variabelen.
-void setup() {
-  background(0);
-  size(700, 840);
-  image(loadImage("data/loadingscreen.png"), 0, 0, width, height);
-  frameRate(30);  
+void setup() {  
+  toonLaadScherm();
   maakSpelScherm(xVelden);
   laadMediaBestanden(); 
 }

@@ -36,8 +36,13 @@ void tekenKnoppenScorebord() {
 }
 
 void tekenKnopScorebord(float gridPosBreedte, float gridPosHoogte) {
-  fill(zwart, 175);
-  rect((width / 8) * gridPosBreedte, schermHoogte - (scorebordHoogte / 5) * gridPosHoogte, 100, - (scorebordHoogte / 5), 25);
+  if(mouseX > (width / 8) * gridPosBreedte && mouseX < (width / 8) * gridPosBreedte + 100 &&
+    mouseY < schermHoogte - (scorebordHoogte / 5) * gridPosHoogte && mouseY > schermHoogte - (scorebordHoogte / 5) * gridPosHoogte - (scorebordHoogte / 5)) {
+    fill(wit, 50);
+  } else {      
+    fill(zwart, 175);
+  }
+  rect((width / 8) * gridPosBreedte, schermHoogte - (scorebordHoogte / 5) * gridPosHoogte, 100, -(scorebordHoogte / 5), 25);
 }
 
 void tekenTextInKnopScorebord(String text, float gridPosBreedte, float gridPosHoogte) {

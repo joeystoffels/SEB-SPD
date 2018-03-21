@@ -22,7 +22,13 @@ void tekenKnoppenStartScherm() {
 }
 
 void tekenKnopStartScherm(String text, float gridPosHoogte) {
-  fill(zwart, 150);
+  if(mouseX > width / 4 && mouseX < (width / 4 + width / 2) &&
+     mouseY > height / 10 * gridPosHoogte && mouseY < height / 10 * gridPosHoogte + 25){ 
+    fill(wit, 50);
+  } else {
+    fill(zwart, 150);
+  }
+
   strokeWeight(2);
   rect(width / 4, height / 10 * gridPosHoogte, width / 2, 25, 25);
   tekenTextInKnopStartScherm(text, gridPosHoogte);
