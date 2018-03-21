@@ -18,15 +18,15 @@ void opslaanHighscore() {
 }
 
 int getPlaatsInHighscoresLijst(String[] highscores, String highscore) {
-  int x = -1;
+  int plaatsInHighscoresLijst = -1;
   for (int i=0; i<highscores.length; i++) {
     if (highscores[i].equals(highscore))
-      x = i + 1;
+      plaatsInHighscoresLijst = i + 1;
   }
-  return x;
+  return plaatsInHighscoresLijst;
 }
 
-// Hulp functie om de highscore lijst te sorteren op tijd en daarna op score.
+// Functie om de highscore lijst te sorteren op tijd en daarna op score.
 String[] sorteerHighscores(String[] highscoreLijst) {
   for (int x = 0; x < highscoreLijst.length; x++) {
     for (int i = 0; i < highscoreLijst.length - 1; i++) {

@@ -37,7 +37,6 @@ void verwijderKaarten(String[] kaarten) {
       }
     }
   }
-  //geselecteerdeKaarten.removeAll(geselecteerdeKaarten);
   geselecteerdeKaarten = new String[0];
 }
 
@@ -91,7 +90,7 @@ boolean setInSetsLijst(String[] setKaarten) {
   boolean isSetInSetsLijst = false;
 
   for (int x = 0; x < setsLijst.size(); x++) {
-    if (java.util.Arrays.equals(setsLijst.get(x), setKaarten)) {
+    if (java.util.Arrays.equals(setsLijst.get(x), setKaarten)) { //TODO REMOVE!!
       isSetInSetsLijst = true;
       break;
     } else {

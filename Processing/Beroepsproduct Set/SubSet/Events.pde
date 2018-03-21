@@ -78,6 +78,10 @@ void mousePressed() {
     }
     return;
   }  
+  
+  if(spelAfgelopen) {
+    return;
+  }
 
   // Wanneer er niet op het scorebord is geklikt wanneer het startScherm niet actief is, is er op een kaart geklikt.
   selecteerKaart();
@@ -215,7 +219,7 @@ void voegKaartenToe() {
 
     for (int x = 0; x < xVelden; x++) {
       for (int y = 0; y < yVelden; y++) {
-        if (nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) {
+        if (nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) { // Integer zodat er geen NullPointer kan komen
           nieuwSpeelVeld[x][y] = legeKaart;
           nieuwSpeelVeldKleur[x][y] = zwart;
           nieuwSpeelkaartBorderKleur[x][y] = wit;
@@ -261,7 +265,7 @@ void resetSpeelveldAchtergrond() {
 boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
   boolean testCharResult = false;
   if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie))) {
-    if (!(kaartEen == legeKaart || kaartTwee == legeKaart || kaartDrie == legeKaart)) { 
+    if (!(kaartEen.equals(legeKaart) || kaartTwee.equals(legeKaart) || kaartDrie.equals(legeKaart))) { 
       for (int charToTest = 0; charToTest < aantalVariaties; charToTest++) {
         if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest)) || 
           (kaartEen.charAt(charToTest) != kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) != kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) != kaartDrie.charAt(charToTest))) {
@@ -277,4 +281,34 @@ boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
 
 void movieEvent(Movie movie) {
   movie.read(); 
+}
+
+void maakSpelScherm(int xVelden) {
+  surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte + scorebordHoogte);
+}
+
+void resetSpelVariabelen() { 
+  scoreOpgeslagen = false;
+  spelAfgelopen = false;
+  kaartenInSpel = new String[0];
+  geselecteerdeKaarten = new String[0];
+  setsLijst = new ArrayList<String[]>();
+  speelVeld = new String[xVelden][yVelden];
+  speelVeldKleur = new color[xVelden][yVelden];  
+  speelkaartBorderKleur = new color[xVelden][yVelden];
+  resetSpeelveldAchtergrond();
+  naam = "";
+  scoreSpelerEen = 0;
+  aantalHintKaarten = 2;
+  kaartenToegevoegd = false;
+  restartTijd = millis() / 1000.0;
+}
+
+void laadMediaBestanden() {
+  setLogo = loadImage(setImgBestandsLocatie);  
+  setSpelregels = loadImage(setSpelregelsBestandsLocatie);
+  airwolfLogo = loadImage(airwolfLogoBestandsLocatie);
+  achtergrondVideo = new Movie(this, achtergrondVideoBestandsLocatie);  
+  rainbowVideo = new Movie(this, achtergrondVideoBestandsLocatie);
+  airwolfVideo = new Movie(this, airwolfVideoBestandsLocatie);
 }

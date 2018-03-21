@@ -17,7 +17,7 @@ final int kaartBreedte = schermBreedte / xVelden;
 final int kaartHoogte = (schermHoogte - scorebordHoogte) / yVelden;
 
 // Standaard lege kaart; laat een leeg vlak zien.
-final String legeKaart = "0000";
+final String legeKaart = "0000"; //<>//
 
 // kleurcodes RGB
 final color rood = color(255, 50, 50);
@@ -25,9 +25,6 @@ final color groen = color(100, 255, 100);
 final color blauw = color(50, 150, 255);
 final color wit = color(255, 255, 255);
 final color zwart = color(0, 0, 0);
-final color pastelRood = color(255, 179, 186);
-final color pastelGroen = color(186, 255, 201);
-final color pastelBlauw = color(186, 225, 255);
 
 // Configuratie waarden voor de diverse figuren
 // Betreffen factoren binnen het in een kaart gedefineerde grid (8 x 8)
@@ -49,7 +46,7 @@ final float[][] driehoekConfig = {
 };
 
 // Startscherm image, wordt in setup geinitialiseerd.
-String achtergrondVideoBestandsLocatie= "RainbowVideo.mov";
+String achtergrondVideoBestandsLocatie = "RainbowVideo.mov";
 String setImgBestandsLocatie = "data/SetLogo.png";
 String setSpelregelsBestandsLocatie = "data/Spelregels.png";
 String airwolfVideoBestandsLocatie = "AirwolfVideo.mp4";
@@ -76,16 +73,14 @@ final String[] figuurType = {"d", "r", "e"}; // driehoek, rechthoek, ellipse
 final String[] vullingFiguur = {"l", "h", "v"}; // leeg, half, vol
 
 // Lijst met geselecteerde kaarten.
-//ArrayList<String> geselecteerdeKaarten = new ArrayList<String>();
 String[] geselecteerdeKaarten = new String[0];
 
 float scoreSpelerEen = 0;
 int aantalSetsSpeelveld;
 ArrayList<String[]> setsLijst = new ArrayList<String[]>();
 
-// Gamestate variabelen
+// Spel variabelen
 int aantalVariaties = 3;
-
 boolean spelActief = false;
 boolean startSchermActief = true;
 boolean spelAfgelopen = false;
@@ -109,36 +104,6 @@ int plaatsOpHighscoreLijst;
 // Custom font
 PFont verdanaBold(int size) {
   return createFont("Verdana Bold", size);
-}
-
-void maakSpelScherm(int xVelden) {
-  surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte + scorebordHoogte);
-}
-
-void resetSpelVariabelen() { 
-  scoreOpgeslagen = false;
-  spelAfgelopen = false;
-  kaartenInSpel = new String[0];
-  geselecteerdeKaarten = new String[0];
-  setsLijst = new ArrayList<String[]>();
-  speelVeld = new String[xVelden][yVelden];
-  speelVeldKleur = new color[xVelden][yVelden];  
-  speelkaartBorderKleur = new color[xVelden][yVelden];
-  resetSpeelveldAchtergrond();
-  naam = "";
-  scoreSpelerEen = 0;
-  aantalHintKaarten = 2;
-  kaartenToegevoegd = false;
-  restartTijd = millis() / 1000.0;
-}
-
-void laadMediaBestanden() {
-  setLogo = loadImage(setImgBestandsLocatie);  
-  setSpelregels = loadImage(setSpelregelsBestandsLocatie);
-  airwolfLogo = loadImage(airwolfLogoBestandsLocatie);
-  achtergrondVideo = new Movie(this, achtergrondVideoBestandsLocatie);  
-  rainbowVideo = new Movie(this, achtergrondVideoBestandsLocatie);
-  airwolfVideo = new Movie(this, airwolfVideoBestandsLocatie);
 }
 
 void updateTijd() {  
