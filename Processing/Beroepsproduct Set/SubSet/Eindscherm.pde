@@ -46,7 +46,10 @@ void tekenNaamInvoer() {
 
 void tekenEindeTitel() {
   fill(zwart, 150);
-  rect((width / 7), (speelveldHoogte / 9), (width / 7) * 5, (speelveldHoogte / 9), 25);
+  
+  // Maar je kunt ook een comment maken
+  int rectacleWidth = width /7;
+  rect(rectacleWidth, (speelveldHoogte / 9), (width / 7) * 5, (speelveldHoogte / 9), 25);
 
   fill(wit);
   textAlign(CENTER);

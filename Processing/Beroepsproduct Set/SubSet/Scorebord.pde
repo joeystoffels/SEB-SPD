@@ -9,7 +9,7 @@ void tekenInfoTextScorebord() {
   stroke(wit);
   strokeWeight(2);
   fill(zwart, 150);
-  rect(width * 0.025, height - scorebordHoogte + 3, width * 0.38, scorebordHoogte - 6, 25);
+  rect(width * 0.025, height - scorebordHoogte + 3, width * 0.38, scorebordHoogte - 6, rectHoekRadius);
   
   tekenSpelInfoTextWaarde(""+aantalSetsSpeelveld, 1);
   tekenSpelInfoTextWaarde(""+kaartenInSpel.length, 3);
@@ -35,9 +35,14 @@ void tekenKnoppenScorebord() {
   tekenTextInKnopScorebord("Startscherm", 6.1, 1.25);
 }
 
-void tekenKnopScorebord(float gridPosBreedte, float gridPosHoogte) {
-  if(mouseX > (width / 8) * gridPosBreedte && mouseX < (width / 8) * gridPosBreedte + 100 &&
-    mouseY < schermHoogte - (scorebordHoogte / 5) * gridPosHoogte && mouseY > schermHoogte - (scorebordHoogte / 5) * gridPosHoogte - (scorebordHoogte / 5)) {
+void tekenKnopScorebord(float gridPosBreedte, float gridPosHoogte) {  
+  float knopPosX = (width / 8) * gridPosBreedte;
+  int knopBreedte = 100;
+  float knopHoogte = schermHoogte - (scorebordHoogte / 5) * gridPosHoogte;
+  int knopDikte = -(scorebordHoogte / 5);
+  
+  if(mouseX > knopPosX && mouseX < knopPosX + knopBreedte &&
+    mouseY < knopHoogte && mouseY > knopHoogte + knopDikte) {
     fill(wit, 50);
   } else {      
     fill(zwart, 175);

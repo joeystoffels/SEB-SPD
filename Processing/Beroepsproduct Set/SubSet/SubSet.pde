@@ -1,7 +1,7 @@
 // Beroepsproduct SubSet
 // Joey Stoffels
 // 23 maart 2018
-  
+
 import processing.sound.*;
 import processing.video.*;
 
@@ -12,42 +12,40 @@ void settings() {
 // Setup van het startScherm en enkele variabelen.
 void setup() {  
   toonLaadScherm();
-  maakSpelScherm(xVelden);
-  laadMediaBestanden(); 
+  maakSpelScherm();
+  laadMediaBestanden();
 }
 
 // Functie voor het weergeven van de inhoud van het scherm.
-void draw() { 
-  smooth();
+void draw() {   
   toonAchtergrondVideo();
 
   if (startSchermActief) { 
     toonStartScherm();
+    return;
   }
   
   if (spelregelsActief) {
     toonSpelregels();
+    return;
   }
 
   if (spelActief) {  
-    toonAchtergrondKaarten();    
-    tekenKaartFiguren();  
-    tekenScorebord(); 
-    updateTijd();
-    checkEindeSpel();
+    toonSpeelscherm();
+    return;
   }
 
   if (spelAfgelopen) { 
-    maakSpelScherm(4);
-    toonEindscherm();   
+    toonEindscherm();
+    return;
   }
 }
 
 // Setup van het gekozen speltype (3 of 4 varianten).
 void setupSpel() {
   resetSpelVariabelen();
-  maakSpelScherm(xVelden); 
-  maakKaartenStapel(aantalVariaties);
+  maakSpelScherm(); 
+  maakKaartenStapel();
   maakSpeelveld();    
-  telAantalSetsSpeelveld();  
+  telAantalSetsSpeelveld();
 }

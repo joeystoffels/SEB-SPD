@@ -17,15 +17,6 @@ void maakSpeelveld() {
   }
 }
 
-// Functie om het speelveld te vullen met kaarten.
-void tekenKaartFiguren() {
-  for (int x=0; x < xVelden; x++) {
-    for (int y=0; y < yVelden; y++) {
-      maakKaartFiguur(speelVeld[x][y], x, y);
-    }
-  }
-}
-
 // Verwijdert de kaart van het huidige speelveld.
 void verwijderKaarten(String[] kaarten) {
   for (String kaart : kaarten) {

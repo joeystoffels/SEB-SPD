@@ -21,23 +21,32 @@ void tekenKnoppenStartScherm() {
   tekenKnopStartScherm("Highscores verwijderen", 9);  
 }
 
-void tekenKnopStartScherm(String text, float gridPosHoogte) {
-  if(mouseX > width / 4 && mouseX < (width / 4 + width / 2) &&
-     mouseY > height / 10 * gridPosHoogte && mouseY < height / 10 * gridPosHoogte + 25){ 
+void tekenKnopStartScherm(String text, float gridPosHoogte) {  
+  int knopPosX = width / 4;
+  int knopBreedte = width / 2;
+  int knopHoogte = int(height / 10 * gridPosHoogte);
+  int knopDikte = 25;
+         
+  if(mouseX > knopPosX && mouseX < knopPosX + knopBreedte &&
+     mouseY > knopHoogte && mouseY < knopHoogte + knopDikte){        
     fill(wit, 50);
   } else {
     fill(zwart, 150);
   }
 
   strokeWeight(2);
-  rect(width / 4, height / 10 * gridPosHoogte, width / 2, 25, 25);
+  rect(knopPosX, knopHoogte, knopPosX * 2, knopDikte, rectHoekRadius);
   tekenTextInKnopStartScherm(text, gridPosHoogte);
 }
 
 void tekenTextInKnopStartScherm(String text, float gridPosHoogte) {
+  int textPositieX = width / 2;
+  float textPositieY = height / 10 * gridPosHoogte;
+  int textPositieOffset = 18;
+  
   fill(wit);
   textFont(verdanaBold(15));
   textAlign(CENTER);
-  text(text, width / 2, height / 10 * gridPosHoogte + 18);
+  text(text, textPositieX, textPositieY + textPositieOffset);
   textAlign(LEFT);
 }

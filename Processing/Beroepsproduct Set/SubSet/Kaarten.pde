@@ -67,20 +67,10 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
   }
 }
 
-// Functie voor in draw() om continu de achtergrond van de kaarten te kleuren.
-void toonAchtergrondKaarten() {  
-  for (int xPos = 0; xPos < xVelden; xPos++) {
-    for (int yPos = 0; yPos < yVelden; yPos++) {
-      strokeWeight(3);
-      stroke(speelkaartBorderKleur[xPos][yPos]);
-      fill(speelVeldKleur[xPos][yPos], 175);
-      rect(kaartBreedte * xPos + 10, (speelveldHoogte / yVelden) * yPos + 10, kaartBreedte - 20, speelveldHoogte / yVelden - 20, 25);
-    }
-  }
-}
+
 
 // Maak de stapel kaarten adhv. het aantal geconfigureerde variaties.
-void maakKaartenStapel(int aantalVariaties) {
+void maakKaartenStapel() {
   
     for (int a = 0; a < aantalFiguren.length; a++) {
       for (int f = 0; f < figuurType.length; f++) {

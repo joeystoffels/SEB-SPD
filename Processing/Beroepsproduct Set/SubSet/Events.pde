@@ -203,7 +203,7 @@ void geefHint() {
 void voegKaartenToe() {
   if (!kaartenToegevoegd) {
     xVelden++;
-    maakSpelScherm(xVelden);
+    maakSpelScherm();
 
     String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
     color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
@@ -283,7 +283,7 @@ void movieEvent(Movie movie) {
   movie.read(); 
 }
 
-void maakSpelScherm(int xVelden) {
+void maakSpelScherm() {
   surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte + scorebordHoogte);
 }
 

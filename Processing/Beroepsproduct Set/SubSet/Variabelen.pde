@@ -12,6 +12,8 @@ final int yVelden = 3;
 int kaartGridBreedte = schermBreedte / (xVelden * 8);
 int kaartGridHoogte = speelveldHoogte / (yVelden * 8);
 
+int rectHoekRadius = 25;
+
 // Grootte v/d kaarten in pixels.
 final int kaartBreedte = schermBreedte / xVelden;
 final int kaartHoogte = (schermHoogte - scorebordHoogte) / yVelden;
