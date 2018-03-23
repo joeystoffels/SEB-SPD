@@ -1,3 +1,4 @@
+// Functie om de spelregels te tonen.
 void toonSpelregels() {
   final float SPELREGELS_ACHTERGROND_X_POS = width * 0.09;
   final float SPELREGELS_ACHTERGROND_Y_POS = SCHERM_HOOGTE * 0.21;

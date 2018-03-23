@@ -1,4 +1,4 @@
-// Array helper functies
+// Enkele helper functies voor het uitvoeren van bewerkingen op of met arrays.
 
 boolean contains(String[] arr, String item) {
   for (String n : arr) {

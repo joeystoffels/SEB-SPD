@@ -1,16 +1,18 @@
-// Beroepsproduct SubSet
-// Joey Stoffels
-// 23 maart 2018
-// SEB B DT
+// Titel: (Sub)Set
+// Naam: Joey Stoffels
+// Datum: 23 maart 2018
+// Klas: SEB B DT
 
+// Imports voor media ondersteuning.
 import processing.sound.*;
 import processing.video.*;
 
+// Initieel opzetten van de scherm grootte ivm. weergeven laadscherm.
 void settings() {
   size(schermBreedte, SCHERM_HOOGTE);
 }
 
-// Setup van het startScherm en enkele variabelen.
+// Setup van het spel.
 void setup() {  
   toonLaadScherm();
   maakSpelScherm();

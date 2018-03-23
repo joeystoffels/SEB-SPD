@@ -1,3 +1,4 @@
+// Functie om de inhoud van het eindscherm te tonen.
 void toonEindscherm() {      
   toonHighscoreLijst();
   tekenNaamInvoer();       
@@ -11,6 +12,7 @@ void toonEindscherm() {
   tekenSpelInfoText("Score: ", nf(scoreSpelerEen), 7);
 }
 
+// Functie om de naam invoer af te handelen.
 void tekenNaamInvoer() {    
   final float NAAM_INVOER_X_POS = width * 0.25;
   final float NAAM_INVOER_Y_POS = SCHERM_HOOGTE * 0.725;
@@ -22,6 +24,7 @@ void tekenNaamInvoer() {
   }
 }
 
+// Functie om einde titel vak met text te tekenen.
 void tekenEindeTitel() {    
   final float EINDE_TEXT_X_POS = width / 2;
   final float EINDE_TEXT_Y_POS = SPEELVELD_HOOGTE / 5.5;  
@@ -36,6 +39,7 @@ void tekenEindeTitel() {
   textAlign(LEFT);
 }
 
+// Functie om de achtergrond van het titel vak te tekenen.
 void tekenAchtergrondEindeTitel() {  
   final float ACHTERGROND_EINDETITEL_X_POS = width / 7;
   final float ACHTERGROND_EINDETITEL_Y_POS = SPEELVELD_HOOGTE / 9;
@@ -46,6 +50,7 @@ void tekenAchtergrondEindeTitel() {
   rect(ACHTERGROND_EINDETITEL_X_POS, ACHTERGROND_EINDETITEL_Y_POS, ACHTERGROND_EINDETITEL_BREEDTE, ACHTERGROND_EINDETITEL_HOOGTE, RECT_HOEK_RADIUS);
 }
 
+// Functie om de achtergrond van de scores in het scorebord te tekenen.
 void tekenAchtergrondScoresEindscherm() { 
   final float ACHTERGROND_SCORES_EINDSCHERM_X_POS = width * 0.025;
   final float ACHTERGROND_SCORES_EINDSCHERM_Y_POS= SCHERM_HOOGTE - SCOREBORD_HOOGTE;

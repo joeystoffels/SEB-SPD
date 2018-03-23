@@ -1,8 +1,8 @@
-// Muisklik functie om kaarten te kunnen selecteren. //<>//
-// Deze functie triggert het checken op een set na het selecteren van 3 kaarten.
+// Event functie om een muisklik actie te verwerken. //<>//
 void mousePressed() {  
-  // debug: println("CLICKED " + mouseX, mouseY);
-  if (startSchermActief) { // Wanneer startScherm actief is zijn onderstaande knoppen beschikbaar.
+  // DEBUG: println("CLICKED " + mouseX, mouseY);
+
+  if (startSchermActief) {
     mousePressedStartscherm();
     return;
   } 
@@ -14,12 +14,12 @@ void mousePressed() {
   }
 
   if (!startSchermActief) {
-    mousePressedDefault();
+    mousePressedSpeelscherm();
     return;
   }
 }
 
-
+// Functie om een muisklik op het startscherm af te handelen.
 void mousePressedStartscherm() {
   final float BUTTON_STARTSCHERM_X_POS = width / 4;
   final float BUTTON_STARTSCHERM_BREEDTE = width / 4 * 3;
@@ -34,7 +34,7 @@ void mousePressedStartscherm() {
 
   if (mouseX > BUTTON_STARTSCHERM_X_POS && mouseX < BUTTON_STARTSCHERM_BREEDTE) {
 
-    // Click Subset - 3 variations button
+    // Subset - 3 variaties button
     if (mouseY > SUBSET_BUTTON_Y_POS && mouseY < SUBSET_BUTTON_HOOGTE) {        
       startSchermActief = false;
       spelActief = true;       
@@ -44,7 +44,7 @@ void mousePressedStartscherm() {
       setupSpel();
     }
 
-    // Click Set - 4 variations button
+    // Set - 4 variaties button.
     if (mouseY > SET_BUTTON_Y_POS && mouseY < SET_BUTTON_HOOGTE) {
       spelActief = true;                
       startSchermActief = false;
@@ -52,12 +52,13 @@ void mousePressedStartscherm() {
       setupSpel();
     }      
 
+    // Speluitleg button.
     if (mouseY > SPELREGELS_BUTTON_Y_POS && mouseY < SPELREGELS_BUTTON_HOOGTE) {
       startSchermActief = false;
       spelregelsActief = true;
     }
 
-    // Click clear highscores button 
+    // Highscores verwijderen button.
     if (mouseY > VERWIJDER_HIGHSCORE_BUTTON_Y_POS && mouseY < VERWIJDER_HIGHSCORE_BUTTON_HOOGTE) {
       verwijderHighscores();
     }
@@ -65,7 +66,8 @@ void mousePressedStartscherm() {
   }
 }
 
-void mousePressedDefault() {
+// Functie om een muisklik op het speelscherm af te handelen.
+void mousePressedSpeelscherm() {
   final float TOP_BUTTON_SPEELSCHERM_X_POS = (width / 8) * 4;
   final float TOP_BUTTON_SPEELSCHERM_BREEDTE = (width / 8) * 4 + 100;
   final float VOEG_KAARTEN_TOE_BUTTON_Y_POS = height - (SCOREBORD_HOOGTE / 5);
@@ -79,24 +81,31 @@ void mousePressedDefault() {
   final float OPNIEUW_BUTTON_Y_POS = height - (SCOREBORD_HOOGTE / 5) * 3;
   final float OPNIEUW_BUTTON_HOOGTE = height - (SCOREBORD_HOOGTE / 5) * 3-(SCOREBORD_HOOGTE / 5);
 
-
-  // return indien er buiten het speelveld geklikt is.
+  // Return indien er buiten het speelveld geklikt is.
   if (mouseY > SPEELVELD_HOOGTE) { 
     if (!spelAfgelopen) {
+
+      // X positie van de knoppen in dit if-blok.
       if (mouseX > TOP_BUTTON_SPEELSCHERM_X_POS && mouseX < TOP_BUTTON_SPEELSCHERM_BREEDTE) {
 
+        // Voeg kaarten toe button.
         if (mouseY < VOEG_KAARTEN_TOE_BUTTON_Y_POS && mouseY > VOEG_KAARTEN_TOE_BUTTON_HOOGTE) { 
           println("Voeg kaarten toe");
           voegKaartenToe();
         }
 
+        // Hint button.
         if (mouseY < GEEF_HINT_BUTTON_Y_POS && mouseY > GEEF_HINT_BUTTON_BREEDTE) {      
           println("Geef hint");
           geefHint();
         }
       }
     }
+
+    // X positie van de knoppen in dit if-blok.
     if (mouseX > BOTTOM_BUTTON_SPEELSCHERM_X_POS && mouseX < BOTTOM_BUTTON_SPEELSCHERM_BREEDTE) {
+
+      // Beginscherm button.
       if (mouseY < BEGINSCHERM_BUTTON_Y_POS && mouseY > BEGINSCHERM_BUTTON_HOOGTE) {
         println("Beginscherm");
         spelActief = false;
@@ -105,6 +114,7 @@ void mousePressedDefault() {
         setupSpel();
       } 
 
+      // Opnieuw button.
       if (mouseY < OPNIEUW_BUTTON_Y_POS && mouseY > OPNIEUW_BUTTON_HOOGTE) {
         println("Opnieuw");
         spelActief = true;
@@ -115,22 +125,26 @@ void mousePressedDefault() {
     }
     return;
   }
+
   // Wanneer er niet op het scorebord is geklikt wanneer het startScherm niet actief is, is er op een kaart geklikt.
   selecteerKaart();
 }
 
-
+// Functie om de kaart (de)selecteren waar de muis cursor zich op bevind.
 void selecteerKaart() {
   int xVeld = mouseX / KAART_BREEDTE;
   int yVeld = mouseY / KAART_HOOGTE;
   String kaart = "";
 
-  // TODO: prevent this exception to occur
+  // 22-03-2018:
+  // Het is mogelijk als er op enkele pixels geklikt wordt dat een IndexOutOfBoundsException optreed.
+  // Tot nu toe afgevangen met een try-catch block en console melding.
+  // TODO: Bug fixen.
   try {
     kaart = speelVeld[xVeld][yVeld];
   } 
   catch (IndexOutOfBoundsException e) {
-    println("IndexOutOfBoundsException, mouseX = " + mouseX + ", mouseY = " + mouseY + ".");
+    println("WARN: IndexOutOfBoundsException, mouseX = " + mouseX + ", mouseY = " + mouseY + ".");
     return;
   }
 
@@ -152,7 +166,7 @@ void selecteerKaart() {
   }
 }
 
-// Toetsenbord acties, gebruikt voor het invoeren van de naam van de speler aan het eind van het spel.
+// Event functie om een toets indruk actie te verwerken.
 void keyPressed() {   
   switch(key) {
   case CODED: 
@@ -164,13 +178,14 @@ void keyPressed() {
   }
 }
 
+// Functie om keys met code te verwerken.
 void keyPressedCoded() {
   switch(keyCode) {
-  case 121: 
+  case 121: // F10 toets.
     aantalHintKaarten = aantalHintKaarten == 3 ? 2 : 3;
     println("Cheat: Hint " + aantalHintKaarten + " kaarten!");
     break;
-  case 122:
+  case 122: // F11 toets.
     if (airwolfThemeActive) {
       setAchtergrondVideo(rainbowVideo);
       setLogo = loadImage(setImgBestandsLocatie);
@@ -182,7 +197,7 @@ void keyPressedCoded() {
     airwolfThemeActive = !airwolfThemeActive;      
     println("Cheat: Airwolf theme " + (airwolfThemeActive ? "activated" : "deactivated") + "!");
     break;
-  case 123:  
+  case 123: // F12 toets.
     activeerEindeSpel();
     break;
   default: 
@@ -190,6 +205,7 @@ void keyPressedCoded() {
   }
 }
 
+// Functie om keys zonder code te verwerken.
 void keyPressedNonCoded() {
   switch(key) {
   case BACKSPACE: 
@@ -210,7 +226,7 @@ void keyPressedNonCoded() {
   }
 }
 
-// Functie om een hint te geven door 2 kaarten een andere borderkleur te geven.
+// Functie om een hint te geven door twee kaarten een andere borderkleur te geven.
 void geefHint() {   
   if (aantalSetsSpeelveld == 0) {
     return; // Als er geen sets zijn is er geen hint.
@@ -294,7 +310,7 @@ void resetSpeelveldAchtergrond() {
   }
 }
 
-// Generieke functie voor het verifieren van een set.
+// Functie voor het verifieren van een set.
 boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
   boolean testCharResult = false;
   if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie))) {
@@ -312,7 +328,7 @@ boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
   return testCharResult;
 }
 
-// Functie om het einde van het spel te bepalen en dan het eindscherm te tonen.
+// Functie om het einde van het spel te bepalen en te configureren.
 void checkEindeSpel() {       
   if (!spelAfgelopen) {
     for (int xPos = 0; xPos < xVelden; xPos++) {
@@ -330,14 +346,17 @@ void checkEindeSpel() {
   }
 }
 
+// Functie voor het afspelen van een Movie bestand.
 void movieEvent(Movie movie) {
   movie.read();
 }
 
+// Functie om het spelscherm in afmetingen te configureren.
 void maakSpelScherm() {
   surface.setSize(xVelden * KAART_BREEDTE, YVELDEN * KAART_HOOGTE + SCOREBORD_HOOGTE);
 }
 
+// Functie om alle spelvariabelen te resetten.
 void resetSpelVariabelen() { 
   scoreOpgeslagen = false;
   spelAfgelopen = false;
@@ -355,6 +374,7 @@ void resetSpelVariabelen() {
   restartTijd = millis() / 1000.0;
 }
 
+// Functie om alle mediabestanden in te laden.
 void laadMediaBestanden() {
   setLogo = loadImage(setImgBestandsLocatie);  
   setSpelregels = loadImage(SET_SPELREGELS_BESTANDS_LOCATIE);
@@ -364,7 +384,7 @@ void laadMediaBestanden() {
   airwolfVideo = new Movie(this, AIRWOLF_VIDEO_BESTANDS_LOCATIE);
 }
 
-// Setup van het gekozen speltype (3 of 4 varianten).
+// Setup van het spel wanneer er een speltype gekozen is.
 void setupSpel() {
   resetSpelVariabelen();
   maakSpelScherm(); 

@@ -1,3 +1,4 @@
+// Functie om de inhoud van het speelscherm te tonen.
 void toonSpeelscherm() {
   toonAchtergrondKaarten(speelkaartBorderKleur, speelVeldKleur);    
   tekenKaartFiguren();  
