@@ -6,7 +6,7 @@ import processing.sound.*;
 import processing.video.*;
 
 void settings() {
-  size(schermBreedte, schermHoogte);
+  size(schermBreedte, SCHERMHOOGTE);
 }
 
 // Setup van het startScherm en enkele variabelen.

@@ -2,14 +2,14 @@
 void maakSpeelveld() {  
   if (speelVeld[0][0] == null) {
     for (int x=0; x < xVelden; x++) {
-      for (int y=0; y < yVelden; y++) {
+      for (int y=0; y < YVELDEN; y++) {
         speelVeld[x][y] = pakKaart();
       }
     }
   } else {
     for (int x=0; x < xVelden; x++) {
-      for (int y=0; y < yVelden; y++) {
-        if (speelVeld[x][y].equals(legeKaart)) {
+      for (int y=0; y < YVELDEN; y++) {
+        if (speelVeld[x][y].equals(LEGEKAART)) {
           speelVeld[x][y] = pakKaart();
         }
       }
@@ -21,7 +21,7 @@ void maakSpeelveld() {
 void verwijderKaarten(String[] kaarten) {
   for (String kaart : kaarten) {
     for (int x = 0; x < xVelden; x++) {
-      for (int y = 0; y < yVelden; y++) {      
+      for (int y = 0; y < YVELDEN; y++) {      
         if (speelVeld[x][y] == kaart) {
           speelVeld[x][y] = pakKaart();
         }
@@ -42,11 +42,11 @@ void telAantalSetsSpeelveld() {
 
   // Loop over alle mogelijke kaart combinaties en check + opslaan welke een set zijn.
   for (int a = 0; a < xVelden; a++) {
-    for (int b = 0; b < yVelden; b++) {      
+    for (int b = 0; b < YVELDEN; b++) {      
       for (int c = 0; c < xVelden; c++) {
-        for (int d = 0; d < yVelden; d++) {      
+        for (int d = 0; d < YVELDEN; d++) {      
           for (int e = 0; e < xVelden; e++) {
-            for (int f = 0; f < yVelden; f++) {      
+            for (int f = 0; f < YVELDEN; f++) {      
 
               String kaartEen = arrayEen[a][b];
               String kaartTwee = arrayTwee[c][d];

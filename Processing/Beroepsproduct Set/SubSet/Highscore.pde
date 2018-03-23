@@ -57,26 +57,26 @@ String[] sorteerHighscores(String[] highscoreLijst) {
 
 // Functie om de highscore lijst weer te geven.
 void toonHighscoreLijst() {  
-  fill(zwart, 175);
+  fill(ZWART, 175);
   rect(width * 0.15, height * 0.21, width * 0.7, height * 0.56, 25);
   
-  fill(wit);
-  text("HIGHSCORES", (width / 6) * 1.5, schermHoogte / 4);
-  text("Naam ", (width / 6) * 1.5, schermHoogte / 4 + 25);
-  text("Tijd", (width / 6) * 3, schermHoogte / 4 + 25);
-  text("Score", (width / 6) * 3.75, schermHoogte / 4 + 25);
+  fill(WIT);
+  text("HIGHSCORES", (width / 6) * 1.5, SCHERMHOOGTE / 4);
+  text("Naam ", (width / 6) * 1.5, SCHERMHOOGTE / 4 + 25);
+  text("Tijd", (width / 6) * 3, SCHERMHOOGTE / 4 + 25);
+  text("Score", (width / 6) * 3.75, SCHERMHOOGTE / 4 + 25);
   
   String[] namen = loadStrings("highscores" + aantalVariaties + ".txt");
   namen = sorteerHighscores(namen);
   
-  fill(wit);
+  fill(WIT);
   for (int i = 0; i < (namen.length > 10 ? 10 : namen.length); i++) {
     String[] line = split(namen[i], ',');
 
     if (line.length > 1) {
-      text(""+(i + 1) + ": " + line[0], (width / 6) * 1.5, (schermHoogte / 3) + 20 * i);    
-      text(line[2], (width / 6) * 3, (schermHoogte / 3) + 20 * i);
-      text(line[1], (width / 6) * 3.75, (schermHoogte / 3) + 20 * i);
+      text(""+(i + 1) + ": " + line[0], (width / 6) * 1.5, (SCHERMHOOGTE / 3) + 20 * i);    
+      text(line[2], (width / 6) * 3, (SCHERMHOOGTE / 3) + 20 * i);
+      text(line[1], (width / 6) * 3.75, (SCHERMHOOGTE / 3) + 20 * i);
     }
   }
 }

@@ -6,10 +6,10 @@ void tekenScorebord() {
 
 // Info teksten toevoegen.
 void tekenInfoTextScorebord() { 
-  stroke(wit);
+  stroke(WIT);
   strokeWeight(2);
-  fill(zwart, 150);
-  rect(width * 0.025, height - scorebordHoogte + 3, width * 0.38, scorebordHoogte - 6, rectHoekRadius);
+  fill(ZWART, 150);
+  rect(width * 0.025, height - SCOREBORDHOOGTE + 3, width * 0.38, SCOREBORDHOOGTE - 6, rectHoekRadius);
   
   tekenSpelInfoTextWaarde(""+aantalSetsSpeelveld, 1);
   tekenSpelInfoTextWaarde(""+kaartenInSpel.length, 3);
@@ -30,7 +30,7 @@ void tekenKnoppenScorebord() {
   tekenKnopScorebord(6, 3);
 
   tekenTextInKnopScorebord("Hint", 4.1, 3.25);
-  tekenTextInKnopScorebord("Voeg " + yVelden + " toe", 4.1, 1.25);
+  tekenTextInKnopScorebord("Voeg " + YVELDEN + " toe", 4.1, 1.25);
   tekenTextInKnopScorebord("Opnieuw", 6.1, 3.25);
   tekenTextInKnopScorebord("Startscherm", 6.1, 1.25);
 }
@@ -38,32 +38,32 @@ void tekenKnoppenScorebord() {
 void tekenKnopScorebord(float gridPosBreedte, float gridPosHoogte) {  
   float knopPosX = (width / 8) * gridPosBreedte;
   int knopBreedte = 100;
-  float knopHoogte = schermHoogte - (scorebordHoogte / 5) * gridPosHoogte;
-  int knopDikte = -(scorebordHoogte / 5);
+  float knopHoogte = SCHERMHOOGTE - (SCOREBORDHOOGTE / 5) * gridPosHoogte;
+  int knopDikte = -(SCOREBORDHOOGTE / 5);
   
   if(mouseX > knopPosX && mouseX < knopPosX + knopBreedte &&
     mouseY < knopHoogte && mouseY > knopHoogte + knopDikte) {
-    fill(wit, 50);
+    fill(WIT, 50);
   } else {      
-    fill(zwart, 175);
+    fill(ZWART, 175);
   }
-  rect((width / 8) * gridPosBreedte, schermHoogte - (scorebordHoogte / 5) * gridPosHoogte, 100, -(scorebordHoogte / 5), 25);
+  rect((width / 8) * gridPosBreedte, SCHERMHOOGTE - (SCOREBORDHOOGTE / 5) * gridPosHoogte, 100, -(SCOREBORDHOOGTE / 5), 25);
 }
 
 void tekenTextInKnopScorebord(String text, float gridPosBreedte, float gridPosHoogte) {
-  fill(wit);
+  fill(WIT);
   textFont(verdanaBold(12)); 
-  text(text, (width / 8) * gridPosBreedte, schermHoogte - (scorebordHoogte / 5) * gridPosHoogte);
+  text(text, (width / 8) * gridPosBreedte, SCHERMHOOGTE - (SCOREBORDHOOGTE / 5) * gridPosHoogte);
 }
 
 void tekenSpelInfoTextWaarde(String text, float gridPosHoogte) {
-  fill(wit);
-  textFont(verdanaBold(scorebordHoogte / 7)); 
-  text(text, 0 + (width * 0.3), schermHoogte - (scorebordHoogte / 9) * gridPosHoogte);
+  fill(WIT);
+  textFont(verdanaBold(SCOREBORDHOOGTE / 7)); 
+  text(text, 0 + (width * 0.3), SCHERMHOOGTE - (SCOREBORDHOOGTE / 9) * gridPosHoogte);
 }
 
 void tekenSpelInfoTextTitel(String text, float gridPosHoogte) {
-  fill(wit);
-  textFont(verdanaBold(scorebordHoogte / 7)); 
-  text(text, 0 + (width * 0.05), schermHoogte - (scorebordHoogte / 9) * gridPosHoogte);
+  fill(WIT);
+  textFont(verdanaBold(SCOREBORDHOOGTE / 7)); 
+  text(text, 0 + (width * 0.05), SCHERMHOOGTE - (SCOREBORDHOOGTE / 9) * gridPosHoogte);
 }

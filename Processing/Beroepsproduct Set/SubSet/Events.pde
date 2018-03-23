@@ -45,22 +45,22 @@ void mousePressed() {
     
 
   // return indien er buiten het speelveld geklikt is.
-  if (mouseY > speelveldHoogte) { 
+  if (mouseY > SPEELVELDHOOGTE) { 
     if (mouseX > (width / 8) * 4 && mouseX < ((width / 8) * 4) + 100) {
 
-      if (mouseY < (height - (scorebordHoogte / 5)) && mouseY > (height - (scorebordHoogte / 5))-(scorebordHoogte / 5)) { 
+      if (mouseY < (height - (SCOREBORDHOOGTE / 5)) && mouseY > (height - (SCOREBORDHOOGTE / 5))-(SCOREBORDHOOGTE / 5)) { 
         println("Voeg kaarten toe");
         voegKaartenToe();
       }
 
-      if (mouseY < (height - (scorebordHoogte / 5) * 3) && mouseY > (height - (scorebordHoogte / 5) * 3)-(scorebordHoogte / 5)) {      
+      if (mouseY < (height - (SCOREBORDHOOGTE / 5) * 3) && mouseY > (height - (SCOREBORDHOOGTE / 5) * 3)-(SCOREBORDHOOGTE / 5)) {      
         println("Geef hint");
         geefHint();
       }
     }
 
     if (mouseX > (width / 8) * 6 && mouseX < ((width / 8) * 6) + 100) {
-      if (mouseY < (height - (scorebordHoogte / 5)) && mouseY > (height - (scorebordHoogte / 5))-(scorebordHoogte / 5)) {
+      if (mouseY < (height - (SCOREBORDHOOGTE / 5)) && mouseY > (height - (SCOREBORDHOOGTE / 5))-(SCOREBORDHOOGTE / 5)) {
         println("Beginscherm");
         spelActief = false;
         startSchermActief = true;
@@ -68,7 +68,7 @@ void mousePressed() {
         setupSpel();
       } 
 
-      if (mouseY < (height - (scorebordHoogte / 5) * 3) && mouseY > (height - (scorebordHoogte / 5) * 3)-(scorebordHoogte / 5)) {
+      if (mouseY < (height - (SCOREBORDHOOGTE / 5) * 3) && mouseY > (height - (SCOREBORDHOOGTE / 5) * 3)-(SCOREBORDHOOGTE / 5)) {
         println("Opnieuw");
         spelActief = true;
         startSchermActief = false;
@@ -88,8 +88,8 @@ void mousePressed() {
 }
 
 void selecteerKaart() {
-  int xVeld = mouseX / kaartBreedte;
-  int yVeld = mouseY / kaartHoogte;
+  int xVeld = mouseX / KAARTBREEDTE;
+  int yVeld = mouseY / KAARTHOOGTE;
   String kaart = "";
 
   try {
@@ -100,17 +100,17 @@ void selecteerKaart() {
     return;
   }
 
-  if (kaart.equals(legeKaart)) {
+  if (kaart.equals(LEGEKAART)) {
     return;
   }
 
   if (arrayContains(geselecteerdeKaarten, kaart)) { //<>//
-    speelVeldKleur[xVeld][yVeld] = zwart;
+    speelVeldKleur[xVeld][yVeld] = ZWART;
     geselecteerdeKaarten = removeFromArray(geselecteerdeKaarten, arrayIndexOf(geselecteerdeKaarten, kaart));
   } else {  
     if (!arrayContains(geselecteerdeKaarten, kaart) && geselecteerdeKaarten.length < 3) {
       geselecteerdeKaarten = append(geselecteerdeKaarten, kaart); //geselecteerdeKaarten.add(speelVeld[xVeld][yVeld]);
-      speelVeldKleur[xVeld][yVeld] = color(zwart, 75);
+      speelVeldKleur[xVeld][yVeld] = color(ZWART, 75);
       if (geselecteerdeKaarten.length == 3) { 
         verifieerSet();
       }
@@ -205,12 +205,12 @@ void voegKaartenToe() {
     xVelden++;
     maakSpelScherm();
 
-    String[][] nieuwSpeelVeld = new String[xVelden][yVelden];
-    color[][] nieuwSpeelVeldKleur = new color[xVelden][yVelden];
-    color[][] nieuwSpeelkaartBorderKleur = new color[xVelden][yVelden];
+    String[][] nieuwSpeelVeld = new String[xVelden][YVELDEN];
+    color[][] nieuwSpeelVeldKleur = new color[xVelden][YVELDEN];
+    color[][] nieuwSpeelkaartBorderKleur = new color[xVelden][YVELDEN];
 
     for (int x = 0; x < xVelden-1; x++) {
-      for (int y = 0; y < yVelden; y++) {
+      for (int y = 0; y < YVELDEN; y++) {
         nieuwSpeelVeld[x][y] = speelVeld[x][y];
         nieuwSpeelVeldKleur[x][y] = speelVeldKleur[x][y];
         nieuwSpeelkaartBorderKleur[x][y] = speelkaartBorderKleur[x][y];
@@ -218,11 +218,11 @@ void voegKaartenToe() {
     }
 
     for (int x = 0; x < xVelden; x++) {
-      for (int y = 0; y < yVelden; y++) {
+      for (int y = 0; y < YVELDEN; y++) {
         if (nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) { // Integer zodat er geen NullPointer kan komen
-          nieuwSpeelVeld[x][y] = legeKaart;
-          nieuwSpeelVeldKleur[x][y] = zwart;
-          nieuwSpeelkaartBorderKleur[x][y] = wit;
+          nieuwSpeelVeld[x][y] = LEGEKAART;
+          nieuwSpeelVeldKleur[x][y] = ZWART;
+          nieuwSpeelkaartBorderKleur[x][y] = WIT;
         }
       }
     }
@@ -254,9 +254,9 @@ void verifieerSet() {
 // Reset alle kaart-achtergronden van de kaarten op het speelveld.
 void resetSpeelveldAchtergrond() {     
   for (int x = 0; x < xVelden; x++) {
-    for (int y = 0; y < yVelden; y++) {
-      speelVeldKleur[x][y] = zwart;
-      speelkaartBorderKleur[x][y] = wit;
+    for (int y = 0; y < YVELDEN; y++) {
+      speelVeldKleur[x][y] = ZWART;
+      speelkaartBorderKleur[x][y] = WIT;
     }
   }
 }
@@ -265,7 +265,7 @@ void resetSpeelveldAchtergrond() {
 boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
   boolean testCharResult = false;
   if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie))) {
-    if (!(kaartEen.equals(legeKaart) || kaartTwee.equals(legeKaart) || kaartDrie.equals(legeKaart))) { 
+    if (!(kaartEen.equals(LEGEKAART) || kaartTwee.equals(LEGEKAART) || kaartDrie.equals(LEGEKAART))) { 
       for (int charToTest = 0; charToTest < aantalVariaties; charToTest++) {
         if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest)) || 
           (kaartEen.charAt(charToTest) != kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) != kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) != kaartDrie.charAt(charToTest))) {
@@ -284,7 +284,7 @@ void movieEvent(Movie movie) {
 }
 
 void maakSpelScherm() {
-  surface.setSize(xVelden * kaartBreedte, yVelden * kaartHoogte + scorebordHoogte);
+  surface.setSize(xVelden * KAARTBREEDTE, YVELDEN * KAARTHOOGTE + SCOREBORDHOOGTE);
 }
 
 void resetSpelVariabelen() { 
@@ -293,9 +293,9 @@ void resetSpelVariabelen() {
   kaartenInSpel = new String[0];
   geselecteerdeKaarten = new String[0];
   setsLijst = new ArrayList<String[]>();
-  speelVeld = new String[xVelden][yVelden];
-  speelVeldKleur = new color[xVelden][yVelden];  
-  speelkaartBorderKleur = new color[xVelden][yVelden];
+  speelVeld = new String[xVelden][YVELDEN];
+  speelVeldKleur = new color[xVelden][YVELDEN];  
+  speelkaartBorderKleur = new color[xVelden][YVELDEN];
   resetSpeelveldAchtergrond();
   naam = "";
   scoreSpelerEen = 0;

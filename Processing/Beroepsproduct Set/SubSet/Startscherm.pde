@@ -5,8 +5,9 @@ void toonStartScherm() {
 }
 
 void tekenLogo() {
-  fill(zwart, 150);
-  stroke(wit, 200);
+  // TODO aanpassen
+  fill(ZWART, 150);
+  stroke(WIT, 200);
   strokeWeight(3);
   rect(width * 0.2, height * 0.075, width * 0.6, height * 0.5, 25);
   tint(255, 185);
@@ -29,9 +30,9 @@ void tekenKnopStartScherm(String text, float gridPosHoogte) {
          
   if(mouseX > knopPosX && mouseX < knopPosX + knopBreedte &&
      mouseY > knopHoogte && mouseY < knopHoogte + knopDikte){        
-    fill(wit, 50);
+    fill(WIT, 50);
   } else {
-    fill(zwart, 150);
+    fill(ZWART, 150);
   }
 
   strokeWeight(2);
@@ -44,7 +45,7 @@ void tekenTextInKnopStartScherm(String text, float gridPosHoogte) {
   float textPositieY = height / 10 * gridPosHoogte;
   int textPositieOffset = 18;
   
-  fill(wit);
+  fill(WIT);
   textFont(verdanaBold(15));
   textAlign(CENTER);
   text(text, textPositieX, textPositieY + textPositieOffset);

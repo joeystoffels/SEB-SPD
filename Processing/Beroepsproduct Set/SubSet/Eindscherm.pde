@@ -2,8 +2,8 @@
 void checkEindeSpel() {       
   if (!spelAfgelopen) {
     for (int xPos = 0; xPos < xVelden; xPos++) {
-      for (int yPos = 0; yPos < yVelden; yPos++) {
-        if (speelVeld[xPos][yPos] != legeKaart) {
+      for (int yPos = 0; yPos < YVELDEN; yPos++) {
+        if (speelVeld[xPos][yPos] != LEGEKAART) {
           aantalKaartenOpSpeelveld++;
         }
       }
@@ -22,8 +22,8 @@ void toonEindscherm() {
   tekenNaamInvoer();       
   tekenEindeTitel();  
   
-  fill(zwart, 150);
-  rect(width * 0.025, height - scorebordHoogte, width * 0.38, scorebordHoogte / 1.6, 25);
+  fill(ZWART, 150);
+  rect(width * 0.025, height - SCOREBORDHOOGTE, width * 0.38, SCOREBORDHOOGTE / 1.6, 25);
 
   tekenKnopScorebord(6, 3); 
   tekenKnopScorebord(6, 1);
@@ -38,22 +38,20 @@ void toonEindscherm() {
 
 void tekenNaamInvoer() {
   if (spelAfgelopen && !scoreOpgeslagen) {
-    text("Voer naam in: " + naam, 0 + (width * 0.25), schermHoogte * 0.725);
+    text("Voer naam in: " + naam, 0 + (width * 0.25), SCHERMHOOGTE * 0.725);
   } else if (spelAfgelopen && scoreOpgeslagen) {
-    text("Je bent geeindigd op de " + plaatsOpHighscoreLijst + "e plaats!", 0 + (width * 0.25), schermHoogte * 0.725);
+    text("Je bent geeindigd op de " + plaatsOpHighscoreLijst + "e plaats!", 0 + (width * 0.25), SCHERMHOOGTE * 0.725);
   }
 }
 
 void tekenEindeTitel() {
-  fill(zwart, 150);
+  fill(ZWART, 150);
   
-  // Maar je kunt ook een comment maken
-  int rectacleWidth = width /7;
-  rect(rectacleWidth, (speelveldHoogte / 9), (width / 7) * 5, (speelveldHoogte / 9), 25);
+  rect(width /7, (SPEELVELDHOOGTE / 9), (width / 7) * 5, (SPEELVELDHOOGTE / 9), 25);
 
-  fill(wit);
+  fill(WIT);
   textAlign(CENTER);
-  textFont(verdanaBold(scorebordHoogte / 3));   
-  text("EINDE", (width / 2), speelveldHoogte / 9 + (speelveldHoogte / 9) / 1.5);    
+  textFont(verdanaBold(SCOREBORDHOOGTE / 3));   
+  text("EINDE", (width / 2), SPEELVELDHOOGTE / 9 + (SPEELVELDHOOGTE / 9) / 1.5);    
   textAlign(LEFT);
 }
