@@ -81,7 +81,7 @@ boolean setInSetsLijst(String[] setKaarten) {
   boolean isSetInSetsLijst = false;
 
   for (int x = 0; x < setsLijst.size(); x++) {
-    if (java.util.Arrays.equals(setsLijst.get(x), setKaarten)) { //TODO REMOVE!!
+    if (equalsArray(setsLijst.get(x), setKaarten)) { //TODO REMOVE!!
       isSetInSetsLijst = true;
       break;
     } else {

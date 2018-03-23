@@ -2,10 +2,10 @@
 // De niet-final variabelen kunnen tijdens het spel wijzigen.
 
 /**********************************
-*
-* Afmetingen variabelen
-*
-***********************************/
+ *
+ * Afmetingen variabelen
+ *
+ ***********************************/
 
 // Afmetingen van het scherm.
 int schermBreedte = 700;
@@ -32,10 +32,10 @@ final int KAART_HOOGTE = (SCHERM_HOOGTE - SCOREBORD_HOOGTE) / YVELDEN;
 
 
 /**********************************
-*
-* Configuratie variabelen
-*
-***********************************/
+ *
+ * Configuratie variabelen
+ *
+ ***********************************/
 
 // Twee dimensionaal array om het speelveld te maken
 String[][] speelVeld = new String[xVelden][YVELDEN];
@@ -50,7 +50,7 @@ String[] geselecteerdeKaarten = new String[0];
 
 // Lijst waarin alle sets worden bijgehouden.
 ArrayList<String[]> setsLijst = new ArrayList<String[]>();
-  
+
 // Mogelijke variaties voor de speelkaarten.
 final String[] AANTAL_FIGUREN = {"1", "2", "3"};
 final String[] KLEUR_FIGUUR = {"r", "g", "b"}; // rood, groen, blauw
@@ -83,10 +83,10 @@ final float[][] DRIEHOEK_CONFIG = {
 
 
 /**********************************
-*
-* Styling variabelen
-*
-***********************************/
+ *
+ * Styling variabelen
+ *
+ ***********************************/
 
 // Ronding van de rechthoeken.
 final int RECT_HOEK_RADIUS = 25;
@@ -101,10 +101,10 @@ final color ZWART = color(0, 0, 0);
 
 
 /**********************************
-*
-* Media variabelen
-*
-***********************************/
+ *
+ * Media variabelen
+ *
+ ***********************************/
 
 // Diverse mediabestanden.
 PImage setLogo;
@@ -124,37 +124,40 @@ final String AIRWOLF_LOGO_BESTANDS_LOCATIE = "AirwolfLogo.jpg";
 
 
 /**********************************
-*
-* Spel variabelen
-*
-***********************************/
+ *
+ * Spel variabelen
+ *
+ ***********************************/
 
+// Speler variabelen.
+String naam = "";
+float tijd = 0.0;
+float scoreSpelerEen = 0;
+int plaatsOpHighscoreLijst;
+
+// Spel variabelen.
 int aantalVariaties = 3;
-boolean spelActief = false;
+int aantalHintKaarten = 2;
+int aantalKaartenOpSpeelveld = 0;
+float restartTijd = 0.0;
+int aantalSetsSpeelveld;
+
+// Spel state variabelen.
 boolean startSchermActief = true;
-boolean spelAfgelopen = false;
+boolean spelActief = false;
 boolean spelregelsActief = false;
+boolean spelAfgelopen = false;
 boolean kaartenToegevoegd = false;
 boolean airwolfThemeActive = false;
 boolean scoreOpgeslagen = false;
-int aantalHintKaarten = 2;
-
-String naam = "";
-float tijd = 0.0;
-float restartTijd = 0.0;
-int aantalKaartenOpSpeelveld = 0;
-float scoreSpelerEen = 0;
-int aantalSetsSpeelveld;
-int plaatsOpHighscoreLijst;
 
 
 
 /**********************************
-*
-* Overige functies
-*
-***********************************/
-
+ *
+ * Overige functies
+ *
+ ***********************************/
 
 // Filter functie om max lengte v/d naam op 10 karakters te zetten
 void setNaam(String naamNieuw) {      

@@ -66,8 +66,6 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
   }
 }
 
-
-
 // Maak de stapel kaarten adhv. het aantal geconfigureerde variaties.
 void maakKaartenStapel() {  
   for (int a = 0; a < AANTAL_FIGUREN.length; a++) {

@@ -1,4 +1,4 @@
-// Event functie om een muisklik actie te verwerken. //<>//
+// Event functie om een muisklik actie te verwerken. //<>// //<>//
 void mousePressed() {  
   // DEBUG: println("CLICKED " + mouseX, mouseY);
 

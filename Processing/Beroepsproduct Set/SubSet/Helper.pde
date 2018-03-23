@@ -48,3 +48,13 @@ int array2DIndexOf(String[][] array, String[] item) {
   }
   return -1;
 }
+
+boolean equalsArray(String[] array, String[] item) {
+  boolean result = true;  
+  for (int x = 0; x < array.length; x++) {
+    if (!array[x].equals(item[x])) {
+      result = false;
+    }
+  }
+  return result;
+}
