@@ -16,4 +16,9 @@ void toonSpelregels() {
   final float SPELREGELS_IMG_HOOGTE = SCHERM_HOOGTE * 0.5;
 
   image(setSpelregels, SPELREGELS_IMG_X_POS, SPELREGELS_IMG_Y_POS, SPELREGELS_IMG_BREEDTE, SPELREGELS_IMG_HOOGTE);
+  
+  textAlign(CENTER);
+  fill(WIT);
+  text("Klik om terug te gaan!", width / 2, SCHERM_HOOGTE * 0.85);
+  textAlign(LEFT);
 }
