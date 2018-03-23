@@ -1,5 +1,5 @@
 void toonSpeelscherm() {
-  toonAchtergrondKaarten();    
+  toonAchtergrondKaarten(speelkaartBorderKleur, speelVeldKleur);    
   tekenKaartFiguren();  
   tekenScorebord(); 
   updateTijd();
@@ -7,7 +7,7 @@ void toonSpeelscherm() {
 }
 
 // Functie voor in draw() om continu de achtergrond van de kaarten te kleuren.
-void toonAchtergrondKaarten() {  
+void toonAchtergrondKaarten(int[][] speelkaartBorderKleur, int[][] speelVeldKleur) {  
   final int KAART_OFFSET_X_POS = 10;
   final int KAART_OFFSET_Y_POS = -20;
   for (int xPos = 0; xPos < xVelden; xPos++) {

@@ -1,66 +1,103 @@
-// Muisklik functie om kaarten te kunnen selecteren.
+// Muisklik functie om kaarten te kunnen selecteren. //<>//
 // Deze functie triggert het checken op een set na het selecteren van 3 kaarten.
 void mousePressed() {  
-  //println("CLICKED " + mouseX, mouseY);
-
+  // debug: println("CLICKED " + mouseX, mouseY);
   if (startSchermActief) { // Wanneer startScherm actief is zijn onderstaande knoppen beschikbaar.
-    if (mouseX > width / 4 && mouseX < width / 4 * 3) {
-
-      // Click Subset - 3 variations button
-      if (mouseY > height / 10 * 7 && mouseY < height / 10 * 7 + 25) {        
-        startSchermActief = false;
-        spelActief = true;       
-        aantalVariaties = 3;
-        xVelden = 3;
-        schermBreedte = (int) 0.75 * schermBreedte;
-        setupSpel();
-      }
-
-      // Click Set - 4 variations button
-      if (mouseY > height / 10 * 7.5 && mouseY < height / 10 * 7.5 + 25) {
-        spelActief = true;                
-        startSchermActief = false;
-        aantalVariaties = 4;
-        //xVelden = 4;
-        setupSpel();
-      }      
-      
-      if (mouseY > height / 10 * 8.5 && mouseY < height / 10 * 8.5 + 25) {
-        startSchermActief = false;
-        spelregelsActief = true;
-      }
-
-      // Click clear highscores button 
-      if (mouseY > height / 10 * 9 && mouseY < height / 10 * 9 + 25) {
-        verwijderHighscores();
-      }
-    }
+    mousePressedStartscherm();
     return;
-  }
+  } 
   
   if (spelregelsActief) {
     spelregelsActief = !spelregelsActief;
     startSchermActief = true;
+    return;
   }
-    
+  
+  if (!startSchermActief) {
+    mousePressedDefault();
+    return;
+  }
+}
 
-  // return indien er buiten het speelveld geklikt is.
-  if (mouseY > SPEELVELD_HOOGTE) { 
-    if (mouseX > (width / 8) * 4 && mouseX < ((width / 8) * 4) + 100) {
 
-      if (mouseY < (height - (SCOREBORD_HOOGTE / 5)) && mouseY > (height - (SCOREBORD_HOOGTE / 5))-(SCOREBORD_HOOGTE / 5)) { 
-        println("Voeg kaarten toe");
-        voegKaartenToe();
-      }
+void mousePressedStartscherm() {
+  final float BUTTON_STARTSCHERM_X_POS = width / 4;
+  final float BUTTON_STARTSCHERM_BREEDTE = width / 4 * 3;
+  final float SUBSET_BUTTON_Y_POS = height / 10 * 7;
+  final float SUBSET_BUTTON_HOOGTE = height / 10 * 7 + 25;
+  final float SET_BUTTON_Y_POS = height / 10 * 7.5;
+  final float SET_BUTTON_HOOGTE = height / 10 * 7.5 + 25;
+  final float SPELREGELS_BUTTON_Y_POS = height / 10 * 8.5;
+  final float SPELREGELS_BUTTON_HOOGTE = height / 10 * 8.5 + 25;
+  final float VERWIJDER_HIGHSCORE_BUTTON_Y_POS = height / 10 * 9;
+  final float VERWIJDER_HIGHSCORE_BUTTON_HOOGTE = height / 10 * 9 + 25;
+  
+  if (mouseX > BUTTON_STARTSCHERM_X_POS && mouseX < BUTTON_STARTSCHERM_BREEDTE) {
 
-      if (mouseY < (height - (SCOREBORD_HOOGTE / 5) * 3) && mouseY > (height - (SCOREBORD_HOOGTE / 5) * 3)-(SCOREBORD_HOOGTE / 5)) {      
-        println("Geef hint");
-        geefHint();
-      }
+    // Click Subset - 3 variations button
+    if (mouseY > SUBSET_BUTTON_Y_POS && mouseY < SUBSET_BUTTON_HOOGTE) {        
+      startSchermActief = false;
+      spelActief = true;       
+      aantalVariaties = 3;
+      xVelden = 3;
+      schermBreedte = int(0.75 * schermBreedte);
+      setupSpel();
     }
 
-    if (mouseX > (width / 8) * 6 && mouseX < ((width / 8) * 6) + 100) {
-      if (mouseY < (height - (SCOREBORD_HOOGTE / 5)) && mouseY > (height - (SCOREBORD_HOOGTE / 5))-(SCOREBORD_HOOGTE / 5)) {
+    // Click Set - 4 variations button
+    if (mouseY > SET_BUTTON_Y_POS && mouseY < SET_BUTTON_HOOGTE) {
+      spelActief = true;                
+      startSchermActief = false;
+      aantalVariaties = 4;
+      setupSpel();
+    }      
+
+    if (mouseY > SPELREGELS_BUTTON_Y_POS && mouseY < SPELREGELS_BUTTON_HOOGTE) {
+      startSchermActief = false;
+      spelregelsActief = true;
+    }
+
+    // Click clear highscores button 
+    if (mouseY > VERWIJDER_HIGHSCORE_BUTTON_Y_POS && mouseY < VERWIJDER_HIGHSCORE_BUTTON_HOOGTE) {
+      verwijderHighscores();
+    }
+    return;
+  }
+}
+
+void mousePressedDefault() {
+  final float TOP_BUTTON_SPEELSCHERM_X_POS = (width / 8) * 4;
+  final float TOP_BUTTON_SPEELSCHERM_BREEDTE = (width / 8) * 4 + 100;
+  final float VOEG_KAARTEN_TOE_BUTTON_Y_POS = height - (SCOREBORD_HOOGTE / 5);
+  final float VOEG_KAARTEN_TOE_BUTTON_HOOGTE = height - (SCOREBORD_HOOGTE / 5)-(SCOREBORD_HOOGTE / 5);
+  final float GEEF_HINT_BUTTON_Y_POS = height - (SCOREBORD_HOOGTE / 5) * 3;
+  final float GEEF_HINT_BUTTON_BREEDTE = height - (SCOREBORD_HOOGTE / 5) * 3-(SCOREBORD_HOOGTE / 5);
+  final float BOTTOM_BUTTON_SPEELSCHERM_X_POS = (width / 8) * 6;
+  final float BOTTOM_BUTTON_SPEELSCHERM_BREEDTE = ((width / 8) * 6) + 100;
+  final float BEGINSCHERM_BUTTON_Y_POS = height - (SCOREBORD_HOOGTE / 5);
+  final float BEGINSCHERM_BUTTON_HOOGTE = height - (SCOREBORD_HOOGTE / 5)-(SCOREBORD_HOOGTE / 5);
+  final float OPNIEUW_BUTTON_Y_POS = height - (SCOREBORD_HOOGTE / 5) * 3;
+  final float OPNIEUW_BUTTON_HOOGTE = height - (SCOREBORD_HOOGTE / 5) * 3-(SCOREBORD_HOOGTE / 5);
+  
+  
+  // return indien er buiten het speelveld geklikt is.
+  if (mouseY > SPEELVELD_HOOGTE) { 
+    if (!spelAfgelopen) {
+      if (mouseX > TOP_BUTTON_SPEELSCHERM_X_POS && mouseX < TOP_BUTTON_SPEELSCHERM_BREEDTE) {
+        
+        if (mouseY < VOEG_KAARTEN_TOE_BUTTON_Y_POS && mouseY > VOEG_KAARTEN_TOE_BUTTON_HOOGTE) { 
+          println("Voeg kaarten toe");
+          voegKaartenToe();
+        }
+
+        if (mouseY < GEEF_HINT_BUTTON_Y_POS && mouseY > GEEF_HINT_BUTTON_BREEDTE) {      
+          println("Geef hint");
+          geefHint();
+        }
+      }
+    }
+    if (mouseX > BOTTOM_BUTTON_SPEELSCHERM_X_POS && mouseX < BOTTOM_BUTTON_SPEELSCHERM_BREEDTE) {
+      if (mouseY < BEGINSCHERM_BUTTON_Y_POS && mouseY > BEGINSCHERM_BUTTON_HOOGTE) {
         println("Beginscherm");
         spelActief = false;
         startSchermActief = true;
@@ -68,7 +105,7 @@ void mousePressed() {
         setupSpel();
       } 
 
-      if (mouseY < (height - (SCOREBORD_HOOGTE / 5) * 3) && mouseY > (height - (SCOREBORD_HOOGTE / 5) * 3)-(SCOREBORD_HOOGTE / 5)) {
+      if (mouseY < OPNIEUW_BUTTON_Y_POS && mouseY > OPNIEUW_BUTTON_HOOGTE) {
         println("Opnieuw");
         spelActief = true;
         startSchermActief = false;
@@ -77,21 +114,18 @@ void mousePressed() {
       }
     }
     return;
-  }  
-  
-  if(spelAfgelopen) {
-    return;
   }
-
   // Wanneer er niet op het scorebord is geklikt wanneer het startScherm niet actief is, is er op een kaart geklikt.
   selecteerKaart();
 }
+
 
 void selecteerKaart() {
   int xVeld = mouseX / KAART_BREEDTE;
   int yVeld = mouseY / KAART_HOOGTE;
   String kaart = "";
 
+  // TODO: prevent this exception to occur
   try {
     kaart = speelVeld[xVeld][yVeld];
   } 
@@ -104,7 +138,7 @@ void selecteerKaart() {
     return;
   }
 
-  if (arrayContains(geselecteerdeKaarten, kaart)) { //<>//
+  if (arrayContains(geselecteerdeKaarten, kaart)) {
     speelVeldKleur[xVeld][yVeld] = ZWART;
     geselecteerdeKaarten = removeFromArray(geselecteerdeKaarten, arrayIndexOf(geselecteerdeKaarten, kaart));
   } else {  
@@ -121,59 +155,58 @@ void selecteerKaart() {
 // Toetsenbord acties, gebruikt voor het invoeren van de naam van de speler aan het eind van het spel.
 void keyPressed() {   
   switch(key) {
-    case CODED: 
-      keyPressedCoded(); 
-      break;
-    default: 
-      keyPressedNonCoded(); 
-      break;    
+  case CODED: 
+    keyPressedCoded(); 
+    break;
+  default: 
+    keyPressedNonCoded(); 
+    break;
   }
 }
 
 void keyPressedCoded() {
   switch(keyCode) {
-    case 121: 
-      aantalHintKaarten = aantalHintKaarten == 3 ? 2 : 3;
-      println("Cheat: Hint " + aantalHintKaarten + " kaarten!");
-      break;
-    case 122:
-      if (airwolfThemeActive) {
-        setAchtergrondVideo(rainbowVideo);
-        setLogo = loadImage(setImgBestandsLocatie);
-      }
-      else {
-        setAchtergrondVideo(airwolfVideo);        
-        setLogo = airwolfLogo;
-      }
-      
-      airwolfThemeActive = !airwolfThemeActive;      
-      println("Cheat: Airwolf theme " + (airwolfThemeActive ? "activated" : "deactivated") + "!");
-      break;
-    case 123:  
-      activeerEindeSpel();
-      break;
-    default: 
-      return;
+  case 121: 
+    aantalHintKaarten = aantalHintKaarten == 3 ? 2 : 3;
+    println("Cheat: Hint " + aantalHintKaarten + " kaarten!");
+    break;
+  case 122:
+    if (airwolfThemeActive) {
+      setAchtergrondVideo(rainbowVideo);
+      setLogo = loadImage(setImgBestandsLocatie);
+    } else {
+      setAchtergrondVideo(airwolfVideo);        
+      setLogo = airwolfLogo;
+    }
+
+    airwolfThemeActive = !airwolfThemeActive;      
+    println("Cheat: Airwolf theme " + (airwolfThemeActive ? "activated" : "deactivated") + "!");
+    break;
+  case 123:  
+    activeerEindeSpel();
+    break;
+  default: 
+    return;
   }
 }
 
 void keyPressedNonCoded() {
   switch(key) {
-    case BACKSPACE: 
-      if (spelAfgelopen && naam.length() > 0) {
-        setNaam(naam.substring(0, naam.length() -1));
-      } 
-      break;
-    case ENTER:   
-      if (spelAfgelopen && !scoreOpgeslagen) {
-        opslaanHighscore();
-        scoreOpgeslagen = true;
-      }
-      break;
-    default:     
-      if (Character.isLetter(key) || Character.isDigit(key)){
-        setNaam(naam + key);
-      }
+  case BACKSPACE: 
+    if (spelAfgelopen && naam.length() > 0) {
+      setNaam(naam.substring(0, naam.length() -1));
+    } 
+    break;
+  case ENTER:   
+    if (spelAfgelopen && !scoreOpgeslagen) {
+      opslaanHighscore();
+      scoreOpgeslagen = true;
+    }
+    break;
+  default:     
+    if (Character.isLetter(key) || Character.isDigit(key)) {
+      setNaam(naam + key);
+    }
   }
 }
 
@@ -184,10 +217,10 @@ void geefHint() {
   }
 
   String[] set = setsLijst.get(int(random(0, setsLijst.size())));
-  
+
   resetSpeelveldAchtergrond();
   int counter = 0;
-  
+
   for (int x = 0; x < speelkaartBorderKleur.length; x++) {
     for (int y = 0; y < speelkaartBorderKleur[x].length; y++) {
       if (contains(set, speelVeld[x][y]) && counter < aantalHintKaarten) {
@@ -293,12 +326,12 @@ void checkEindeSpel() {
 
   if (aantalSetsSpeelveld == 0 && ((kaartenToegevoegd == true || kaartenInSpel.length <= 0) || aantalKaartenOpSpeelveld == 0)) {    
     spelActief = false;
-    spelAfgelopen = true;     
+    spelAfgelopen = true;
   }
 }
 
 void movieEvent(Movie movie) {
-  movie.read(); 
+  movie.read();
 }
 
 void maakSpelScherm() {
@@ -329,4 +362,13 @@ void laadMediaBestanden() {
   achtergrondVideo = new Movie(this, achtergrondVideoBestandsLocatie);  
   rainbowVideo = new Movie(this, achtergrondVideoBestandsLocatie);
   airwolfVideo = new Movie(this, AIRWOLF_VIDEO_BESTANDS_LOCATIE);
+}
+
+// Setup van het gekozen speltype (3 of 4 varianten).
+void setupSpel() {
+  resetSpelVariabelen();
+  maakSpelScherm(); 
+  maakKaartenStapel();
+  maakSpeelveld();    
+  updateAantalSetsSpeelveld();
 }

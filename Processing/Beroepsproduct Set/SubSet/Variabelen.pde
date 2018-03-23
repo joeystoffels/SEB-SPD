@@ -19,7 +19,7 @@ final int KAART_BREEDTE = schermBreedte / 4;
 final int KAART_HOOGTE = (SCHERM_HOOGTE - SCOREBORD_HOOGTE) / YVELDEN;
 
 // Standaard lege kaart; laat een leeg vlak zien.
-final String LEGE_KAART = "0000"; //<>//
+final String LEGE_KAART = "0000"; //<>// //<>//
 
 // kleurcodes RGB
 final color ROOD = color(255, 50, 50);

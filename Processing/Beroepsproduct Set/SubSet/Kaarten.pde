@@ -14,8 +14,7 @@ String pakKaart() {
 
 // Functie om figuur aan te maken.
 // Hoogtefactor wijzigt ivm. positie van een, twee of drie figuren ten op zichte van elkaar op 1 kaart.
-void maakKaartFiguur(String kaart, int xPositie, int yPositie) {    
-  
+void maakKaartFiguur(String kaart, int xPositie, int yPositie) {      
   int aantal = Integer.parseInt(str(kaart.charAt(0)));
   String figuur = (kaart.charAt(1) == 'r' ? "rechthoek" : (kaart.charAt(1) == 'e' ? "ellipse" : "driehoek"));
   color kleur = (kaart.charAt(2) == 'r' ? ROOD : (kaart.charAt(2) == 'g' ? GROEN : BLAUW));
@@ -70,8 +69,7 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
 
 
 // Maak de stapel kaarten adhv. het aantal geconfigureerde variaties.
-void maakKaartenStapel() {
-  
+void maakKaartenStapel() {  
     for (int a = 0; a < AANTAL_FIGUREN.length; a++) {
       for (int f = 0; f < FIGUUR_TYPE.length; f++) {
         for (int k = 0; k < KLEUR_FIGUUR.length; k++) {     

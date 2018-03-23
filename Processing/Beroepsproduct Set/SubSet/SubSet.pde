@@ -38,14 +38,5 @@ void draw() {
   if (spelAfgelopen) { 
     toonEindscherm();
     return;
-  }
-}
-
-// Setup van het gekozen speltype (3 of 4 varianten).
-void setupSpel() {
-  resetSpelVariabelen();
-  maakSpelScherm(); 
-  maakKaartenStapel();
-  maakSpeelveld();    
-  updateAantalSetsSpeelveld();
+  }  
 }

@@ -1,7 +1,7 @@
 //Functie om het startscherm weer te geven.
 void toonStartScherm() {  
   tekenLogoAchtergrond();
-  tekenLogo();  
+  tekenLogo(setLogo);  
   tekenKnoppenStartScherm();  
 }
 
@@ -17,14 +17,14 @@ void tekenLogoAchtergrond() {
   rect(ACHTERGROND_LOGO_X_POS, ACHTERGROND_LOGO_Y_POS, ACHTERGROND_LOGO_BREEDTE, ACHTERGROND_LOGO_HOOGTE, RECT_HOEK_RADIUS);
 }
 
-void tekenLogo() {
+void tekenLogo(PImage logo) {
   final float LOGO_X_POS = width * 0.3;
   final float LOGO_Y_POS = height * 0.1;
   final float LOGO_BREEDTE = width * 0.4;
   final float LOGO_HOOGTE = height * 0.45; 
   
   tint(255, 185);
-  image(setLogo, LOGO_X_POS, LOGO_Y_POS, LOGO_BREEDTE, LOGO_HOOGTE);
+  image(logo, LOGO_X_POS, LOGO_Y_POS, LOGO_BREEDTE, LOGO_HOOGTE);
   noTint();
 }
 

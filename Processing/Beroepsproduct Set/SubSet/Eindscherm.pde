@@ -1,7 +1,3 @@
-
-
-
-
 void toonEindscherm() {      
   toonHighscoreLijst();
   tekenNaamInvoer();       
@@ -10,9 +6,7 @@ void toonEindscherm() {
 
   tekenKnopScorebord("Opnieuw", 6, 3); 
   tekenKnopScorebord("Startscherm", 6, 1);
-  //tekenTextInKnopScorebord("Opnieuw", 6.1, 3.25);
-  //tekenTextInKnopScorebord("Startscherm", 6.1, 1.25);  
-
+  
   tekenSpelInfoText("Tijd: ", String.format("%.2f", tijd), 5);
   tekenSpelInfoText("Score: ", nf(scoreSpelerEen), 7);
 }
