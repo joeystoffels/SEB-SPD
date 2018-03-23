@@ -1,7 +1,7 @@
 int schermBreedte = 700;
-final int SCHERMHOOGTE = int(schermBreedte * 1.2);
-final int SCOREBORDHOOGTE = 100;
-final int SPEELVELDHOOGTE = SCHERMHOOGTE - SCOREBORDHOOGTE;  
+final int SCHERM_HOOGTE = int(schermBreedte * 1.2);
+final int SCOREBORD_HOOGTE = 100;
+final int SPEELVELD_HOOGTE = SCHERM_HOOGTE - SCOREBORD_HOOGTE;  
 
 // Aantal spelvlakken (aantal kaarten per as).
 int xVelden = 4; // Niet final omdat deze waarde tijdens het spel kan wijzigen
@@ -10,16 +10,16 @@ final int YVELDEN = 3;
 // Het veld wordt opgedeeld in delen wat kleinGridBreedte/Hoogte voorsteld.
 // Variabelen kunnen pas worden geinitialiseerd zodra de screensize in setup bekend is.
 int kaartGridBreedte = schermBreedte / (xVelden * 8);
-int kaartGridHoogte = SPEELVELDHOOGTE / (YVELDEN * 8);
+final int KAART_GRID_HOOGTE = SPEELVELD_HOOGTE / (YVELDEN * 8);
 
-int rectHoekRadius = 25;
+final int RECT_HOEK_RADIUS = 25;
 
 // Grootte v/d kaarten in pixels.
-final int KAARTBREEDTE = schermBreedte / xVelden;
-final int KAARTHOOGTE = (SCHERMHOOGTE - SCOREBORDHOOGTE) / YVELDEN;
+final int KAART_BREEDTE = schermBreedte / 4;
+final int KAART_HOOGTE = (SCHERM_HOOGTE - SCOREBORD_HOOGTE) / YVELDEN;
 
 // Standaard lege kaart; laat een leeg vlak zien.
-final String LEGEKAART = "0000"; //<>//
+final String LEGE_KAART = "0000"; //<>//
 
 // kleurcodes RGB
 final color ROOD = color(255, 50, 50);
@@ -30,15 +30,15 @@ final color ZWART = color(0, 0, 0);
 
 // Configuratie waarden voor de diverse figuren
 // Betreffen factoren binnen het in een kaart gedefineerde grid (8 x 8)
-final float[][] ELLIPSECONFIG = { 
+final float[][] ELLIPSE_CONFIG = { 
   {4.0}, {3.0}, {5.0}, 
   {2.0}, {4.0}, {6.0} 
 };
-final float[][] RECHTHOEKCONFIG = { 
+final float[][] RECHTHOEK_CONFIG = { 
   {3.25}, {2.4},{4.4},
   {1.0}, {3.25}, {5.5}
 };
-final float[][] DRIEHOEKCONFIG = { 
+final float[][] DRIEHOEK_CONFIG = { 
   {4.75, 3.25, 4.75}, 
   {3.75, 2.25, 3.75}, 
   {5.75, 4.25, 5.75}, 
@@ -50,9 +50,9 @@ final float[][] DRIEHOEKCONFIG = {
 // Startscherm image, wordt in setup geinitialiseerd.
 String achtergrondVideoBestandsLocatie = "RainbowVideo.mov";
 String setImgBestandsLocatie = "data/SetLogo.png";
-String setSpelregelsBestandsLocatie = "data/Spelregels.png";
-String airwolfVideoBestandsLocatie = "AirwolfVideo.mp4";
-String airwolfLogoBestandsLocatie = "AirwolfLogo.jpg";
+final String SET_SPELREGELS_BESTANDS_LOCATIE = "data/Spelregels.png";
+final String AIRWOLF_VIDEO_BESTANDS_LOCATIE = "AirwolfVideo.mp4";
+final String AIRWOLF_LOGO_BESTANDS_LOCATIE = "AirwolfLogo.jpg";
 
 PImage setLogo;
 PImage setSpelregels;
@@ -69,10 +69,10 @@ String[][] speelVeld = new String[xVelden][YVELDEN];
 color[][] speelVeldKleur = new color[xVelden][YVELDEN];
 color[][] speelkaartBorderKleur = new color[xVelden][YVELDEN];
 
-final String[] AANTALFIGUREN = {"1", "2", "3"};
-final String[] KLEURFIGUUR = {"r", "g", "b"}; // rood, groen, blauw
-final String[] FIGUURTYPE = {"d", "r", "e"}; // driehoek, rechthoek, ellipse
-final String[] VULLINGFIGUUR = {"l", "h", "v"}; // leeg, half, vol
+final String[] AANTAL_FIGUREN = {"1", "2", "3"};
+final String[] KLEUR_FIGUUR = {"r", "g", "b"}; // rood, groen, blauw
+final String[] FIGUUR_TYPE = {"d", "r", "e"}; // driehoek, rechthoek, ellipse
+final String[] VULLING_FIGUUR = {"l", "h", "v"}; // leeg, half, vol
 
 // Lijst met geselecteerde kaarten.
 String[] geselecteerdeKaarten = new String[0];

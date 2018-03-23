@@ -6,7 +6,7 @@ import processing.sound.*;
 import processing.video.*;
 
 void settings() {
-  size(schermBreedte, SCHERMHOOGTE);
+  size(schermBreedte, SCHERM_HOOGTE);
 }
 
 // Setup van het startScherm en enkele variabelen.
@@ -47,5 +47,5 @@ void setupSpel() {
   maakSpelScherm(); 
   maakKaartenStapel();
   maakSpeelveld();    
-  telAantalSetsSpeelveld();
+  updateAantalSetsSpeelveld();
 }

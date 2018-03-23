@@ -8,12 +8,14 @@ void toonSpeelscherm() {
 
 // Functie voor in draw() om continu de achtergrond van de kaarten te kleuren.
 void toonAchtergrondKaarten() {  
+  final int KAART_OFFSET_X_POS = 10;
+  final int KAART_OFFSET_Y_POS = -20;
   for (int xPos = 0; xPos < xVelden; xPos++) {
     for (int yPos = 0; yPos < YVELDEN; yPos++) {
       strokeWeight(3);
       stroke(speelkaartBorderKleur[xPos][yPos]);
       fill(speelVeldKleur[xPos][yPos], 175);
-      rect(KAARTBREEDTE * xPos + 10, (SPEELVELDHOOGTE / YVELDEN) * yPos + 10, KAARTBREEDTE - 20, SPEELVELDHOOGTE / YVELDEN - 20, 25);
+      rect(KAART_BREEDTE * xPos + KAART_OFFSET_X_POS, (SPEELVELD_HOOGTE / YVELDEN) * yPos + KAART_OFFSET_X_POS, KAART_BREEDTE + KAART_OFFSET_Y_POS, SPEELVELD_HOOGTE / YVELDEN + KAART_OFFSET_Y_POS, RECT_HOEK_RADIUS);
     }
   }
 }

@@ -9,7 +9,7 @@ void maakSpeelveld() {
   } else {
     for (int x=0; x < xVelden; x++) {
       for (int y=0; y < YVELDEN; y++) {
-        if (speelVeld[x][y].equals(LEGEKAART)) {
+        if (speelVeld[x][y].equals(LEGE_KAART)) {
           speelVeld[x][y] = pakKaart();
         }
       }
@@ -32,7 +32,7 @@ void verwijderKaarten(String[] kaarten) {
 }
 
 // Functie om het aantal sets op het speelveld te tellen.
-void telAantalSetsSpeelveld() {  
+void updateAantalSetsSpeelveld() {  
   setsLijst.clear();
   aantalSetsSpeelveld = 0;  
 

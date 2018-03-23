@@ -8,7 +8,7 @@ String pakKaart() {
     kaartenInSpel = removeFromArray(kaartenInSpel, random);  
     return kaart;
   } else {
-    return LEGEKAART; // return standaard zodat er geen nieuwe figuur gemaakt wordt
+    return LEGE_KAART; // return standaard zodat er geen nieuwe figuur gemaakt wordt
   }
 };
 
@@ -21,20 +21,20 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
   color kleur = (kaart.charAt(2) == 'r' ? ROOD : (kaart.charAt(2) == 'g' ? GROEN : BLAUW));
   int vulling = (kaart.charAt(3) == 'l' ? 0 : (kaart.charAt(3) == 'h' ? 100 : 255));  
 
-  final float xPosSpeelveld = xPositie * KAARTBREEDTE + 2;
-  final float yPosSpeelveld = yPositie * KAARTHOOGTE + 2;
+  final float xPosSpeelveld = xPositie * KAART_BREEDTE + 2;
+  final float yPosSpeelveld = yPositie * KAART_HOOGTE + 2;
 
   float[][] kaartConfig;
 
   switch (figuur) {
   case "rechthoek": 
-    kaartConfig = RECHTHOEKCONFIG; 
+    kaartConfig = RECHTHOEK_CONFIG; 
     break;
   case "ellipse": 
-    kaartConfig = ELLIPSECONFIG; 
+    kaartConfig = ELLIPSE_CONFIG; 
     break;
   default: 
-    kaartConfig = DRIEHOEKCONFIG; // default ivm compile error in volgende for loop
+    kaartConfig = DRIEHOEK_CONFIG; // default ivm compile error in volgende for loop
   }
   
   strokeWeight(3);
@@ -50,19 +50,19 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
       float yPosTweedeConfigFactor = kaartConfig[y][1];
       float yPosDerdeConfigFactor = kaartConfig[y][2];    
       
-      triangle((kaartGridBreedte * 2.0) + xPosSpeelveld, (kaartGridHoogte * yPosEersteConfigFactor) + yPosSpeelveld, 
-        (kaartGridBreedte * 4.0) + xPosSpeelveld, (kaartGridHoogte * yPosTweedeConfigFactor) + yPosSpeelveld, 
-        (kaartGridBreedte * 6.0) + xPosSpeelveld, (kaartGridHoogte * yPosDerdeConfigFactor) + yPosSpeelveld);
+      triangle((kaartGridBreedte * 2.0) + xPosSpeelveld, (KAART_GRID_HOOGTE * yPosEersteConfigFactor) + yPosSpeelveld, 
+        (kaartGridBreedte * 4.0) + xPosSpeelveld, (KAART_GRID_HOOGTE * yPosTweedeConfigFactor) + yPosSpeelveld, 
+        (kaartGridBreedte * 6.0) + xPosSpeelveld, (KAART_GRID_HOOGTE * yPosDerdeConfigFactor) + yPosSpeelveld);
     }
     
     if (figuur == "rechthoek") {
-      rect((kaartGridBreedte * 2.1) + xPosSpeelveld, (kaartGridHoogte * yPosEersteConfigFactor) + yPosSpeelveld, 
-        (kaartGridBreedte * 4.0), (kaartGridHoogte * 1.5));
+      rect((kaartGridBreedte * 2.1) + xPosSpeelveld, (KAART_GRID_HOOGTE * yPosEersteConfigFactor) + yPosSpeelveld, 
+        (kaartGridBreedte * 4.0), (KAART_GRID_HOOGTE * 1.5));
     }
     
     if (figuur == "ellipse") {
-      ellipse((kaartGridBreedte * 4.0) + xPosSpeelveld, (kaartGridHoogte * yPosEersteConfigFactor) + yPosSpeelveld, 
-        (kaartGridBreedte * 4.0), (kaartGridHoogte * 1.5));
+      ellipse((kaartGridBreedte * 4.0) + xPosSpeelveld, (KAART_GRID_HOOGTE * yPosEersteConfigFactor) + yPosSpeelveld, 
+        (kaartGridBreedte * 4.0), (KAART_GRID_HOOGTE * 1.5));
     }    
   }
 }
@@ -72,15 +72,15 @@ void maakKaartFiguur(String kaart, int xPositie, int yPositie) {
 // Maak de stapel kaarten adhv. het aantal geconfigureerde variaties.
 void maakKaartenStapel() {
   
-    for (int a = 0; a < AANTALFIGUREN.length; a++) {
-      for (int f = 0; f < FIGUURTYPE.length; f++) {
-        for (int k = 0; k < KLEURFIGUUR.length; k++) {     
+    for (int a = 0; a < AANTAL_FIGUREN.length; a++) {
+      for (int f = 0; f < FIGUUR_TYPE.length; f++) {
+        for (int k = 0; k < KLEUR_FIGUUR.length; k++) {     
           if (aantalVariaties == 4) {
-            for (int v = 0; v < VULLINGFIGUUR.length; v++) {
-              kaartenInSpel = append(kaartenInSpel, (AANTALFIGUREN[a] + FIGUURTYPE[f] + KLEURFIGUUR[k] + VULLINGFIGUUR[v]));
+            for (int v = 0; v < VULLING_FIGUUR.length; v++) {
+              kaartenInSpel = append(kaartenInSpel, (AANTAL_FIGUREN[a] + FIGUUR_TYPE[f] + KLEUR_FIGUUR[k] + VULLING_FIGUUR[v]));
             }
           } else {
-            kaartenInSpel = append(kaartenInSpel, AANTALFIGUREN[a] + FIGUURTYPE[f] + KLEURFIGUUR[k] + "0"); // "0" als default waarde zodat verifySet() goed uitgevoerd wordt
+            kaartenInSpel = append(kaartenInSpel, AANTAL_FIGUREN[a] + FIGUUR_TYPE[f] + KLEUR_FIGUUR[k] + "0"); // "0" als default waarde zodat verifySet() goed uitgevoerd wordt
           }
         }
       }

@@ -1,17 +1,30 @@
 //Functie om het startscherm weer te geven.
 void toonStartScherm() {  
-  tekenLogo();
+  tekenLogoAchtergrond();
+  tekenLogo();  
   tekenKnoppenStartScherm();  
 }
 
-void tekenLogo() {
-  // TODO aanpassen
+void tekenLogoAchtergrond() {  
+  final float ACHTERGROND_LOGO_X_POS = width * 0.2;
+  final float ACHTERGROND_LOGO_Y_POS = height * 0.075;
+  final float ACHTERGROND_LOGO_BREEDTE = width * 0.6;
+  final float ACHTERGROND_LOGO_HOOGTE = height * 0.5;
+  
   fill(ZWART, 150);
   stroke(WIT, 200);
   strokeWeight(3);
-  rect(width * 0.2, height * 0.075, width * 0.6, height * 0.5, 25);
+  rect(ACHTERGROND_LOGO_X_POS, ACHTERGROND_LOGO_Y_POS, ACHTERGROND_LOGO_BREEDTE, ACHTERGROND_LOGO_HOOGTE, RECT_HOEK_RADIUS);
+}
+
+void tekenLogo() {
+  final float LOGO_X_POS = width * 0.3;
+  final float LOGO_Y_POS = height * 0.1;
+  final float LOGO_BREEDTE = width * 0.4;
+  final float LOGO_HOOGTE = height * 0.45; 
+  
   tint(255, 185);
-  image(setLogo, width * 0.3, height * 0.1, width * 0.4, height * 0.45);
+  image(setLogo, LOGO_X_POS, LOGO_Y_POS, LOGO_BREEDTE, LOGO_HOOGTE);
   noTint();
 }
 
@@ -23,31 +36,31 @@ void tekenKnoppenStartScherm() {
 }
 
 void tekenKnopStartScherm(String text, float gridPosHoogte) {  
-  int knopPosX = width / 4;
-  int knopBreedte = width / 2;
-  int knopHoogte = int(height / 10 * gridPosHoogte);
-  int knopDikte = 25;
+  final int KNOP_POS_X = width / 4;
+  final int KNOP_BREEDTE = width / 2;
+  final int KNOP_HOOGTE = int(height / 10 * gridPosHoogte);
+  final int KNOP_DIKTE = 25;
          
-  if(mouseX > knopPosX && mouseX < knopPosX + knopBreedte &&
-     mouseY > knopHoogte && mouseY < knopHoogte + knopDikte){        
+  if(mouseX > KNOP_POS_X && mouseX < KNOP_POS_X + KNOP_BREEDTE &&
+     mouseY > KNOP_HOOGTE && mouseY < KNOP_HOOGTE + KNOP_DIKTE){        
     fill(WIT, 50);
   } else {
     fill(ZWART, 150);
   }
 
   strokeWeight(2);
-  rect(knopPosX, knopHoogte, knopPosX * 2, knopDikte, rectHoekRadius);
+  rect(KNOP_POS_X, KNOP_HOOGTE, KNOP_POS_X * 2, KNOP_DIKTE, RECT_HOEK_RADIUS);
   tekenTextInKnopStartScherm(text, gridPosHoogte);
 }
 
 void tekenTextInKnopStartScherm(String text, float gridPosHoogte) {
-  int textPositieX = width / 2;
-  float textPositieY = height / 10 * gridPosHoogte;
-  int textPositieOffset = 18;
+  final int TEXT_X_POS = width / 2;
+  final float TEXT_Y_POS = height / 10 * gridPosHoogte;
+  final int TEXT_OFFSET_Y = 18;
   
   fill(WIT);
   textFont(verdanaBold(15));
   textAlign(CENTER);
-  text(text, textPositieX, textPositieY + textPositieOffset);
+  text(text, TEXT_X_POS, TEXT_Y_POS + TEXT_OFFSET_Y);
   textAlign(LEFT);
 }

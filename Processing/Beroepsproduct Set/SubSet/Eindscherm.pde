@@ -1,57 +1,63 @@
-// Functie om het einde van het spel te bepalen en dan het eindscherm te tonen.
-void checkEindeSpel() {       
-  if (!spelAfgelopen) {
-    for (int xPos = 0; xPos < xVelden; xPos++) {
-      for (int yPos = 0; yPos < YVELDEN; yPos++) {
-        if (speelVeld[xPos][yPos] != LEGEKAART) {
-          aantalKaartenOpSpeelveld++;
-        }
-      }
-    }
-  }
 
-  if (aantalSetsSpeelveld == 0 && ((kaartenToegevoegd == true || kaartenInSpel.length <= 0) || aantalKaartenOpSpeelveld == 0)) {    
-    spelActief = false;
-    spelAfgelopen = true;     
-    toonEindscherm();
-  }
-}
+
+
 
 void toonEindscherm() {      
   toonHighscoreLijst();
   tekenNaamInvoer();       
-  tekenEindeTitel();  
-  
-  fill(ZWART, 150);
-  rect(width * 0.025, height - SCOREBORDHOOGTE, width * 0.38, SCOREBORDHOOGTE / 1.6, 25);
+  tekenEindeTitel(); 
+  tekenAchtergrondScoresEindscherm();
 
-  tekenKnopScorebord(6, 3); 
-  tekenKnopScorebord(6, 1);
-  tekenTextInKnopScorebord("Opnieuw", 6.1, 3.25);
-  tekenTextInKnopScorebord("Startscherm", 6.1, 1.25);  
+  tekenKnopScorebord("Opnieuw", 6, 3); 
+  tekenKnopScorebord("Startscherm", 6, 1);
+  //tekenTextInKnopScorebord("Opnieuw", 6.1, 3.25);
+  //tekenTextInKnopScorebord("Startscherm", 6.1, 1.25);  
 
-  tekenSpelInfoTextTitel("Tijd: ", 5);
-  tekenSpelInfoTextTitel("Score: ", 7);
-  tekenSpelInfoTextWaarde(String.format("%.2f", tijd), 5);
-  tekenSpelInfoTextWaarde(nf(scoreSpelerEen), 7);
+  tekenSpelInfoText("Tijd: ", String.format("%.2f", tijd), 5);
+  tekenSpelInfoText("Score: ", nf(scoreSpelerEen), 7);
 }
 
-void tekenNaamInvoer() {
+void tekenNaamInvoer() {    
+  final float NAAM_INVOER_X_POS = width * 0.25;
+  final float NAAM_INVOER_Y_POS = SCHERM_HOOGTE * 0.725;
+  
   if (spelAfgelopen && !scoreOpgeslagen) {
-    text("Voer naam in: " + naam, 0 + (width * 0.25), SCHERMHOOGTE * 0.725);
+    text("Voer naam in: " + naam, NAAM_INVOER_X_POS, NAAM_INVOER_Y_POS);
   } else if (spelAfgelopen && scoreOpgeslagen) {
-    text("Je bent geeindigd op de " + plaatsOpHighscoreLijst + "e plaats!", 0 + (width * 0.25), SCHERMHOOGTE * 0.725);
+    text("Je bent geeindigd op de " + plaatsOpHighscoreLijst + "e plaats!", NAAM_INVOER_X_POS, NAAM_INVOER_Y_POS);
   }
 }
 
-void tekenEindeTitel() {
-  fill(ZWART, 150);
+void tekenEindeTitel() {    
+  final float EINDE_TEXT_X_POS = width / 2;
+  final float EINDE_TEXT_Y_POS = SPEELVELD_HOOGTE / 5.5;  
+  final int FONTSIZE_EINDETITEL = SCOREBORD_HOOGTE / 3;
   
-  rect(width /7, (SPEELVELDHOOGTE / 9), (width / 7) * 5, (SPEELVELDHOOGTE / 9), 25);
+  tekenAchtergrondEindeTitel();
 
   fill(WIT);
   textAlign(CENTER);
-  textFont(verdanaBold(SCOREBORDHOOGTE / 3));   
-  text("EINDE", (width / 2), SPEELVELDHOOGTE / 9 + (SPEELVELDHOOGTE / 9) / 1.5);    
-  textAlign(LEFT);
+  textFont(verdanaBold(FONTSIZE_EINDETITEL));   
+  text("EINDE", EINDE_TEXT_X_POS, EINDE_TEXT_Y_POS);    
+  textAlign(LEFT);  
+}
+
+void tekenAchtergrondEindeTitel() {  
+  final float ACHTERGROND_EINDETITEL_X_POS = width / 7;
+  final float ACHTERGROND_EINDETITEL_Y_POS = SPEELVELD_HOOGTE / 9;
+  final float ACHTERGROND_EINDETITEL_BREEDTE = ACHTERGROND_EINDETITEL_X_POS * 5;
+  final float ACHTERGROND_EINDETITEL_HOOGTE = SPEELVELD_HOOGTE / 9;
+  
+  fill(ZWART, 150);  
+  rect(ACHTERGROND_EINDETITEL_X_POS, ACHTERGROND_EINDETITEL_Y_POS, ACHTERGROND_EINDETITEL_BREEDTE, ACHTERGROND_EINDETITEL_HOOGTE, RECT_HOEK_RADIUS);
+}
+
+void tekenAchtergrondScoresEindscherm() { 
+  final float ACHTERGROND_SCORES_EINDSCHERM_X_POS = width * 0.025;
+  final float ACHTERGROND_SCORES_EINDSCHERM_Y_POS= SCHERM_HOOGTE - SCOREBORD_HOOGTE;
+  final float ACHTERGROND_SCORES_EINDSCHERM_BREEDTE = width * 0.38;
+  final float ACHTERGROND_SCORES_HOOGTE = SCOREBORD_HOOGTE / 1.6;
+
+  fill(ZWART, 150);
+  rect(ACHTERGROND_SCORES_EINDSCHERM_X_POS, ACHTERGROND_SCORES_EINDSCHERM_Y_POS, ACHTERGROND_SCORES_EINDSCHERM_BREEDTE, ACHTERGROND_SCORES_HOOGTE, RECT_HOEK_RADIUS);
 }

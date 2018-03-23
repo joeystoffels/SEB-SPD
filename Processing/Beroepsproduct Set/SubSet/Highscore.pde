@@ -56,15 +56,27 @@ String[] sorteerHighscores(String[] highscoreLijst) {
 }
 
 // Functie om de highscore lijst weer te geven.
-void toonHighscoreLijst() {  
+void toonHighscoreLijst() {    
+  final float TITELTEXT_EINDSCHERM_X_POS = width / 4;
+  final float TITELTEXT_EINDSCHERM_Y_POS = SCHERM_HOOGTE / 4 + 40;    
+  final float TIJD_TITELTEXT_EINDSCHERM_X_POS = TITELTEXT_EINDSCHERM_X_POS * 2; 
+  final float SCORE_TITELTEXT_EINDSCHERM_X_POS = TITELTEXT_EINDSCHERM_X_POS * 2.5;  
+  final float HIGHSCORES_TITELTEXT_EINDSCHERM_Y_POS = SCHERM_HOOGTE / 4;
+  final float NAAM_HIGHSCORE_EINDSCHERM_START_Y_POS = SCHERM_HOOGTE / 3;  
+  final float ACHTERGROND_HIGHSCORES_X_POS = width * 0.15;
+  final float ACHTERGROND_HIGHSCORES_Y_POS = SCHERM_HOOGTE * 0.21;
+  final float ACHTERGROND_HIGHSCORES_BREEDTE = width * 0.7;
+  final float ACHTERGROND_HIGHSCORES_HOOGTE = SCHERM_HOOGTE * 0.56;  
+  final int NAAM_HIGHSCORE_OFFSET_Y_POS = 20;
+
   fill(ZWART, 175);
-  rect(width * 0.15, height * 0.21, width * 0.7, height * 0.56, 25);
+  rect(ACHTERGROND_HIGHSCORES_X_POS, ACHTERGROND_HIGHSCORES_Y_POS, ACHTERGROND_HIGHSCORES_BREEDTE, ACHTERGROND_HIGHSCORES_HOOGTE, RECT_HOEK_RADIUS);   
   
   fill(WIT);
-  text("HIGHSCORES", (width / 6) * 1.5, SCHERMHOOGTE / 4);
-  text("Naam ", (width / 6) * 1.5, SCHERMHOOGTE / 4 + 25);
-  text("Tijd", (width / 6) * 3, SCHERMHOOGTE / 4 + 25);
-  text("Score", (width / 6) * 3.75, SCHERMHOOGTE / 4 + 25);
+  text("HIGHSCORES", TITELTEXT_EINDSCHERM_X_POS, HIGHSCORES_TITELTEXT_EINDSCHERM_Y_POS);
+  text("Naam ", TITELTEXT_EINDSCHERM_X_POS, TITELTEXT_EINDSCHERM_Y_POS);
+  text("Tijd", TIJD_TITELTEXT_EINDSCHERM_X_POS, TITELTEXT_EINDSCHERM_Y_POS);
+  text("Score", SCORE_TITELTEXT_EINDSCHERM_X_POS, TITELTEXT_EINDSCHERM_Y_POS);
   
   String[] namen = loadStrings("highscores" + aantalVariaties + ".txt");
   namen = sorteerHighscores(namen);
@@ -74,9 +86,9 @@ void toonHighscoreLijst() {
     String[] line = split(namen[i], ',');
 
     if (line.length > 1) {
-      text(""+(i + 1) + ": " + line[0], (width / 6) * 1.5, (SCHERMHOOGTE / 3) + 20 * i);    
-      text(line[2], (width / 6) * 3, (SCHERMHOOGTE / 3) + 20 * i);
-      text(line[1], (width / 6) * 3.75, (SCHERMHOOGTE / 3) + 20 * i);
+      text(""+(i + 1) + ": " + line[0], TITELTEXT_EINDSCHERM_X_POS, NAAM_HIGHSCORE_EINDSCHERM_START_Y_POS + NAAM_HIGHSCORE_OFFSET_Y_POS * i);    
+      text(line[2], TIJD_TITELTEXT_EINDSCHERM_X_POS, NAAM_HIGHSCORE_EINDSCHERM_START_Y_POS + NAAM_HIGHSCORE_OFFSET_Y_POS * i);
+      text(line[1], SCORE_TITELTEXT_EINDSCHERM_X_POS, NAAM_HIGHSCORE_EINDSCHERM_START_Y_POS + NAAM_HIGHSCORE_OFFSET_Y_POS * i);
     }
   }
 }

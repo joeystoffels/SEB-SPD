@@ -45,22 +45,22 @@ void mousePressed() {
     
 
   // return indien er buiten het speelveld geklikt is.
-  if (mouseY > SPEELVELDHOOGTE) { 
+  if (mouseY > SPEELVELD_HOOGTE) { 
     if (mouseX > (width / 8) * 4 && mouseX < ((width / 8) * 4) + 100) {
 
-      if (mouseY < (height - (SCOREBORDHOOGTE / 5)) && mouseY > (height - (SCOREBORDHOOGTE / 5))-(SCOREBORDHOOGTE / 5)) { 
+      if (mouseY < (height - (SCOREBORD_HOOGTE / 5)) && mouseY > (height - (SCOREBORD_HOOGTE / 5))-(SCOREBORD_HOOGTE / 5)) { 
         println("Voeg kaarten toe");
         voegKaartenToe();
       }
 
-      if (mouseY < (height - (SCOREBORDHOOGTE / 5) * 3) && mouseY > (height - (SCOREBORDHOOGTE / 5) * 3)-(SCOREBORDHOOGTE / 5)) {      
+      if (mouseY < (height - (SCOREBORD_HOOGTE / 5) * 3) && mouseY > (height - (SCOREBORD_HOOGTE / 5) * 3)-(SCOREBORD_HOOGTE / 5)) {      
         println("Geef hint");
         geefHint();
       }
     }
 
     if (mouseX > (width / 8) * 6 && mouseX < ((width / 8) * 6) + 100) {
-      if (mouseY < (height - (SCOREBORDHOOGTE / 5)) && mouseY > (height - (SCOREBORDHOOGTE / 5))-(SCOREBORDHOOGTE / 5)) {
+      if (mouseY < (height - (SCOREBORD_HOOGTE / 5)) && mouseY > (height - (SCOREBORD_HOOGTE / 5))-(SCOREBORD_HOOGTE / 5)) {
         println("Beginscherm");
         spelActief = false;
         startSchermActief = true;
@@ -68,7 +68,7 @@ void mousePressed() {
         setupSpel();
       } 
 
-      if (mouseY < (height - (SCOREBORDHOOGTE / 5) * 3) && mouseY > (height - (SCOREBORDHOOGTE / 5) * 3)-(SCOREBORDHOOGTE / 5)) {
+      if (mouseY < (height - (SCOREBORD_HOOGTE / 5) * 3) && mouseY > (height - (SCOREBORD_HOOGTE / 5) * 3)-(SCOREBORD_HOOGTE / 5)) {
         println("Opnieuw");
         spelActief = true;
         startSchermActief = false;
@@ -88,8 +88,8 @@ void mousePressed() {
 }
 
 void selecteerKaart() {
-  int xVeld = mouseX / KAARTBREEDTE;
-  int yVeld = mouseY / KAARTHOOGTE;
+  int xVeld = mouseX / KAART_BREEDTE;
+  int yVeld = mouseY / KAART_HOOGTE;
   String kaart = "";
 
   try {
@@ -100,7 +100,7 @@ void selecteerKaart() {
     return;
   }
 
-  if (kaart.equals(LEGEKAART)) {
+  if (kaart.equals(LEGE_KAART)) {
     return;
   }
 
@@ -220,7 +220,7 @@ void voegKaartenToe() {
     for (int x = 0; x < xVelden; x++) {
       for (int y = 0; y < YVELDEN; y++) {
         if (nieuwSpeelVeld[x][y] == null || Integer.valueOf(nieuwSpeelVeldKleur[x][y]) == null) { // Integer zodat er geen NullPointer kan komen
-          nieuwSpeelVeld[x][y] = LEGEKAART;
+          nieuwSpeelVeld[x][y] = LEGE_KAART;
           nieuwSpeelVeldKleur[x][y] = ZWART;
           nieuwSpeelkaartBorderKleur[x][y] = WIT;
         }
@@ -231,7 +231,7 @@ void voegKaartenToe() {
     speelVeldKleur = nieuwSpeelVeldKleur; 
     speelkaartBorderKleur = nieuwSpeelkaartBorderKleur;
     maakSpeelveld();
-    telAantalSetsSpeelveld();
+    updateAantalSetsSpeelveld();
     kaartenToegevoegd = true;
   }
 }
@@ -246,7 +246,7 @@ void verifieerSet() {
     println("SET gevonden: " + kaartEen + " " + kaartTwee + " " + kaartDrie);
     scoreSpelerEen++;
     verwijderKaarten(geselecteerdeKaarten);
-    telAantalSetsSpeelveld(); // tel opnieuw het aantal sets op het huidige speelveld.    
+    updateAantalSetsSpeelveld(); // tel opnieuw het aantal sets op het huidige speelveld.    
     resetSpeelveldAchtergrond();
   }
 }
@@ -265,7 +265,7 @@ void resetSpeelveldAchtergrond() {
 boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
   boolean testCharResult = false;
   if ((!kaartEen.equals(kaartTwee) && !kaartTwee.equals(kaartDrie) && !kaartEen.equals(kaartDrie))) {
-    if (!(kaartEen.equals(LEGEKAART) || kaartTwee.equals(LEGEKAART) || kaartDrie.equals(LEGEKAART))) { 
+    if (!(kaartEen.equals(LEGE_KAART) || kaartTwee.equals(LEGE_KAART) || kaartDrie.equals(LEGE_KAART))) { 
       for (int charToTest = 0; charToTest < aantalVariaties; charToTest++) {
         if ((kaartEen.charAt(charToTest) == kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) == kaartDrie.charAt(charToTest)) || 
           (kaartEen.charAt(charToTest) != kaartTwee.charAt(charToTest) && kaartTwee.charAt(charToTest) != kaartDrie.charAt(charToTest) && kaartEen.charAt(charToTest) != kaartDrie.charAt(charToTest))) {
@@ -279,12 +279,30 @@ boolean isSet(String kaartEen, String kaartTwee, String kaartDrie) {
   return testCharResult;
 }
 
+// Functie om het einde van het spel te bepalen en dan het eindscherm te tonen.
+void checkEindeSpel() {       
+  if (!spelAfgelopen) {
+    for (int xPos = 0; xPos < xVelden; xPos++) {
+      for (int yPos = 0; yPos < YVELDEN; yPos++) {
+        if (speelVeld[xPos][yPos] != LEGE_KAART) {
+          aantalKaartenOpSpeelveld++;
+        }
+      }
+    }
+  }
+
+  if (aantalSetsSpeelveld == 0 && ((kaartenToegevoegd == true || kaartenInSpel.length <= 0) || aantalKaartenOpSpeelveld == 0)) {    
+    spelActief = false;
+    spelAfgelopen = true;     
+  }
+}
+
 void movieEvent(Movie movie) {
   movie.read(); 
 }
 
 void maakSpelScherm() {
-  surface.setSize(xVelden * KAARTBREEDTE, YVELDEN * KAARTHOOGTE + SCOREBORDHOOGTE);
+  surface.setSize(xVelden * KAART_BREEDTE, YVELDEN * KAART_HOOGTE + SCOREBORD_HOOGTE);
 }
 
 void resetSpelVariabelen() { 
@@ -306,9 +324,9 @@ void resetSpelVariabelen() {
 
 void laadMediaBestanden() {
   setLogo = loadImage(setImgBestandsLocatie);  
-  setSpelregels = loadImage(setSpelregelsBestandsLocatie);
-  airwolfLogo = loadImage(airwolfLogoBestandsLocatie);
+  setSpelregels = loadImage(SET_SPELREGELS_BESTANDS_LOCATIE);
+  airwolfLogo = loadImage(AIRWOLF_LOGO_BESTANDS_LOCATIE);
   achtergrondVideo = new Movie(this, achtergrondVideoBestandsLocatie);  
   rainbowVideo = new Movie(this, achtergrondVideoBestandsLocatie);
-  airwolfVideo = new Movie(this, airwolfVideoBestandsLocatie);
+  airwolfVideo = new Movie(this, AIRWOLF_VIDEO_BESTANDS_LOCATIE);
 }
