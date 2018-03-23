@@ -59,17 +59,17 @@ void updateAantalSetsSpeelveld() {
               boolean isSetInSetsLijst = setInSetsLijst(setKaarten);
 
               // Check of de 3 kaarten een set zijn, zo ja, verhoog het aantalSetsSpeelveld en voeg de set toe aan de setsLijst.
-                if (isSet(kaartEen, kaartTwee, kaartDrie) && !isSetInSetsLijst) {
-                  aantalSetsSpeelveld++;                  
-                  setsLijst.add(setKaarten);
-                }
+              if (isSet(kaartEen, kaartTwee, kaartDrie) && !isSetInSetsLijst) {
+                aantalSetsSpeelveld++;                  
+                setsLijst.add(setKaarten);
               }
             }
           }
         }
       }
     }
-  
+  }
+
   println("Er liggen " + setsLijst.size() + " sets op het speelveld:");
   for ( String[] set : setsLijst ) {   
     println("SET #" + (setsLijst.indexOf(set) + 1) + ": " + set[0] + ", " + set[1] + ", " + set[2]);

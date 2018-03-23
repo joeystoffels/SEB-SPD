@@ -71,16 +71,16 @@ void toonHighscoreLijst() {
 
   fill(ZWART, 175);
   rect(ACHTERGROND_HIGHSCORES_X_POS, ACHTERGROND_HIGHSCORES_Y_POS, ACHTERGROND_HIGHSCORES_BREEDTE, ACHTERGROND_HIGHSCORES_HOOGTE, RECT_HOEK_RADIUS);   
-  
+
   fill(WIT);
   text("HIGHSCORES", TITELTEXT_EINDSCHERM_X_POS, HIGHSCORES_TITELTEXT_EINDSCHERM_Y_POS);
   text("Naam ", TITELTEXT_EINDSCHERM_X_POS, TITELTEXT_EINDSCHERM_Y_POS);
   text("Tijd", TIJD_TITELTEXT_EINDSCHERM_X_POS, TITELTEXT_EINDSCHERM_Y_POS);
   text("Score", SCORE_TITELTEXT_EINDSCHERM_X_POS, TITELTEXT_EINDSCHERM_Y_POS);
-  
+
   String[] namen = loadStrings("highscores" + aantalVariaties + ".txt");
   namen = sorteerHighscores(namen);
-  
+
   fill(WIT);
   for (int i = 0; i < (namen.length > 10 ? 10 : namen.length); i++) {
     String[] line = split(namen[i], ',');

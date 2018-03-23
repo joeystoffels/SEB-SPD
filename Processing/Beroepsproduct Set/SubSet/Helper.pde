@@ -2,9 +2,9 @@
 
 boolean contains(String[] arr, String item) {
   for (String n : arr) {
-     if (item == n) {
-        return true;
-     }
+    if (item == n) {
+      return true;
+    }
   }
   return false;
 }
@@ -32,7 +32,7 @@ boolean arrayContains(String[] array, String item) {
 }
 
 int arrayIndexOf(String[] array, String item) {
-  for (int x = 0 ; x < array.length ; x++) {
+  for (int x = 0; x < array.length; x++) {
     if (array[x].equals(item)) {
       return x;
     }
@@ -41,7 +41,7 @@ int arrayIndexOf(String[] array, String item) {
 }
 
 int array2DIndexOf(String[][] array, String[] item) {
-  for (int x = 0 ; x < array.length ; x++) {
+  for (int x = 0; x < array.length; x++) {
     if (array[x].equals(item)) {
       return x;
     }

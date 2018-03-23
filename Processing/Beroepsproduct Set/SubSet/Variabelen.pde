@@ -1,4 +1,4 @@
-int schermBreedte = 700;
+int schermBreedte = 700; //<>//
 final int SCHERM_HOOGTE = int(schermBreedte * 1.2);
 final int SCOREBORD_HOOGTE = 100;
 final int SPEELVELD_HOOGTE = SCHERM_HOOGTE - SCOREBORD_HOOGTE;  
@@ -19,7 +19,7 @@ final int KAART_BREEDTE = schermBreedte / 4;
 final int KAART_HOOGTE = (SCHERM_HOOGTE - SCOREBORD_HOOGTE) / YVELDEN;
 
 // Standaard lege kaart; laat een leeg vlak zien.
-final String LEGE_KAART = "0000"; //<>// //<>//
+final String LEGE_KAART = "0000";
 
 // kleurcodes RGB
 final color ROOD = color(255, 50, 50);
@@ -35,7 +35,7 @@ final float[][] ELLIPSE_CONFIG = {
   {2.0}, {4.0}, {6.0} 
 };
 final float[][] RECHTHOEK_CONFIG = { 
-  {3.25}, {2.4},{4.4},
+  {3.25}, {2.4}, {4.4}, 
   {1.0}, {3.25}, {5.5}
 };
 final float[][] DRIEHOEK_CONFIG = { 
@@ -109,5 +109,5 @@ PFont verdanaBold(int size) {
 }
 
 void updateTijd() {  
-    tijd = millis() / 1000.0 - restartTijd;
+  tijd = millis() / 1000.0 - restartTijd;
 }

@@ -10,7 +10,7 @@ void tekenAchtergrondInfoScorebord() {
   final float ACHTERGROND_SCORES_SPEELSCHERM_Y_POS = SCHERM_HOOGTE - SCOREBORD_HOOGTE + 3;
   final float ACHTERGROND_SCORES_SPEELSCHERM_BREEDTE = width * 0.38;
   final float ACHTERGROND_SCORES_SPEELSCHERM_HOOGTE = SCOREBORD_HOOGTE - 6;
-  
+
   stroke(WIT);
   strokeWeight(2);
   fill(ZWART, 150);
@@ -37,11 +37,11 @@ void tekenSpelInfoText(String titel, String waarde, float gridPosHoogte) {
   final float TITEL_TEXT_X_POS = width * 0.05;  
   final float WAARDE_TEXT_X_POS = width * 0.3;
   final float TEXT_Y_POS = SCHERM_HOOGTE - (SCOREBORD_HOOGTE / 9) * gridPosHoogte;
-  
+
   fill(WIT);
   textFont(verdanaBold(SCOREBORD_HOOGTE / 7)); 
   text(titel, TITEL_TEXT_X_POS, TEXT_Y_POS);
-  text(waarde, WAARDE_TEXT_X_POS, TEXT_Y_POS); 
+  text(waarde, WAARDE_TEXT_X_POS, TEXT_Y_POS);
 }
 
 void tekenKnopScorebord(String text, float gridPosBreedte, float gridPosHoogte) {  
@@ -49,24 +49,24 @@ void tekenKnopScorebord(String text, float gridPosBreedte, float gridPosHoogte) 
   final float KNOP_BREEDTE = 100;
   final float KNOP_HOOGTE = SCHERM_HOOGTE - (SCOREBORD_HOOGTE / 5) * gridPosHoogte;
   final int KNOP_DIKTE = -(SCOREBORD_HOOGTE / 5);
-  
-  if(mouseX > KNOP_POS_X && mouseX < KNOP_POS_X + KNOP_BREEDTE &&
+
+  if (mouseX > KNOP_POS_X && mouseX < KNOP_POS_X + KNOP_BREEDTE &&
     mouseY < KNOP_HOOGTE && mouseY > KNOP_HOOGTE + KNOP_DIKTE) {
     fill(WIT, 50);
   } else {      
     fill(ZWART, 175);
   }
-  
+
   final float ACHTERGROND_SCORES_SPEELSCHERM_X_POS = (width / 8) * gridPosBreedte;
   final float ACHTERGROND_SCORES_SPEELSCHERM_Y_POS = SCHERM_HOOGTE - (SCOREBORD_HOOGTE / 5) * gridPosHoogte;
   final float ACHTERGROND_SCORES_SPEELSCHERM_BREEDTE = 100;
   final float ACHTERGROND_SCORES_SPEELSCHERM_HOOGTE = -(SCOREBORD_HOOGTE / 5);
-  
+
   rect(ACHTERGROND_SCORES_SPEELSCHERM_X_POS, ACHTERGROND_SCORES_SPEELSCHERM_Y_POS, ACHTERGROND_SCORES_SPEELSCHERM_BREEDTE, ACHTERGROND_SCORES_SPEELSCHERM_HOOGTE, RECT_HOEK_RADIUS);
-  
+
   final float TEXT_X_POS = (width / 8) * (gridPosBreedte + 0.1);
   final float TEXT_Y_POS = SCHERM_HOOGTE - (SCOREBORD_HOOGTE / 5) * (gridPosHoogte + 0.25);
-  
+
   fill(WIT);
   textFont(verdanaBold(12)); 
   text(text, TEXT_X_POS, TEXT_Y_POS);

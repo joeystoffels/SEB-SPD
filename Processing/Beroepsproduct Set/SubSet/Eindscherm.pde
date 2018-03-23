@@ -6,7 +6,7 @@ void toonEindscherm() {
 
   tekenKnopScorebord("Opnieuw", 6, 3); 
   tekenKnopScorebord("Startscherm", 6, 1);
-  
+
   tekenSpelInfoText("Tijd: ", String.format("%.2f", tijd), 5);
   tekenSpelInfoText("Score: ", nf(scoreSpelerEen), 7);
 }
@@ -14,7 +14,7 @@ void toonEindscherm() {
 void tekenNaamInvoer() {    
   final float NAAM_INVOER_X_POS = width * 0.25;
   final float NAAM_INVOER_Y_POS = SCHERM_HOOGTE * 0.725;
-  
+
   if (spelAfgelopen && !scoreOpgeslagen) {
     text("Voer naam in: " + naam, NAAM_INVOER_X_POS, NAAM_INVOER_Y_POS);
   } else if (spelAfgelopen && scoreOpgeslagen) {
@@ -26,14 +26,14 @@ void tekenEindeTitel() {
   final float EINDE_TEXT_X_POS = width / 2;
   final float EINDE_TEXT_Y_POS = SPEELVELD_HOOGTE / 5.5;  
   final int FONTSIZE_EINDETITEL = SCOREBORD_HOOGTE / 3;
-  
+
   tekenAchtergrondEindeTitel();
 
   fill(WIT);
   textAlign(CENTER);
   textFont(verdanaBold(FONTSIZE_EINDETITEL));   
   text("EINDE", EINDE_TEXT_X_POS, EINDE_TEXT_Y_POS);    
-  textAlign(LEFT);  
+  textAlign(LEFT);
 }
 
 void tekenAchtergrondEindeTitel() {  
@@ -41,7 +41,7 @@ void tekenAchtergrondEindeTitel() {
   final float ACHTERGROND_EINDETITEL_Y_POS = SPEELVELD_HOOGTE / 9;
   final float ACHTERGROND_EINDETITEL_BREEDTE = ACHTERGROND_EINDETITEL_X_POS * 5;
   final float ACHTERGROND_EINDETITEL_HOOGTE = SPEELVELD_HOOGTE / 9;
-  
+
   fill(ZWART, 150);  
   rect(ACHTERGROND_EINDETITEL_X_POS, ACHTERGROND_EINDETITEL_Y_POS, ACHTERGROND_EINDETITEL_BREEDTE, ACHTERGROND_EINDETITEL_HOOGTE, RECT_HOEK_RADIUS);
 }

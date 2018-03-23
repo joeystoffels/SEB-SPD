@@ -1,6 +1,7 @@
 // Beroepsproduct SubSet
 // Joey Stoffels
 // 23 maart 2018
+// SEB B DT
 
 import processing.sound.*;
 import processing.video.*;
@@ -24,7 +25,7 @@ void draw() {
     toonStartScherm();
     return;
   }
-  
+
   if (spelregelsActief) {
     toonSpelregels();
     return;
@@ -38,5 +39,5 @@ void draw() {
   if (spelAfgelopen) { 
     toonEindscherm();
     return;
-  }  
+  }
 }

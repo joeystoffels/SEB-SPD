@@ -6,13 +6,13 @@ void mousePressed() {
     mousePressedStartscherm();
     return;
   } 
-  
+
   if (spelregelsActief) {
     spelregelsActief = !spelregelsActief;
     startSchermActief = true;
     return;
   }
-  
+
   if (!startSchermActief) {
     mousePressedDefault();
     return;
@@ -31,7 +31,7 @@ void mousePressedStartscherm() {
   final float SPELREGELS_BUTTON_HOOGTE = height / 10 * 8.5 + 25;
   final float VERWIJDER_HIGHSCORE_BUTTON_Y_POS = height / 10 * 9;
   final float VERWIJDER_HIGHSCORE_BUTTON_HOOGTE = height / 10 * 9 + 25;
-  
+
   if (mouseX > BUTTON_STARTSCHERM_X_POS && mouseX < BUTTON_STARTSCHERM_BREEDTE) {
 
     // Click Subset - 3 variations button
@@ -78,13 +78,13 @@ void mousePressedDefault() {
   final float BEGINSCHERM_BUTTON_HOOGTE = height - (SCOREBORD_HOOGTE / 5)-(SCOREBORD_HOOGTE / 5);
   final float OPNIEUW_BUTTON_Y_POS = height - (SCOREBORD_HOOGTE / 5) * 3;
   final float OPNIEUW_BUTTON_HOOGTE = height - (SCOREBORD_HOOGTE / 5) * 3-(SCOREBORD_HOOGTE / 5);
-  
-  
+
+
   // return indien er buiten het speelveld geklikt is.
   if (mouseY > SPEELVELD_HOOGTE) { 
     if (!spelAfgelopen) {
       if (mouseX > TOP_BUTTON_SPEELSCHERM_X_POS && mouseX < TOP_BUTTON_SPEELSCHERM_BREEDTE) {
-        
+
         if (mouseY < VOEG_KAARTEN_TOE_BUTTON_Y_POS && mouseY > VOEG_KAARTEN_TOE_BUTTON_HOOGTE) { 
           println("Voeg kaarten toe");
           voegKaartenToe();

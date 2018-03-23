@@ -7,7 +7,7 @@ void setAchtergrondVideo(Movie video) {
 void toonAchtergrondVideo() {   
   achtergrondVideo.play();
   achtergrondVideo.loop();
-  image(achtergrondVideo, 0, 0, width, height); 
+  image(achtergrondVideo, 0, 0, width, height);
 }  
 
 void activeerEindeSpel() {
@@ -15,5 +15,5 @@ void activeerEindeSpel() {
   startSchermActief = false;
   spelAfgelopen = true;
   aantalKaartenOpSpeelveld = 0;
-  aantalSetsSpeelveld = 0;  
+  aantalSetsSpeelveld = 0;
 }
